@@ -1,10 +1,7 @@
 # Identification of clone-specific and cancer-selective multi-targeting therapeutic options based on single-cell transcriptomic profiles of cancer patients
 <br>
-**Article**: yabba dabba do
-
-<p style="text-align:justify;"> <b>name of the tool</b> description</p>
-
-We introduce NAME to adress the limitations of various machine learning (ML) methods have been developed to predict effective anticancer drug combinations using large-scale multi-omics data. 
+  
+We introduce NAME, a computational framework for predicting drug combinations based solely on scRNA-seq data.
 
 This tool is based on identification of genetically distinct cancer cell populations(clones), and their transcriptomic differences in individual patient samples, compared to non-malignant healthy cells from the same sample, and then leveraging a reference database of large-scale phenotypic profiles (both transcriptomic and viability readouts) measured in cancer cell lines in response to single-drug perturbations to pre-train a gradient boosting ML model that predicts drug response differences across cell populations.
 
@@ -27,6 +24,11 @@ To pre-train the LightGBM model, a comprehensive dataset was compiled with the o
 
 <br>
 
+### Step 0: Load the data
+```R
+patient_sample=readRDS("./example_data.RDS")
+```
+
 ### Step 1: Identification of malignant/normal clusters
 First you will need to identify clusters of normal and malignant cells. We propose an ensembl of 3 tools: ScType,SCEVAN, and scATOMIC which will be merged with the input seurat object.
 
@@ -47,6 +49,10 @@ Ensembl model: time=0.07
 
 Done!
 ```
+We can visualize the results of each step:
+```R
+DimPlot(patient_sample)
+```
 
 ### Step 2: Identification of genetically distinct subclones
 This step is computationally intensive. 
@@ -57,9 +63,9 @@ patient_sample=runinferCNV(patient_sample)
 Once again, If everything is successful, you should observe an output analougous to the following: 
 If everything is successful, you should observe an output analogous to the following:
 ```
-#####################################
-## Running subclone tool: inferCNV ##
-#####################################
+####################################################
+## Running subclone identification tool: inferCNV ##
+####################################################
 
 Success: inferCNV time=0.07 
 
