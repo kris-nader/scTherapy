@@ -30,7 +30,7 @@ patient_sample=readRDS("./example_data.RDS")
 ```
 
 ### Step 1: Identification of malignant/normal clusters
-First you will need to identify clusters of normal and malignant cells. We propose an ensembl of 3 tools: ScType,SCEVAN, and scATOMIC which will be merged with the input seurat object.
+
 
 ```R
 patient_sample=runEnsembl(patient_sample)
