@@ -16,8 +16,12 @@ When applied to patient samples, the model outcome is a list of effective multi-
 
 Prediction of subclone-specific and cancer-selective compounds is performed in two major steps a-b: 
 
-(a) Raw sequencing data from selected tissue are processed and aligned to give a scRNA-seq expression count matrix which is then processed accordingly.An automated cell type annotation tool, [ScType](https://github.com/IanevskiAleksandr/sc-type) , is applied to accurately identify the cell types in the sample and determine which clusters can be used as reference/healthy cells for the next step. Providing healthy cells at this stage is optional, but it greatly improves the prediction of the next step. These reference cells are used to differentiate between healthy and malignant cells. In this step, three different approaches are employed to build an ensemble prediction that ensures confident calling of healthy cells. The first approach uses a Bayesian segmentation method called [CopyKAT](https://github.com/navinlabcode/copykat). The second approach uses [ScType](https://github.com/IanevskiAleksandr/sc-type) in combination with a custom marker dataset derived from [CellMarker2.0](http://117.50.127.228/CellMarker/CellMarker_download.html) to develop a marker-based approach. The third approach, [SCEVAN](https://github.com/AntonioDeFalco/SCEVAN), employs a segmentation method that utilizes a Mumford and Shah energy model to call cell states:tumor/normal. Finally, a majority vote is taken based on all three predictions to form a confident prediction. This ensemble prediction allows researchers to obtain an accurate overview of the cell types present in the sample and to differentiate between healthy and malignant cells. Thus, it is a valuable tool for various research applications, as shown in the schematic below.
+(a) Raw sequencing data from selected tissue are processed and aligned to give a scRNA-seq expression count matrix which is then processed accordingly.An automated cell type annotation tool, [ScType](https://github.com/IanevskiAleksandr/sc-type) , is applied to accurately identify the cell types in the sample and determine which clusters can be used as reference/healthy cells for the next step. Providing healthy cells at this stage is optional, but it greatly improves the prediction of the next step. These reference cells are used to differentiate between healthy and malignant cells. In this step, three different approaches are employed to build an ensemble prediction that ensures confident calling of healthy cells. 
+1. [CopyKAT](https://github.com/navinlabcode/copykat), a Bayesian segmentation method to identify clusters of aneuploid vs diploid cells.
+2. [ScType](https://github.com/IanevskiAleksandr/sc-type) + custom marker dataset derived from [CellMarker2.0](http://117.50.127.228/CellMarker/CellMarker_download.html) to develop a marker-based approach to distinguish healthy from malignant clusters. 
+3. [SCEVAN](https://github.com/AntonioDeFalco/SCEVAN), employs a segmentation method that utilizes a Mumford and Shah energy model to call cell states:tumor vs normal. 
 
+Finally, a majority vote is taken based on all three predictions to form a confident prediction. This ensemble prediction allows researchers to obtain an accurate overview of the cell types present in the sample and to differentiate between healthy and malignant cells. Thus, it is a valuable tool for various research applications, as shown in the schematic below.
 
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred.png">
@@ -32,7 +36,7 @@ To train the LightGBM model, a comprehensive dataset was compiled with the objec
 <br>
 
 
-## Prediciting subclone specific drug combinations
+## Prediciting subclone specific drug combinations 
 <br>
 While most tools in this analysis work with the raw count matrix, visualization can be useful at every step. This includes following a pre-processing workflow for quality control, normalization, identifcation of HVG,scaling,PCA then UMAP/t-SNE. For this we recommend users to follow the 
 <a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
@@ -42,14 +46,17 @@ While most tools in this analysis work with the raw count matrix, visualization 
 patient_sample=readRDS("./example_data.RDS")
 ```
 ### Step 1: Automated Cell type annotation with ScType
+In this step, we run a standard ScType workflow. As input, the fucntion requires the single cell RNAseq object and the tissue type of interest. By deafult, this function will use the predefined scType database. In addition, it should be noted that at the moment, sctype contains markers for the following tissues: e.g. Immune system,Pancreas,Liver,Eye,Kidney,Brain,Lung,Adrenal,Heart,Intestine,Muscle,Placenta,Spleen,Stomach,Thymus.
+
+However, this can easily be modified so that users can upload their own custom marker database for their tissue of interest using the `custom_marker_db` parameter. In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia(AML) and `tissue=Immune System` will be used to identify cell types. These cell types can be visualized on the UMAP using `Seurat::DimPlot`
 ```R
-patient_sample=run_sctype(patient_sample,"Immune System")
+patient_sample=run_sctype(patient_sample,tissue="Immune System")
+DimPlot(patient_sample,group.by="customclassif")
 ```
 ### Step 2: Identification of malignant/normal clusters
-Normal cells will be used for copyKat and SCEVAN
-
+This step involves running multiple tools to build a confident ensemble predition. Normal cells identified from step 1 _can_ be used as input for copyKat and SCEVAN. Note that providing healthy normal cells as reference to these tools greatly improves the accuracy of the results.
 ```R
-normal_cells=c("NKT-like cells","CD4+ T cells", Naive B cells")
+normal_cells=c("NKT-like cells","CD4+ T cells", "Naive B cells")
 patient_sample=runEnsemble(patient_sample,normal_cells)
 ```
 If everything is successful, you should observe an output analogous to the following:
@@ -66,35 +73,32 @@ Ensemble prediction: time=0.07
 
 Done!
 ```
-We can visualize the results of each step:
+We can visualize the results of each step and of the ensemble prediction:
 ```R
-DimPlot(patient_sample)
+visualize_malignant(patient_sample)
 ```
 
 ### Step 3: Identification of genetically distinct subclones
-This step is computationally intensive. 
-
+This step uses healthy/reference cells identified by step 2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
 ```R
-patient_sample=runinferCNV(patient_sample)
+patient_sample=runinferCNV(patient_sample,"healthy")
 ```
-
 Once again, If everything is successful, you should observe an output analougous to the following: 
 ```
 ####################################################
 ## Running subclone identification tool: inferCNV ##
 ####################################################
 
-Success: inferCNV time=0.07 
+Success: inferCNV time=big 
 
 Done!
 ```
 
-### Step 4: Extract subclone specific differntially expressed genes compared to normal cluster
-We will focus on more borad levels ubclones in this tutorrial, but more speicific subclones can be used in this step. For example, for subclones A and B:
-
+### Step 4: Comparative analysis of the subclone and normal cluster to extract subclone specific DEG
+We will focus on more broad levels subclones in this tutorrial, but more speicific subclones can be used in this step. For example, for subclones A and B:
 ```R
-subcloneA=subclone_DEG(patient_sample,"A","normal")
-subcloneB=subclone_DEG(patient_sample,"B","normal")
+subcloneA=subclone_DEG(patient_sample,"A","healthy")
+subcloneB=subclone_DEG(patient_sample,"B","healthy")
 ```
 For one run of the `subclone_DEG` function, the expected output is as follows:
 ```
@@ -106,6 +110,7 @@ Success: FindMarkers time=0.07
 
 Done!
 ```
+
 ### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
 For each run of `run_drug_combo_pred`, the model predicts drug:dose:%inhibtition based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. To predict response for a drug not included in the database, refer to our next section on predicting response of new drugs.
 ```R
