@@ -38,7 +38,7 @@ To train the LightGBM model, a comprehensive dataset was compiled with the objec
 
 ## Prediciting subclone specific drug combinations 
 <br>
-While most tools in this analysis work with the raw count matrix, visualization can be useful at every step. This includes following a pre-processing workflow for quality control, normalization, identifcation of HVG,scaling,PCA then UMAP/t-SNE. For this we recommend users to follow the 
+Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. This involves implementing a pre-processing workflow for quality control, normalization, identification of highly variable genes, scaling, and performing principal component analysis (PCA), followed by Uniform Manifold Approximation and Projection (UMAP) or t-Distributed Stochastic Neighbor Embedding (t-SNE). For this we recommend users follow the 
 <a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
 
 ### Step 0: Load the data
@@ -46,15 +46,17 @@ While most tools in this analysis work with the raw count matrix, visualization 
 patient_sample=readRDS("./example_data.RDS")
 ```
 ### Step 1: Automated Cell type annotation with ScType
-In this step, we run a standard ScType workflow. As input, the fucntion requires the single cell RNAseq object and the tissue type of interest. By deafult, this function will use the predefined scType database. In addition, it should be noted that at the moment, sctype contains markers for the following tissues: e.g. Immune system,Pancreas,Liver,Eye,Kidney,Brain,Lung,Adrenal,Heart,Intestine,Muscle,Placenta,Spleen,Stomach,Thymus.
+In this step, we utilize a standard ScType workflow, which requires the single cell RNAseq object and the tissue type of interest as input. By default, the function employs the predefined scType database, containing markers for various tissues such as the immune system, pancreas, liver, eye, kidney, brain, lung, adrenal gland, heart, intestine, muscle, placenta, spleen, stomach, and thymus. We refer users to the <a href="https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx">ScTypeDB</a> for more information on the defined cell markers.
 
-However, this can easily be modified so that users can upload their own custom marker database for their tissue of interest using the `custom_marker_db` parameter. In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia(AML) and `tissue=Immune System` will be used to identify cell types. These cell types can be visualized on the UMAP using `Seurat::DimPlot`
+However, users can easily customize the analysis by uploading their own custom marker database for their specific tissue of interest using the `custom_marker_db` parameter. In short, the custom marker database should resemble that of the ScTypeDB(xlsx format) with four columns (tissue type, cell name, geneSymbolmore 1-- positive markers , and geneSymbolmore2--negative markers). In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `tissue=Immune System` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
+
+
 ```R
 patient_sample=run_sctype(patient_sample,tissue="Immune System")
 DimPlot(patient_sample,group.by="customclassif")
 ```
 ### Step 2: Identification of malignant/normal clusters
-This step involves running multiple tools to build a confident ensemble predition. Normal cells identified from step 1 _can_ be used as input for copyKat and SCEVAN. Note that providing healthy normal cells as reference to these tools greatly improves the accuracy of the results.
+In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. Afterwards, an ensemble prediction is constructed based on the combined results of these tools, which takes advantage of the distinct approaches to confidently identify both healthy and malignant cell clusters. The function `runEnsemble` will execute each of these tools(copyKat,scType+new markers,SCEVAN) and then compute the ensemble prediciton. 
 ```R
 normal_cells=c("NKT-like cells","CD4+ T cells", "Naive B cells")
 patient_sample=runEnsemble(patient_sample,normal_cells)
@@ -73,7 +75,7 @@ Ensemble prediction: time=0.07
 
 Done!
 ```
-We can visualize the results of each step and of the ensemble prediction:
+We can visualize the results of each individual tool and of the ensemble prediction:
 ```R
 visualize_malignant(patient_sample)
 ```
@@ -125,3 +127,9 @@ subcloneB_drugs=run_drug_combo_pred(subcloneB)
 ## Contact information
 For any questions please contact **Aleksandr Ianevski** [aleksandr.ianevski@helsinki.fi] and  **Kristen Nader** [kristen.nader@helsinki.fi]
 
+## Reference Papers
+1. Ianevski, A., Giri, A. K. &amp; Aittokallio, T. Fully-automated and ultra-fast cell-type identification using specific marker combinations from single-cell transcriptomic data. Nature Communications 13, (2022). 
+2. Gao, R. et al. Delineating copy number and clonal substructure in human tumors from single-cell transcriptomes. Nature Biotechnology 39, 599–608 (2021). 
+3. De Falco, A., Caruso, F., Su, X.-D., Iavarone, A. &amp; Ceccarelli, M. A variational algorithm to detect the clonal copy number substructure of tumors from scrna-seq data. Nature Communications 14, (2023). 
+4. Hu, C. et al. CellMarker 2.0: An updated database of manually curated cell markers in human/mouse and web tools based on scRNA-Seq Data. Nucleic Acids Research 51, (2022). 
+5. 
