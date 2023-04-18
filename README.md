@@ -62,7 +62,7 @@ sctype_source()
 patient_sample=run_sctype(patient_sample,tissue="Immune System",plot=TRUE)
 ```
 ### Step 2: Identification of malignant/normal clusters
-In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. Afterwards, an ensemble prediction is constructed based on the combined results of these tools, which takes advantage of the distinct approaches to confidently identify both healthy and malignant cell clusters. The function `runEnsemble` will execute each of these tools(copyKat,scType+new markers,SCEVAN) and then compute the ensemble prediciton. We cam also visualize the results of each individual tool and of the ensemble prediction.
+In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. Afterwards, an ensemble prediction is constructed based on the combined results of these tools, which takes advantage of the distinct approaches to confidently identify both healthy and malignant cell clusters. The function `runEnsemble` will execute each of these tools(copyKat,scType+new markers,SCEVAN) and then compute the ensemble prediciton. We can also visualize the results of each individual tool and of the ensemble prediction.
 ```R
 normal_cells=c("NKT-like cells","CD4+ T cells", "Naive B cells")
 patient_sample=runEnsemble(patient_sample,known_tissue_type="AML",known_normal_cells=normal_cells)
