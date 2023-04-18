@@ -16,9 +16,11 @@ When applied to patient samples, the model outcome is a list of effective multi-
 
 Prediction of subclone-specific and cancer-selective compounds is performed in two major steps a-b: 
 
-(a) Raw sequencing data from selected tissue are processed and aligned to give a scRNA-seq expression count matrix. Unsupervised clustering of cells is then performed to separate malignant and healthy cell clusters using two steps. Firstly, [ScType](https://github.com/IanevskiAleksandr/sc-type) is applied for an automated cell type annotation. This gives users an accurate depiction of which cells exist in their sample and which clusters can be used as reference cells. Then, these reference cells are used to differentiate healhty and maligant cells. In this step, three approaches are used to build an ensemble prediction to ensure confident calling of healthy cells. 1. [CopyKAT](https://github.com/navinlabcode/copykat) for a bayesian segmentation approach. 2. ScType with a new marker dataset derived from CellMarker2.0 is for a marker based approach. and 3. SCEVAN for an alternative segmantaiton approach that uses a Mumford and Shah energy model to call cell states. A majority vote is then taken based on all 3 predictions to form a confident prediction.
+(a) Raw sequencing data from selected tissue are processed and aligned to give a scRNA-seq expression count matrix. Unsupervised clustering of cells is then performed to separate malignant and healthy cell clusters using two steps. Firstly, [ScType](https://github.com/IanevskiAleksandr/sc-type) is applied for an automated cell type annotation. This gives users an accurate depiction of which cells exist in their sample and which clusters can be used as reference cells. Then, these reference cells are used to differentiate healhty and maligant cells. In this step, three approaches are used to build an ensemble prediction to ensure confident calling of healthy cells. 1. [CopyKAT](https://github.com/navinlabcode/copykat) for a bayesian segmentation approach. 2. ScType with a new marker dataset derived from CellMarker2.0 is for a marker based approach. and 3. SCEVAN for segmantaiton approach that uses a Mumford and Shah energy model to call cell states. A majority vote is then taken based on all 3 predictions to form a confident prediction.
 
-
+<p align="center"> 
+<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred.png">
+</p>
 
 
 
@@ -43,9 +45,9 @@ patient_sample=runEnsembl(patient_sample)
 ```
 If everything is successful, you should observe an output analogous to the following:
 ```
-###################################################
-## Running ensembl tool: ScType,SCEVAN, scATOMIC ##
-###################################################
+################################################################
+## Running ensembl tool: copyKat,ScType+CellMarker2.0, SCEVAN ##
+################################################################
 
 Success: CopyKat time=0.07 
 Success: ScType+CellMarker2.0 time=0.07 
