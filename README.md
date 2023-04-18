@@ -42,20 +42,20 @@ patient_sample=readRDS("./example_data.RDS")
 ### Step 1: Identification of malignant/normal clusters
 
 ```R
-patient_sample=runEnsembl(patient_sample)
+patient_sample=runEnsemble(patient_sample)
 ```
 
 If everything is successful, you should observe an output analogous to the following:
 ```
 ################################################################
-## Running ensembl tool: copyKat,ScType+CellMarker2.0, SCEVAN ##
+## Running ensemble tool: copyKat,ScType+CellMarker2.0, SCEVAN ##
 ################################################################
 
 Success: CopyKat time=0.07 
 Success: ScType+CellMarker2.0 time=0.07 
 Success: SCEVAM time=0.07 
 ...
-Ensembl model: time=0.07 
+Ensemble prediction: time=0.07 
 
 Done!
 ```
