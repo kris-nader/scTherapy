@@ -34,18 +34,24 @@ To train the LightGBM model, a comprehensive dataset was compiled with the objec
 
 ## Prediciting subclone specific drug combinations
 <br>
-While most tools in this analysis work with the raw count matrix, visualization can be useful at every step. This includes following a pre-processing workflow for quality control, normalization, identifcation of HVG,scaling,PCA then UMAP/t-SNE. For this we recommend users to follow the [Seurat](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html). 
+While most tools in this analysis work with the raw count matrix, visualization can be useful at every step. This includes following a pre-processing workflow for quality control, normalization, identifcation of HVG,scaling,PCA then UMAP/t-SNE. For this we recommend users to follow the 
+<a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
 
 ### Step 0: Load the data
 ```R
 patient_sample=readRDS("./example_data.RDS")
 ```
-### Step 1: Identification of malignant/normal clusters
+### Step 1: Automated Cell type annotation with ScType
+```R
+patient_sample=run_sctype(patient_sample,"Immune System")
+```
+### Step 2: Identification of malignant/normal clusters
+Normal cells will be used for copyKat and SCEVAN
 
 ```R
-patient_sample=runEnsemble(patient_sample)
+normal_cells=c("NKT-like cells","CD4+ T cells", Naive B cells")
+patient_sample=runEnsemble(patient_sample,normal_cells)
 ```
-
 If everything is successful, you should observe an output analogous to the following:
 ```
 ################################################################
@@ -54,7 +60,7 @@ If everything is successful, you should observe an output analogous to the follo
 
 Success: CopyKat time=0.07 
 Success: ScType+CellMarker2.0 time=0.07 
-Success: SCEVAM time=0.07 
+Success: SCEVAN time=0.07 
 ...
 Ensemble prediction: time=0.07 
 
@@ -65,7 +71,7 @@ We can visualize the results of each step:
 DimPlot(patient_sample)
 ```
 
-### Step 2: Identification of genetically distinct subclones
+### Step 3: Identification of genetically distinct subclones
 This step is computationally intensive. 
 
 ```R
@@ -83,7 +89,7 @@ Success: inferCNV time=0.07
 Done!
 ```
 
-### Step 3: Extract subclone specific differntially expressed genes compared to normal cluster
+### Step 4: Extract subclone specific differntially expressed genes compared to normal cluster
 We will focus on more borad levels ubclones in this tutorrial, but more speicific subclones can be used in this step. For example, for subclones A and B:
 
 ```R
@@ -100,7 +106,7 @@ Success: FindMarkers time=0.07
 
 Done!
 ```
-### Step 4: Use subclone specific DEG as input to the pre-trained LightGBM model.
+### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
 For each run of `run_drug_combo_pred`, the model predicts drug:dose:%inhibtition based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. To predict response for a drug not included in the database, refer to our next section on predicting response of new drugs.
 ```R
 subcloneA_drugs=run_drug_combo_pred(subcloneA)
