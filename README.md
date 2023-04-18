@@ -21,7 +21,7 @@ Prediction of subclone-specific and cancer-selective compounds is performed in t
 2. [ScType](https://github.com/IanevskiAleksandr/sc-type) + custom marker dataset derived from [CellMarker2.0](http://117.50.127.228/CellMarker/CellMarker_download.html) to develop a marker-based approach to distinguish healthy from malignant clusters. 
 3. [SCEVAN](https://github.com/AntonioDeFalco/SCEVAN), employs a segmentation method that utilizes a Mumford and Shah energy model to call cell states:tumor vs normal. 
 
-Finally, a majority vote is taken based on all three predictions to form a confident prediction. This ensemble prediction allows researchers to obtain an accurate overview of the cell types present in the sample and to differentiate between healthy and malignant cells. Thus, it is a valuable tool for various research applications, as shown in the schematic below.
+Finally, a majority vote is taken based on all three predictions to form a confident prediction. This ensemble prediction allows researchers to obtain an accurate overview of the cell types present in the sample and to differentiate between healthy and malignant cells, as shown in the schematic below.
 
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred.png">
