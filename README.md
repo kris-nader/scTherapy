@@ -34,6 +34,7 @@ To train the LightGBM model, a comprehensive dataset was compiled with the objec
 
 ## Prediciting subclone specific drug combinations
 <br>
+While most tools in this analysis work with the raw count matrix, visualization can be useful at every step. This includes following a pre-processing workflow for quality control, normalization, identifcation of HVG,scaling,PCA then UMAP/t-SNE. For this we recommend users to follow the [Seurat](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html). 
 
 ### Step 0: Load the data
 ```R
