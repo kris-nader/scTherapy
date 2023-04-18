@@ -41,8 +41,13 @@ To train the LightGBM model, a comprehensive dataset was compiled with the objec
 Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. This involves implementing a pre-processing workflow for quality control, normalization, identification of highly variable genes, scaling, and performing principal component analysis (PCA), followed by Uniform Manifold Approximation and Projection (UMAP) or t-Distributed Stochastic Neighbor Embedding (t-SNE). For this we recommend users follow the 
 <a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
 
-### Step 0: Load the data
+### Step 0: Load the data and the functions
 ```R
+# load functions for identification of healthy and malignant clusters 
+source("https://raw.githubusercontent.com/kris-nader/TBD/master/R/identify_mal_norm.R")
+# load functions for identification of genetically distinct subclones
+source("https://raw.githubusercontent.com/kris-nader/TBD/master/R/identify_subclones.R")
+
 patient_sample=readRDS("./example_data.RDS")
 ```
 ### Step 1: Automated Cell type annotation with ScType
