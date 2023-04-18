@@ -16,33 +16,35 @@ When applied to patient samples, the model outcome is a list of effective multi-
 
 Prediction of subclone-specific and cancer-selective compounds is performed in two major steps a-b: 
 
-(a) Raw sequencing data from selected tissue are processed and aligned to give a scRNA-seq expression count matrix. Unsupervised clustering of cells is then performed to separate malignant and healthy cell clusters using two steps. Firstly, [ScType](https://github.com/IanevskiAleksandr/sc-type) is applied for an automated cell type annotation. This gives users an accurate depiction of which cells exist in their sample and which clusters can be used as reference cells. Then, these reference cells are used to differentiate healhty and maligant cells. In this step, three approaches are used to build an ensemble prediction to ensure confident calling of healthy cells. 1. [CopyKAT](https://github.com/navinlabcode/copykat) for a bayesian segmentation approach. 2. ScType with a new marker dataset derived from CellMarker2.0 is for a marker based approach. and 3. SCEVAN for segmantaiton approach that uses a Mumford and Shah energy model to call cell states. A majority vote is then taken based on all 3 predictions to form a confident prediction.
+(a) Raw sequencing data from selected tissue are processed and aligned to give a scRNA-seq expression count matrix which is then processed accordingly.An automated cell type annotation tool, [ScType](https://github.com/IanevskiAleksandr/sc-type) , is applied to accurately identify the cell types in the sample and determine which clusters can be used as reference/healthy cells for the next step. Providing healthy cells at this stage is optional, but it greatly improves the prediction of the next step. These reference cells are used to differentiate between healthy and malignant cells. In this step, three different approaches are employed to build an ensemble prediction that ensures confident calling of healthy cells. The first approach uses a Bayesian segmentation method called [CopyKAT](https://github.com/navinlabcode/copykat). The second approach uses [ScType](https://github.com/IanevskiAleksandr/sc-type) in combination with a custom marker dataset derived from [CellMarker2.0](http://117.50.127.228/CellMarker/CellMarker_download.html) to develop a marker-based approach. The third approach, [SCEVAN](https://github.com/AntonioDeFalco/SCEVAN), employs a segmentation method that utilizes a Mumford and Shah energy model to call cell states:tumor/normal. Finally, a majority vote is taken based on all three predictions to form a confident prediction. This ensemble prediction allows researchers to obtain an accurate overview of the cell types present in the sample and to differentiate between healthy and malignant cells. Thus, it is a valuable tool for various research applications, as shown in the schematic below.
+
 
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred.png">
 </p>
 
-
-
 Finally, [inferCNV](https://github.com/broadinstitute/infercnv) is applied to infer large-scale copy number variations and estimate genetically distinct subclones from malignant cells. 
 
-(b) Subsequently, subclone-specific differentially-expressed genes are identified through differential expression analysis. These identified genes, along with drug information such as molecular fingerprints and drug doses , are used as inputs for the pre-trained LightGBM model. This model then predicts the most active compounds and their effective doses for each subclone, based on the provided inputs. 
+(b) Subsequently, subclone-specific differentially-expressed genes are identified through differential expression analysis. These identified genes, along with drug information such as molecular fingerprints and drug doses , are used as inputs for the trained LightGBM model. This model then predicts the most active compounds and their effective doses for each subclone, based on the provided inputs. 
 
-To pre-train the LightGBM model, a comprehensive dataset was compiled with the objective of integrating transcriptional changes observed in small molecule perturbation experiments ([LINCS L1000 dataset](https://clue.io/about)) with drug chemical structures represented as fingerprints and drug-dose response data collected from various sources ([PharmacoDB resource](http://pharmacodb.ca/)). Doses from the LINCS L1000 dataset were matched with dose-response curves obtained from the PharmacoDB resource, and the interpolated cell viability data was used as the outcome variable for prediction model.
+To train the LightGBM model, a comprehensive dataset was compiled with the objective of integrating transcriptional changes observed in small molecule perturbation experiments ([LINCS L1000 dataset](https://clue.io/about)) with drug chemical structures represented as fingerprints and drug-dose response data collected from various sources ([PharmacoDB resource](http://pharmacodb.ca/)). Doses from the LINCS L1000 dataset were matched with dose-response curves obtained from the PharmacoDB resource, and the interpolated cell viability data was used as the outcome variable for prediction model.
 
+<br>
+
+
+## Prediciting subclone specific drug combinations
 <br>
 
 ### Step 0: Load the data
 ```R
 patient_sample=readRDS("./example_data.RDS")
 ```
-
 ### Step 1: Identification of malignant/normal clusters
-
 
 ```R
 patient_sample=runEnsembl(patient_sample)
 ```
+
 If everything is successful, you should observe an output analogous to the following:
 ```
 ################################################################
@@ -68,8 +70,8 @@ This step is computationally intensive.
 ```R
 patient_sample=runinferCNV(patient_sample)
 ```
+
 Once again, If everything is successful, you should observe an output analougous to the following: 
-If everything is successful, you should observe an output analogous to the following:
 ```
 ####################################################
 ## Running subclone identification tool: inferCNV ##
@@ -80,10 +82,33 @@ Success: inferCNV time=0.07
 Done!
 ```
 
-```R
-R code here
+### Step 3: Extract subclone specific differntially expressed genes compared to normal cluster
+We will focus on more borad levels ubclones in this tutorrial, but more speicific subclones can be used in this step. For example, for subclones A and B:
 
+```R
+subcloneA=subclone_DEG(patient_sample,"A","normal")
+subcloneB=subclone_DEG(patient_sample,"B","normal")
 ```
+For one run of the `subclone_DEG` function, the expected output is as follows:
+```
+####################################################
+## Running subclone DEG : FindMarkers ##
+####################################################
+
+Success: FindMarkers time=0.07 
+
+Done!
+```
+### Step 4: Use subclone specific DEG as input to the pre-trained LightGBM model.
+For each run of `run_drug_combo_pred`, the model predicts drug:dose:%inhibtition based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. To predict response for a drug not included in the database, refer to our next section on predicting response of new drugs.
+```R
+subcloneA_drugs=run_drug_combo_pred(subcloneA)
+subcloneB_drugs=run_drug_combo_pred(subcloneB)
+```
+
+## Predicting response of new drug:dose
+<br>
+
 
 ## Contact information
 For any questions please contact **Aleksandr Ianevski** [aleksandr.ianevski@helsinki.fi] and  **Kristen Nader** [kristen.nader@helsinki.fi]
