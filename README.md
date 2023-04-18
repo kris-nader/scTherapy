@@ -47,6 +47,7 @@ Although most tools in this analysis require the raw count matrix, it is benefic
 source("https://raw.githubusercontent.com/kris-nader/TBD/master/R/identify_mal_norm.R")
 # load functions for identification of genetically distinct subclones
 source("https://raw.githubusercontent.com/kris-nader/TBD/master/R/identify_subclones.R")
+# load functions for predicting subclone specific therapeutic options
 
 patient_sample=readRDS("./example_data.RDS")
 ```
