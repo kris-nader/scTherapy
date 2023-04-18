@@ -60,21 +60,7 @@ In this step, we use multiple tools to generate a confident ensemble prediction.
 ```R
 normal_cells=c("NKT-like cells","CD4+ T cells", "Naive B cells")
 patient_sample=runEnsemble(patient_sample,normal_cells)
-```
-If everything is successful, you should observe an output analogous to the following:
-```
-################################################################
-## Running ensemble tool: copyKat,ScType+CellMarker2.0, SCEVAN ##
-################################################################
 
-Success: CopyKat time=0.07 
-Success: ScType+CellMarker2.0 time=0.07 
-Success: SCEVAN time=0.07 
-...
-Ensemble prediction: time=0.07 
-
-Done!
-```
 We can visualize the results of each individual tool and of the ensemble prediction:
 ```R
 visualize_malignant(patient_sample)
@@ -85,16 +71,7 @@ This step uses healthy/reference cells identified by step 2(ensemble model) to i
 ```R
 patient_sample=runinferCNV(patient_sample,"healthy")
 ```
-Once again, If everything is successful, you should observe an output analougous to the following: 
-```
-####################################################
-## Running subclone identification tool: inferCNV ##
-####################################################
 
-Success: inferCNV time=big 
-
-Done!
-```
 
 ### Step 4: Comparative analysis of the subclone and normal cluster to extract subclone specific DEG
 We will focus on more broad levels subclones in this tutorrial, but more speicific subclones can be used in this step. For example, for subclones A and B:
@@ -102,16 +79,7 @@ We will focus on more broad levels subclones in this tutorrial, but more speicif
 subcloneA=subclone_DEG(patient_sample,"A","healthy")
 subcloneB=subclone_DEG(patient_sample,"B","healthy")
 ```
-For one run of the `subclone_DEG` function, the expected output is as follows:
-```
-####################################################
-## Running subclone DEG : FindMarkers ##
-####################################################
 
-Success: FindMarkers time=0.07 
-
-Done!
-```
 
 ### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
 For each run of `run_drug_combo_pred`, the model predicts drug:dose:%inhibtition based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. To predict response for a drug not included in the database, refer to our next section on predicting response of new drugs.
