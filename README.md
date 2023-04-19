@@ -85,14 +85,13 @@ subcloneB=subclone_DEG(patient_sample,"B","healthy")
 
 
 ### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
-For each run of `run_drug_combo_pred`, the model predicts drug:dose:%inhibtition based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. To predict response for a drug not included in the database, refer to our next section on predicting response of new drugs.
+For each run of `run_drug_combo_pred`, the model predicts drug:dose:response based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. 
 ```R
 subcloneA_drugs=run_drug_combo_pred(subcloneA)
 subcloneB_drugs=run_drug_combo_pred(subcloneB)
 ```
 
-## Predicting response of new drug:dose
-<br>
+
 
 
 ## Contact information
