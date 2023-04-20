@@ -54,7 +54,7 @@ patient_sample=readRDS("./example_data.RDS")
 ### Step 1: Automated Cell type annotation with ScType
 In this step, we utilize a standard ScType workflow, which requires the single cell RNAseq object and the tissue type of interest as input. By default, the function employs the predefined scType database, containing markers for various tissues such as the immune system, pancreas, liver, eye, kidney, brain, lung, adrenal gland, heart, intestine, muscle, placenta, spleen, stomach, and thymus. We refer users to the <a href="https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx">ScTypeDB</a> for more information on the defined cell markers.
 
-However, users can easily customize the analysis by uploading their own custom marker database for their specific tissue of interest using the `custom_marker_db` parameter. In short, the custom marker database should resemble that of the ScTypeDB(xlsx format) with four columns (tissue type, cell name, geneSymbolmore 1-- positive markers , and geneSymbolmore2--negative markers). In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `tissue=Immune System` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
+Users can easily customize the analysis by uploading their own custom marker database for their specific tissue of interest using the `custom_marker_db` parameter. In short, the custom marker database should resemble that of the ScTypeDB(xlsx format) with four columns (tissue type, cell name, geneSymbolmore 1-- positive markers , and geneSymbolmore2--negative markers). In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `tissue=Immune System` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
 
 
 ```R
@@ -75,14 +75,12 @@ This step uses healthy/reference cells identified by step 2(ensemble model) to i
 patient_sample=runinferCNV(patient_sample,"healthy")
 ```
 
-
 ### Step 4: Comparative analysis of the subclone and normal cluster to extract subclone specific DEG
-We will focus on more broad levels subclones in this tutorrial, but more specific subclones can be used in this step. For example, for subclones A and B:
+We will focus on more broad levels subclones in this tutorial, but more specific subclones can be used in this step. For example, for subclones A and B:
 ```R
 subcloneA=subclone_DEG(patient_sample,"A","healthy")
 subcloneB=subclone_DEG(patient_sample,"B","healthy")
 ```
-
 
 ### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
 For each run of `run_drug_combo_pred`, the model predicts drug:dose:response based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. 
