@@ -51,9 +51,9 @@ sctype_source <- function(){
 
 copykat_source <- function(){
   # load Rcpp helper functions for faster run time
-  Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp?token=GHSAT0AAAAAAB52GBN5IPCEB65IWSMS6VO2ZCQZLKQ")
+  Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp")
   # load modified copykat 
-  source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R?token=GHSAT0AAAAAAB52GBN5QOLSRU37L4CHJHIYZCQZKLA")
+  source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
 }
 
 
