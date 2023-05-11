@@ -1,5 +1,5 @@
 ######################################################################################################
-##              Get functions for the identification of malignant and healthy clusters              ##
+##         Get functions for checkpoint 1: identification of healthy/malignant clusters             ##
 ######################################################################################################
 #
 # GNU General Public License v3.0 (https://github.com/kris-nader/TBD/blob/main/LICENSE)
