@@ -97,7 +97,7 @@ For any questions please contact **Aleksandr Ianevski** [aleksandr.ianevski@hels
 
 ## Copyright and license
 
-Code copyright 2021 TBD, [https://github.com/kris/sc-type/blob/master/LICENSE](https://github.com/kris-nader/TBD/blob/main/LICENSE)
+Code copyright 2023 TBD, [https://github.com/kris/sc-type/blob/master/LICENSE](https://github.com/kris-nader/TBD/blob/main/LICENSE)
 
 ## Reference Papers
 1. Ianevski, A., Giri, A. K. &amp; Aittokallio, T. Fully-automated and ultra-fast cell-type identification using specific marker combinations from single-cell transcriptomic data. Nature Communications 13, (2022). 
