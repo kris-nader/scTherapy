@@ -66,7 +66,7 @@ In this step, we use multiple tools to generate a confident ensemble prediction.
 ```R
 normal_cells=c(add normal kristen)
 patient_sample=runEnsemble(patient_sample,known_tissue_type="AML",known_normal_cells=normal_cells)
-visualize_ensembl_step(patient_sample)
+visualize_ensemble_step(patient_sample)
 ```
 
 ### Step 3: Identification of genetically distinct subclones
