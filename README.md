@@ -63,7 +63,7 @@ visualize_ensemble_step(patient_sample)
 ```
 
 <p align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_example_data.png">
+<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_visual_downsampled.png">
 </p>
 
 
@@ -73,7 +73,7 @@ This step uses healthy/reference cells identified by step 2(ensemble model) to i
 patient_sample=run_infercnv(patient_sample)
 ```
 <p align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_infercnv.png">
+<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_visual_infercnv_downsampled.png">
 </p>
 
 ### Step 4: Comparative analysis of the subclone and normal cluster to extract subclone specific DEG
