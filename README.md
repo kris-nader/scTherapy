@@ -74,7 +74,7 @@ patient_sample=run_infercnv(patient_sample)
 ```
 
 ### Step 4: Comparative analysis of the subclone and normal cluster to extract subclone specific DEG
-We will focus on more broad levels subclones in this tutorial, but more specific subclones can be used in this step. For example, for subclones A and B:
+We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
 subcloneA=subclone_DEG(patient_sample,"A","healthy")
 subcloneB=subclone_DEG(patient_sample,"B","healthy")
