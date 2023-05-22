@@ -51,7 +51,7 @@ sctype_source <- function(){
 
 copykat_source <- function(){
   # load Rcpp helper functions for faster run time
-  Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp")
+  #Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp")
   # load modified copykat 
   source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
 }
@@ -154,7 +154,26 @@ run_scType <- function(seurat_object, known_tissue_type = NULL, custom_marker_fi
   text_=paste("New metadata added: ",name)
   print(text_)
   return(seurat_object_res)
-}                                                    
+}        
+
+
+#' @title Get normal cells as reference
+#' @name get_normal_cells
+#' @description Extracts cell names that are known to be normal based on a previously done cell type annotation.
+#' @param seurat_object Seurat object to analyze.
+#' @param names_of_cell_types A character vector of cell type names that are known to be normal.
+#' @param column_name The name of the column in the metadata that contains the cell type annotations. Default is "sctype_classification".
+#' @return A character vector of cell types that are known to be normal.
+#' @import Seurat
+#' @examples
+#' norm = c("CD8+ NKT-like cells","Naive CD4+ T cells")
+#' normal_cells = get_normal_cells(seurat_object, names_of_cell_types = norm)
+#' @export
+
+get_normal_cells <- function(seurat_object, names_of_cell_types, column_name = "sctype_classification") {
+  cells = rownames(seurat_object@meta.data[seurat_object@meta.data[[column_name]] %in% names_of_cell_types, ])
+  return(cells)
+}
 
 
 #' @title Run CopyKat analysis on Seurat object
@@ -171,8 +190,9 @@ run_scType <- function(seurat_object, known_tissue_type = NULL, custom_marker_fi
 #' @import Seurat DimPlot
 #' 
 #' @examples
-#' norm=rownames(seurat_object@meta.data[which(data@meta.data$sctype_classification %in% c("CD8+ NKT-like cells","Naive CD4+ T cells")),])
-#' seurat_object <- run_copyKat(seurat_object, known_normal_cells = norm, plot = FALSE)
+#' norm = c("CD8+ NKT-like cells","Naive CD4+ T cells")
+#' normal_cells = get_normal_cells(seurat_object, names_of_cell_types = norm)
+#' seurat_object <- run_copyKat(seurat_object, known_normal_cells = normal_cells, plot = FALSE)
 #' 
 #' @export
 #' 
@@ -222,8 +242,9 @@ run_copyKat <- function(seurat_object, known_normal_cells=NULL, plot=FALSE,ncore
 #' @import Seurat DimPlot
 #' 
 #' @examples
-#' norm=rownames(seurat_object@meta.data[which(data@meta.data$sctype_classification %in% c("CD8+ NKT-like cells","Naive CD4+ T cells")),])
-#' seurat_object3 <- run_SCEVAN(seurat_object, known_normal_cells = norm, plot = FALSE)
+#' norm = c("CD8+ NKT-like cells","Naive CD4+ T cells")
+#' normal_cells = get_normal_cells(seurat_object, names_of_cell_types = norm)
+#' seurat_object = run_SCEVAN(seurat_object, known_normal_cells = normal_cells, plot = FALSE)
 #' 
 #' @export
 #' 
@@ -271,15 +292,16 @@ run_SCEVAN <- function(seurat_object, known_normal_cells = NULL, plot = FALSE,nc
 #' @import SCEVAN 
 #' 
 #' @examples
-#' cells=c("ATCTAGATCGATGCT-1","ATGCGTAGACAGATG-1")
-#' seurat_object=run_ensemble(seurat_object,known_normal_cells=cells,disease="AML",plot=FALSE)
+#' norm = c("CD8+ NKT-like cells","Naive CD4+ T cells")
+#' normal_cells = get_normal_cells(seurat_object, names_of_cell_types = norm)
+#' seurat_object=run_ensemble(seurat_object,known_normal_cells=normal_cells,disease="AML",plot=FALSE)
 #' 
 #' @export
 #' 
 
 
 
-run_ensemble <- function(seurat_object, disease=NULL,known_normal_cells=NULL,plot=FALSE){
+run_ensemble <- function(seurat_object, disease=NULL,known_normal_cells=NULL,genome=genome1,plot=FALSE){
   if (is.null(seurat_object)) {
     stop("Argument 'seurat_object' is missing")
   }
@@ -287,14 +309,12 @@ run_ensemble <- function(seurat_object, disease=NULL,known_normal_cells=NULL,plo
     stop("Argument 'seurat_object' must be a Seurat object")
   } 
   # run modified sctype-- marker based approach
-  seurat_object = run_scType(seurat_object,known_tissue_type = disease,
+  seurat_object = run_sctype(seurat_object,known_tissue_type = disease,
                              plot=FALSE,
                              custom_marker_file ="/media/aianevsk/b406b934-da1b-437b-b51f-f6b15ce7038b/var/www/html/strelka/sctype_aml_cellmarker20_cosmic.xlsx",
                              name="sctype_malignant_healthy")
   # run copykat analysis-- CNA estimation approach
-  seurat_object = run_copyKat(seurat_object,
-                              known_normal_cells=known_normal_cells,
-                              plot=FALSE)
+  patient_sample=run_copyKat(seurat_object,known_normal_cells=known_normal_cells,plot=FALSE,genome="hg20")
   # run SCEVAN analysis-- CNA estimation approach
   seurat_object = run_SCEVAN(seurat_object, 
                              known_normal_cells=known_normal_cells,
