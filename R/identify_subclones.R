@@ -150,8 +150,36 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
     # Add subclones to Seurat object metadata
     seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.1.")),"infercnv_broad_groupings_1"]="B"
     seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.2.")),"infercnv_broad_groupings_1"]="E"
-    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"healthy")),"infercnv_broad_groupings_1"]="normal"
+    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"healthy")),"infercnv_broad_groupings_1"]="healthy"
 
     return(seurat_object1)
 }
+
+
+#' @title  Run DEG analysis
+#' @name subclone_DEG
+#' @description Identifies differentially expressed clone specific genes
+#' @details 
+#' @param seurat_object a seurat object 
+#' @param subclone: subclone of interest
+#' @param known_normal_cells of known and annotated normal cell names default: will use those identified in step 1 
+#' @return a clone specific DEGs
+#' 
+#' @import Seurat
+#' 
+#' @export
+#' @examples
+#' seurat_object <- subclone_DEG(seurat_object, subclone="A",known_normal_cells ="healthy")
+#' 
+#' @export
+
+subclone_DEG <- function(seurat_object, subclone = NULL, known_normal_cells="healthy"){
+    temp=seurat_object
+    Idents(temp)=temp@meta.data$infercnv_broad_groupings_1
+    degRes_subcome = FindMarkers(object = temp, ident.1 = subclone, ident.2 = known_normal_cells, min.pct = -Inf, logfc.threshold = -Inf,
+                        min.cells.feature = 1, min.cells.group = 1,test.use="wilcox")
+    return(degRes_subcome)                           
+}
+
+
 
