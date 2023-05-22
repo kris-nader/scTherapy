@@ -62,6 +62,11 @@ patient_sample=run_ensemble(patient_sample,disease="AML",known_normal_cells=norm
 visualize_ensemble_step(patient_sample)
 ```
 
+<p align="center"> 
+<img src="https://github.com/kris-nader/TBD/blob/main/check_ensemble_5.pdf">
+</p>
+
+
 ### Step 3: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
 ```R
