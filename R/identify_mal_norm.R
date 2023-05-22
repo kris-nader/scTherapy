@@ -308,13 +308,14 @@ run_ensemble <- function(seurat_object, disease=NULL,known_normal_cells=NULL,gen
   if (!inherits(seurat_object, "Seurat")) {
     stop("Argument 'seurat_object' must be a Seurat object")
   } 
+  
   # run modified sctype-- marker based approach
   seurat_object = run_sctype(seurat_object,known_tissue_type = disease,
                              plot=FALSE,
                              custom_marker_file ="/media/aianevsk/b406b934-da1b-437b-b51f-f6b15ce7038b/var/www/html/strelka/sctype_aml_cellmarker20_cosmic.xlsx",
                              name="sctype_malignant_healthy")
   # run copykat analysis-- CNA estimation approach
-  patient_sample=run_copyKat(seurat_object,known_normal_cells=known_normal_cells,plot=FALSE,genome="hg20")
+  seurat_object=run_copyKat(seurat_object,known_normal_cells=known_normal_cells,plot=FALSE,genome="hg20")
   # run SCEVAN analysis-- CNA estimation approach
   seurat_object = run_SCEVAN(seurat_object, 
                              known_normal_cells=known_normal_cells,
