@@ -63,7 +63,7 @@ visualize_ensemble_step(patient_sample)
 ```
 
 <p align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/check_ensemble_5.pdf">
+<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_example_data.png">
 </p>
 
 
