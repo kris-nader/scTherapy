@@ -53,11 +53,6 @@ get_gene_annotation <- function(seurat_object){
     colnames(genes) <- NULL
     return(genes)
 }
-seurat_object=readRDS("/Users/naderkri/Desktop/everything/patient_samples_rds/s743_subclones.RDS")
-
-annotation_file_for_infer = seurat_object@meta.data[,"customclassif", drop=!1]
-annotation_file_for_infer[norm,"customclassif"] = "healthy"
-annotation_file_for_infer[which(annotation_file_for_infer != "healthy"),"customclassif"]="malignant"
 
 #' @title Get normal cells
 #' @name get_normal_cells
