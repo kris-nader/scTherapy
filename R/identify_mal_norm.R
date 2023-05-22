@@ -364,7 +364,7 @@ visualize_ensemble_step <- function(seurat_object) {
     p2=NULL
   }
   else{
-    p2 = DimPlot(seurat_object, group.by = "customclassif", label = TRUE,label.size = 2) + NoLegend()
+    p2 = DimPlot(seurat_object, group.by = "sctype_classification", label = TRUE,label.size = 2) + NoLegend()
   }
   p3 = DimPlot(seurat_object, group.by = "sctype_malignant_healthy", cols = plot_cols) + NoLegend()
   p4 = DimPlot(seurat_object, group.by = "copyKat_output", cols = plot_cols) + NoLegend()
