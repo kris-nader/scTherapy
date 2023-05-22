@@ -102,7 +102,7 @@ scevan_source <- function(){
 
 
 ## tested -yes
-run_scType <- function(seurat_object, known_tissue_type = NULL, custom_marker_file = NULL, plot = FALSE, name = "sctype_classification") {
+run_sctype <- function(seurat_object, known_tissue_type = NULL, custom_marker_file = NULL, plot = FALSE, name = "sctype_classification") {
   db_=sctype_source()
   # Check for missing arguments
   if (is.null(seurat_object)) {
