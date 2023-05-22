@@ -46,7 +46,7 @@ sctype_source <- function(){
 #' @return 
 #' @export
 #' @examples
-#' copykat_source
+#' copykat_source()
 #' 
 
 copykat_source <- function(){
@@ -54,6 +54,23 @@ copykat_source <- function(){
   Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp")
   # load modified copykat 
   source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
+}
+
+#' @title Load modified scevan functions
+#' @name scecan_source
+#' @description loads modified scevan functions needed for an quick classification of aneuploid/diploid cluster . 
+#' @details none
+#' @param none 
+#' @return 
+#' @export
+#' @examples
+#' scevan_source()
+#' 
+
+scevan_source <- function(){
+  # testing for scevan--no plotting 
+  # load modified scevan
+  source("https://raw.githubusercontent.com/kris-nader/scevan_edit/main/scevan_mod.R")
 }
 
 
