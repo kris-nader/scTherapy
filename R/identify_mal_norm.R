@@ -229,6 +229,7 @@ run_copyKat <- function(seurat_object, known_normal_cells=NULL, plot=FALSE,ncore
 #' 
 
 run_SCEVAN <- function(seurat_object, known_normal_cells = NULL, plot = FALSE,ncores = 4) {
+  scevan_source()
   # Extract count matrix
   count_mtx = seurat_object@assays$RNA@counts
   # Run SCEVAN analysis
