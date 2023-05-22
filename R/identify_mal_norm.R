@@ -358,7 +358,7 @@ visualize_ensemble_step <- function(seurat_object) {
   plot_cols = c("malignant" = "#F8756D", "healthy" = "#03BFC4")
   # Generate Seurat DimPlot visualizations
   p1 = DimPlot(seurat_object, group.by = "ensemble_output", cols = plot_cols,label.size = 3)
-  if(identical(integer(0),which(colnames(seurat_object@meta.data)=="customclassif"))){
+  if(identical(integer(0),which(colnames(seurat_object@meta.data)=="sctype_classification"))){
     print("sctype_classification does not exist. For an automated cell type annotation: 'run_scType'")
     p2=NULL
   }
