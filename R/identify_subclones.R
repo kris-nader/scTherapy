@@ -160,10 +160,10 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
 #' @name subclone_DEG
 #' @description Identifies differentially expressed clone specific genes
 #' @details 
-#' @param seurat_object a seurat object 
+#' @param seurat_object a seurat object after identification of subclones( see run_infercnv for more information)
 #' @param subclone: subclone of interest
-#' @param known_normal_cells of known and annotated normal cell names default: will use those identified in step 1 
-#' @return a clone specific DEGs
+#' @param known_normal_cells: known and annotated normal cell names default: will use those identified in step 1 
+#' @return clone specific DEGs
 #' 
 #' @import Seurat
 #' 
