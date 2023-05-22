@@ -70,7 +70,7 @@ visualize_ensemble_step(patient_sample)
 ### Step 3: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
 ```R
-patient_sample=runinferCNV(patient_sample,"healthy")
+patient_sample=run_infercnv(patient_sample,"healthy")
 ```
 
 ### Step 4: Comparative analysis of the subclone and normal cluster to extract subclone specific DEG
