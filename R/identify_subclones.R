@@ -148,8 +148,8 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
     seurat_object1@meta.data[rownames(grouping_structure),"infercnvgroupings_1"]=grouping_structure[rownames(grouping_structure),"cell_group_name"]
     
     # Add subclones to Seurat object metadata
-    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.1.")),"infercnv_broad_groupings_1"]="B"
-    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.2.")),"infercnv_broad_groupings_1"]="E"
+    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.1.")),"infercnv_broad_groupings_1"]="A"
+    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.2.")),"infercnv_broad_groupings_1"]="B"
     seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"healthy")),"infercnv_broad_groupings_1"]="healthy"
 
     return(seurat_object1)
