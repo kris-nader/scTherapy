@@ -13,7 +13,6 @@
 #
 
 
-invisible(lapply(c("logger","httr", "jsonlite", "readr", "dplyr"), library, character.only = TRUE))
 
 #' @title filter DEGs
 #' @name process_DEG
