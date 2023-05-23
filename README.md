@@ -123,11 +123,11 @@ patient_sample = RunPCA(patient_sample, features = VariableFeatures(object = pat
 # check number of PC (optional)
 ElbowPlot(patient_sample)
 
-# clustering 
+# Cluster and visualize
 patient_sample = FindNeighbors(patient_sample, dims = 1:10)
 patient_sample = FindClusters(patient_sample, resolution = 0.8)
 patient_sample = RunUMAP(patient_sample, dims = 1:10)
-
+DimPlot(patient_sample, reduction = "umap")
 ```
 ### Step 1: Automated Cell type annotation with ScType
 In this step, we use a standard ScType workflow, which requires the single cell RNAseq object and the tissue type of interest as input. We refer users to the <a href="https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx">ScTypeDB</a> for more information on the defined cell markers and to the original <a href="https://www.nature.com/articles/s41467-022-28803-w">publication</a>.
