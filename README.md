@@ -30,7 +30,8 @@ Finally, [inferCNV](https://github.com/broadinstitute/infercnv) is applied to id
 
 (b) Subclone-specific differentially-expressed genes are identified through differential expression analysis. These identified genes, along with drug information such as molecular fingerprints and drug doses , are used as inputs for the trained LightGBM model. This model then predicts the most active compounds and their effective doses for each subclone, based on the provided inputs.
 
-To train the LightGBM model, a comprehensive dataset was compiled with the objective of integrating transcriptional changes observed in small molecule perturbation experiments ([LINCS L1000 dataset](https://clue.io/about)) with drug chemical structures represented as fingerprints and drug-dose response data collected from various sources ([PharmacoDB resource](http://pharmacodb.ca/)). Doses from the LINCS L1000 dataset were matched with dose-response curves obtained from the PharmacoDB resource, and the interpolated cell viability data was used as the outcome variable for prediction model.
+To train the LightGBM model, we created a comprehensive dataset that combines transcriptional changes observed in small molecule perturbation experiments ([LINCS L1000 dataset](https://clue.io/about)), drug chemical structures represented as fingerprints, and drug-dose response data ([PharmacoDB resource](http://pharmacodb.ca/)). By matching doses from the LINCS L1000 dataset with dose-response curves from PharmacoDB, we obtained interpolated cell viability data as the outcome variable for our prediction model.
+
 
 <br>
 
