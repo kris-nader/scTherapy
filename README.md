@@ -44,6 +44,7 @@ Although most tools in this analysis require the raw count matrix, it is benefic
 ### Step -1: Load the data and the functions
 
 ### Step 0: Process the data
+The initial dataset comprised 15,710 genes and 4,277 cells. However, after implementing the processing steps, the dataset was refined, resulting in a final count of 3,250 cells.
 ```R
 data = read.table("exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t")
 patient_sample = CreateSeuratObject(counts = data)
@@ -66,8 +67,8 @@ ElbowPlot(patient_sample)
 
 # clustering 
 patient_sample = FindNeighbors(patient_sample, dims = 1:10)
-seurat_object1 = FindClusters(patient_sample, resolution = 0.8)
-seurat_object1 = RunUMAP(patient_sample, dims = 1:10)
+patient_sample = FindClusters(patient_sample, resolution = 0.8)
+patient_sample = RunUMAP(patient_sample, dims = 1:10)
 
 #visualize
 DimPlot(patient_sample, reduction = "umap")
@@ -75,21 +76,21 @@ DimPlot(patient_sample, reduction = "umap")
 ### Step 1: Automated Cell type annotation with ScType
 In this step, we utilize a standard ScType workflow, which requires the single cell RNAseq object and the tissue type of interest as input. By default, the function employs the predefined scType database, containing markers for various tissues such as the immune system, pancreas, liver, eye, kidney, brain, lung, adrenal gland, heart, intestine, muscle, placenta, spleen, stomach, and thymus. We refer users to the <a href="https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx">ScTypeDB</a> for more information on the defined cell markers.
 
-Users can easily customize the analysis by uploading their own custom marker database for their specific tissue of interest using the `custom_marker_db` parameter. In short, the custom marker database should resemble that of the ScTypeDB(xlsx format) with four columns (tissue type, cell name, geneSymbolmore 1-- positive markers , and geneSymbolmore2--negative markers). In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `tissue=Immune System` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
+Users can easily customize the analysis by uploading their own custom marker database for their specific tissue of interest using the `custom_marker_db` parameter. In short, the custom marker database should resemble that of the ScTypeDB(xlsx format) with four columns (tissue type, cell name, geneSymbolmore 1-- positive markers , and geneSymbolmore2--negative markers). In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `known_tissue_type=Immune system` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
 
 ```R
-patient_sample=run_sctype(patient_sample,tissue="Immune system",plot=FALSE)
+patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=FALSE)
 ```
 ### Step 2: Identification of malignant/normal clusters
 In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. Afterwards, an ensemble prediction is constructed based on the combined results of these tools, which takes advantage of the distinct approaches to confidently identify both healthy and malignant cell clusters. The function `runEnsemble` will execute each of these tools(copyKat,scType+new markers,SCEVAN) and then compute the ensemble prediciton. We can also visualize the results of each individual tool and of the ensemble prediction.
 ```R
-norm_cells=get_normal_cells(patient_sample,c("CD8+ NKT-like cells","Memory CD4+ T cells"))
+norm_cells=get_normal_cells(patient_sample,c("Naive CD4+ T cells","CD8+ NKT-like cells"))
 patient_sample=run_ensemble(patient_sample,disease="AML",known_normal_cells=norm_cells,plot=FALSE)
 visualize_ensemble_step(patient_sample)
 ```
 
 <p align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_visual_downsampled.png">
+<img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble_results.png">
 </p>
 
 
