@@ -30,7 +30,7 @@ We created a comprehensive dataset that combines transcriptional changes observe
 
 ### Step 0: Load libraries and process the data
 
-First, let's load all the necessary libraries and source functions required for the analysis.
+<p>First, let's load all the necessary libraries and source functions required for the analysis.</p>
 
 ```R
 
@@ -99,7 +99,7 @@ install_load_packages(packages)
 
 
 <br>	
-Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
+<p>Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.</p>
 	
 
  ```R
