@@ -33,6 +33,7 @@ We created a comprehensive dataset that combines transcriptional changes observe
 
 Let's first load all required libraries and source functions. If some libraries are missing you can install them using the following code <details>
   <summary>Click here</summary>
+	
   ```R
   packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot",
 			  "Rcpp","Rclusterpp","parallel","biomaRt","logger","httr", "jsonlite", "readr")
@@ -79,8 +80,9 @@ install_from_CRAN_or_Bioconductor <- function(pkg) {
 install_load_packages(packages)
 
   ```
-</details>. 
+</details>
 
+	
 ```R
 
 # Load required libraries and source functions
