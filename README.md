@@ -111,10 +111,20 @@ subcloneB=subclone_DEG(patient_sample,"B","healthy")
 ```
 
 ### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
-For each run of `run_drug_combo_pred`, the model predicts drug:dose:response based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. 
+First, we begin by filtering the differentially expressed genes based on 2 critera:
+
+The first condition (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) filters genes with adjusted p-values less than or equal to 0.05 and an average log2 fold change greater than 1 or less than -1. This condition selects genes that are significantly differentially expressed.
+
+The second condition (avg_log2FC > -0.1 & avg_log2FC < 0.1) filters genes with an average log2 fold change greater than -0.1 and less than 0.1. This condition selects genes that are not significantly differentially expressed but have a small fold change.
 ```R
-subcloneA_drugs=run_drug_combo_pred(subcloneA)
-subcloneB_drugs=run_drug_combo_pred(subcloneB)
+DEG_A=process_DEG(subcloneA)
+DEG_B=process_DEG(subcloneB)
+```
+For each run of `predict_drugs`, the model predicts drug:dose based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. 
+
+```R
+subcloneA_drugs=predict_drugs(DEG_A)
+subcloneB_drugs=predict_drugs(DEG_B)
 ```
 
 
