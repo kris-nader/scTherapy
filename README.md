@@ -4,8 +4,8 @@
 We introduce NAME, a computational framework that uses only single-cell transcriptomic data to predict personalized monotherapies and multi-targeting drug combinations for cancer patients.
 
 The tool consists of two main steps:
-1. Our tool utilizes a semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones.
-2. Next, it identifies differentially expressed genes between healthy and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to healthy cells.
+1. Our tool utilizes a semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
+2. Next, it identifies differentially expressed genes between healthy and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to healthy cells <i>(Fig 1, panel b)</i>.
 
 For more information, please refer to original publication [to be filled].
 <br><br>
@@ -14,16 +14,8 @@ For more information, please refer to original publication [to be filled].
 <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png">
 </span>
 
-Prediction of subclone-specific and cancer-selective compounds is performed in two major steps using only the expression count matrix.
 
-1. An automated cell type annotation tool, [ScType](https://github.com/IanevskiAleksandr/sc-type) is used  to accurately identify the cell types and  determine which clusters can be used as reference/healthy cells for the next step. Then an ensemble prediction is done using three different approaches to ensure confident calling of healthy cells([CopyKAT](https://github.com/navinlabcode/copykat),[ScType](https://github.com/IanevskiAleksandr/sc-type) + [CellMarker2.0](http://117.50.127.228/CellMarker/CellMarker_download.html) and [SCEVAN](https://github.com/AntonioDeFalco/SCEVAN)) using reference cells identified through cell type annotation. Finally, [inferCNV](https://github.com/broadinstitute/infercnv) is applied to identify genetically distinct subclones from malignant cells. 
-
-2. Subclone-specific differentially-expressed genes are identified through differential expression analysis. These identified genes, along with drug information such as molecular fingerprints and drug doses , are used as inputs for the trained LightGBM model. This model then predicts the most active compounds and their effective doses for each subclone, based on the provided inputs.
-
-We created a comprehensive dataset that combines transcriptional changes observed in small molecule perturbation experiments ([LINCS L1000 dataset](https://clue.io/about)), drug chemical structures represented as fingerprints, and drug-dose response data ([PharmacoDB resource](http://pharmacodb.ca/)). By matching doses from the LINCS L1000 dataset with dose-response curves from PharmacoDB, we obtained interpolated cell viability data as the outcome variable for our prediction model and trained a LightGBM model.
-
-
-<br>
+<hr><br>
 
 
 ## Categorizing cells into malignant and healthy
