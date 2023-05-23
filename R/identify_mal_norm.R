@@ -12,9 +12,6 @@
 #
 
 
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN",
-         "cowplot","Rcpp","Rclusterpp","parallel"), library, character.only = T)
-
 #' @title sctype source files
 #' @name sctype_source
 #' @description loads sctype functions needed for an automated cell type annotation . 
