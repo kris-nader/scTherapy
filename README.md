@@ -10,12 +10,10 @@ The tool consists of two main steps:
 For more information, please refer to original publication [to be filled].
 <br>
 <hr>
-
 <b><h2>TBD workflow</h2></b>
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/workflow.png">
 </p>
-
 Prediction of subclone-specific and cancer-selective compounds is performed in two major steps using only the expression count matrix.
 
 (a) An automated cell type annotation tool, [ScType](https://github.com/IanevskiAleksandr/sc-type) is used  to accurately identify the cell types and  determine which clusters can be used as reference/healthy cells for the next step. Providing healthy cells at this stage is optional, but it greatly improves the prediction of the next step. Then an ensemble prediction is done using three different approaches to ensure confident calling of healthy cells.
