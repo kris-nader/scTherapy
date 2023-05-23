@@ -99,7 +99,7 @@ install_load_packages(packages)
 
 
 <br>	
-<p>Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. The count matrix is normalized and clustered using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). An example raw count matrix data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.</p>
+<p>Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. The count matrix is normalized and clustered using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html" target="_blank">Seurat tutorial for more details</a>). An example raw count matrix data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.</p>
 	
 
  ```R
@@ -130,7 +130,7 @@ patient_sample = RunUMAP(patient_sample, dims = 1:10)
 DimPlot(patient_sample, reduction = "umap")
 ```
 ### Step 1: Automated Cell type annotation with ScType
-In this step, we use our method for fully-automated cell type annotation - <a href="https://github.com/IanevskiAleksandr/sc-type">ScType</a>, which requires only single cell RNAseq object and the tissue type of interest as input. Please see ScType GitHub for more details: <a href="https://github.com/IanevskiAleksandr/sc-type">[ScType](https://github.com/IanevskiAleksandr/sc-type)</a>.
+In this step, we use our method for fully-automated cell type annotation called ScType, which requires only single cell RNAseq object and the tissue type of interest as input. Please see ScType GitHub for more details: <a href="https://github.com/IanevskiAleksandr/sc-type" target="_blank">[ScType](https://github.com/IanevskiAleksandr/sc-type)</a>.
 
 In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `known_tissue_type=Immune system` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
 
