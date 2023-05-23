@@ -134,7 +134,7 @@ DimPlot(patient_sample, reduction = "umap")
 <p>For our AML patient sample, we specify `known_tissue_type` as `Immune system`, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.</p>
 
 ```R
-patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=FALSE)
+patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
 ```
 ### Step 2: Identification of malignant/normal clusters
 In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. The `runEnsemble` function executes each tool (copyKat, scType+new markers, SCEVAN) and computes the ensemble prediction. 
