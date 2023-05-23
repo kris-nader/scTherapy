@@ -82,7 +82,7 @@ In this tutorial, the sample was derived from a patient with Acute Myeloid Leuke
 patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=FALSE)
 ```
 ### Step 2: Identification of malignant/normal clusters
-In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. The `runEnsemble` function executes each tool (copyKat, scType+new markers, SCEVAN) and computes the ensemble prediction. We can also visualize the results of each individual tool and of the ensemble prediction.
+In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. The `runEnsemble` function executes each tool (copyKat, scType+new markers, SCEVAN) and computes the ensemble prediction. 
 
 ```R
 norm_cells=get_normal_cells(patient_sample,c("Memory CD4+ T cells","CD8+ NKT-like cells"))
@@ -93,7 +93,6 @@ visualize_ensemble_step(patient_sample)
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble.png">
 </p>
-
 
 ### Step 3: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
@@ -113,10 +112,9 @@ subcloneB=subclone_DEG(patient_sample,"B","healthy")
 
 ### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
 First, we begin by filtering the differentially expressed genes based on 2 critera:
+1. (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) 
+2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
 
-The first condition (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) filters genes with adjusted p-values less than or equal to 0.05 and an average log2 fold change greater than 1 or less than -1. This condition selects genes that are significantly differentially expressed.
-
-The second condition (avg_log2FC > -0.1 & avg_log2FC < 0.1) filters genes with an average log2 fold change greater than -0.1 and less than 0.1. This condition selects genes that are not significantly differentially expressed but have a small fold change.
 ```R
 DEG_A=process_DEG(subcloneA)
 DEG_B=process_DEG(subcloneB)
