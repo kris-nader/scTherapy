@@ -90,7 +90,7 @@ visualize_ensemble_step(patient_sample)
 ```
 
 <p align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble_results.png">
+<img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble.png">
 </p>
 
 
