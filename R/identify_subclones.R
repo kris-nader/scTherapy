@@ -12,7 +12,6 @@
 #
 
 
-lapply(c("dplyr","Seurat","HGNChelper","biomaRt","infercnv"), library, character.only = T)
 
 
 #' @title Get gene annotation information from biomaRt
