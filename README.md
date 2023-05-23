@@ -11,25 +11,16 @@ For more information, please refer to original publication [to be filled].
 <br><br>
 <b><h2>TBD workflow</h2></b>
 <span align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/workflow.png">
+<img src="https://github.com/kris-nader/TBD/blob/main/full_workflow_ensemble.png">
 </span>
+
 Prediction of subclone-specific and cancer-selective compounds is performed in two major steps using only the expression count matrix.
 
-(a) An automated cell type annotation tool, [ScType](https://github.com/IanevskiAleksandr/sc-type) is used  to accurately identify the cell types and  determine which clusters can be used as reference/healthy cells for the next step. Providing healthy cells at this stage is optional, but it greatly improves the prediction of the next step. Then an ensemble prediction is done using three different approaches to ensure confident calling of healthy cells.
+1. An automated cell type annotation tool, [ScType](https://github.com/IanevskiAleksandr/sc-type) is used  to accurately identify the cell types and  determine which clusters can be used as reference/healthy cells for the next step. Then an ensemble prediction is done using three different approaches to ensure confident calling of healthy cells([CopyKAT](https://github.com/navinlabcode/copykat),[ScType](https://github.com/IanevskiAleksandr/sc-type) + [CellMarker2.0](http://117.50.127.228/CellMarker/CellMarker_download.html) and [SCEVAN](https://github.com/AntonioDeFalco/SCEVAN)) using reference cells identified through cell type annotation. Finally, [inferCNV](https://github.com/broadinstitute/infercnv) is applied to identify genetically distinct subclones from malignant cells. 
 
-1. [CopyKAT](https://github.com/navinlabcode/copykat), a Bayesian segmentation method to identify clusters of aneuploid vs diploid cells.
-2. [ScType](https://github.com/IanevskiAleksandr/sc-type) + custom marker dataset derived from [CellMarker2.0](http://117.50.127.228/CellMarker/CellMarker_download.html) to develop a marker-based approach to distinguish healthy from malignant clusters. 
-3. [SCEVAN](https://github.com/AntonioDeFalco/SCEVAN), employs a segmentation method that utilizes a Mumford and Shah energy model to call cell states:tumor vs normal. 
+2. Subclone-specific differentially-expressed genes are identified through differential expression analysis. These identified genes, along with drug information such as molecular fingerprints and drug doses , are used as inputs for the trained LightGBM model. This model then predicts the most active compounds and their effective doses for each subclone, based on the provided inputs.
 
-<p align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred.png">
-</p>
-
-Finally, [inferCNV](https://github.com/broadinstitute/infercnv) is applied to identify genetically distinct subclones from malignant cells. 
-
-(b) Subclone-specific differentially-expressed genes are identified through differential expression analysis. These identified genes, along with drug information such as molecular fingerprints and drug doses , are used as inputs for the trained LightGBM model. This model then predicts the most active compounds and their effective doses for each subclone, based on the provided inputs.
-
-To train the LightGBM model, we created a comprehensive dataset that combines transcriptional changes observed in small molecule perturbation experiments ([LINCS L1000 dataset](https://clue.io/about)), drug chemical structures represented as fingerprints, and drug-dose response data ([PharmacoDB resource](http://pharmacodb.ca/)). By matching doses from the LINCS L1000 dataset with dose-response curves from PharmacoDB, we obtained interpolated cell viability data as the outcome variable for our prediction model.
+We created a comprehensive dataset that combines transcriptional changes observed in small molecule perturbation experiments ([LINCS L1000 dataset](https://clue.io/about)), drug chemical structures represented as fingerprints, and drug-dose response data ([PharmacoDB resource](http://pharmacodb.ca/)). By matching doses from the LINCS L1000 dataset with dose-response curves from PharmacoDB, we obtained interpolated cell viability data as the outcome variable for our prediction model and trained a LightGBM model.
 
 
 <br>
