@@ -173,11 +173,15 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
 #' 
 #' @export
 
-subclone_DEG <- function(seurat_object, subclone = NULL, known_normal_cells="healthy"){
+subclone_DEG <- function(seurat_object, subclone = NULL, known_normal_cells="healthy",save=FALSE){
     temp=seurat_object
     Idents(temp)=temp@meta.data$infercnv_broad_groupings
     degRes_subcome = FindMarkers(object = temp, ident.1 = subclone, ident.2 = known_normal_cells, min.pct = -Inf, logfc.threshold = -Inf,
-                        min.cells.feature = 1, min.cells.group = 1,test.use="wilcox")
+                                 min.cells.feature = 1, min.cells.group = 1,test.use="wilcox")
+    if(save==TRUE){
+        file_name=paste0("./DEG_",subclone,"_healthy.txt")
+        write.table(degRes_subcome,file=file_name,quote=FALSE)
+    }
     return(degRes_subcome)                           
 }
 
