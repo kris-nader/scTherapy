@@ -6,9 +6,9 @@
 <p style="text-align:justify;"> <b>XXX</b> is a computational framework to predict personalized monotherapies and multi-targeting drug combinations for cancer patients using only single-cell transcriptomic data.</p>
 
 ##
-<br><br>
+<br>
 <p align="center">
-  <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png" width="70%">
+  <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png" width="80%">
 </p>
 <br>
 The tool consists of two main steps:
