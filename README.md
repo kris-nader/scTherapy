@@ -27,12 +27,24 @@ We created a comprehensive dataset that combines transcriptional changes observe
 
 
 ## Categorizing cells into normal / malignant
-<br>
 
 ### Step 0: Load libraries and process the data
 
-Let's first load all required libraries and source functions. If some libraries are missing you can install them using the following code <details>
-  <summary>Click here</summary>
+Let's first load all required libraries and source functions.  
+
+```R
+
+# Load required libraries and source functions
+lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
+          "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
+         
+source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R"); 
+source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R"); 
+source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R"); 
+```
+
+<details>
+  <summary>If some libraries are missing you can install them using the following code</summary>
 	
   ```R
   packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot",
@@ -82,17 +94,6 @@ install_load_packages(packages)
   ```
 </details>
 
-	
-```R
-
-# Load required libraries and source functions
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
-          "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
-         
-source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R"); 
-source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R"); 
-source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R"); 
-```
 
 Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
 
