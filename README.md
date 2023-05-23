@@ -10,7 +10,7 @@ The tool consists of two main steps:
 For more information, please refer to original publication [to be filled].
 <br>
 <hr>
-<b><h2>TBD workflow</h2></b>
+<b>dddd</b>
 <span align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/workflow.png">
 </span>
