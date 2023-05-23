@@ -26,31 +26,73 @@ We created a comprehensive dataset that combines transcriptional changes observe
 <br>
 
 
-## Prediciting subclone specific drug combinations 
+## Categorizing cells into normal / malignant
 <br>
 
-### Step -1: Load required functions
+### Step 0: Load libraries and process the data
+
+Let's first load all required libraries and source functions. If some libraries are missing you can install them using the following code <details>
+  <summary>Click here</summary>
+  ```R
+  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot",
+			  "Rcpp","Rclusterpp","parallel","biomaRt","logger","httr", "jsonlite", "readr")
+
+install_load_packages <- function(packages){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+  if (!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
+
+  sapply(packages, function(pkg){
+    if (!require(pkg, character.only = TRUE)){
+      if (pkg %in% c("copykat", "yaGST", "SCEVAN", "Rclusterpp")) {
+        tryCatch({
+          if (pkg == "copykat") {
+            devtools::install_github("navinlabcode/copykat")
+          } else if (pkg == "yaGST") {
+            devtools::install_github("miccec/yaGST")
+          } else if (pkg == "SCEVAN") {
+            devtools::install_github("AntonioDeFalco/SCEVAN")
+          } else if (pkg == "Rclusterpp") {
+            devtools::install_github("nolanlab/Rclusterpp")
+          }
+          library(pkg, character.only = TRUE)
+        }, error = function(e){
+          install_from_CRAN_or_Bioconductor(pkg)
+        })
+      } else {
+        install_from_CRAN_or_Bioconductor(pkg)
+      }
+    }
+  })
+}
+
+install_from_CRAN_or_Bioconductor <- function(pkg) {
+  tryCatch({
+    install.packages(pkg); library(pkg, character.only = TRUE)
+  }, error = function(e){
+    BiocManager::install(pkg); library(pkg, character.only = TRUE)
+  })
+}
+
+install_load_packages(packages)
+
+  ```
+</details>. 
+
 ```R
 
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN",
-"cowplot","Rcpp","Rclusterpp","parallel","biomaRt","infercnv","logger","httr",
-"jsonlite", "readr"), library, character.only = !0)
+# Load required libraries and source functions
+lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
+          "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
          
 source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R"); 
 source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R"); 
 source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R"); 
-
 ```
-### Step 0: Process the data
-Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process.
 
-First, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
-
-
-```R
-# Load example dataset or upload your own expression matrix (rows - genes, column - cells) as e.g.: data = read.table("exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t").
-data <- read_zip("https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip")
-patient_sample = CreateSeuratObject(counts = data)
+Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
 
 # simple filtering
 patient_sample[["percent.mt"]] = PercentageFeatureSet(patient_sample, pattern = "^MT-")
