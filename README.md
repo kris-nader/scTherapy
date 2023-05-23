@@ -41,15 +41,41 @@ To train the LightGBM model, a comprehensive dataset was compiled with the objec
 Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. This involves implementing a pre-processing workflow for quality control, normalization, identification of highly variable genes, scaling, and performing principal component analysis (PCA), followed by Uniform Manifold Approximation and Projection (UMAP) or t-Distributed Stochastic Neighbor Embedding (t-SNE). For this we recommend users follow the 
 <a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
 
-### Step 0: Load the data and the functions
+### Step -1: Load the data and the functions
+
+### Step 0: Process the data
 ```R
-patient_sample=readRDS("./example_data.RDS")
+data = read.table("exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t")
+patient_sample = CreateSeuratObject(counts = data)
+
+# simple filtering
+patient_sample[["percent.mt"]] = PercentageFeatureSet(patient_sample, pattern = "^MT-")
+VlnPlot(patient_sample, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+patient_sample = subset(patient_sample, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
+
+# normalize data
+patient_sample = NormalizeData(patient_sample, normalization.method = "LogNormalize", scale.factor = 10000)
+patient_sample = FindVariableFeatures(patient_sample, selection.method = "vst", nfeatures = 2000)
+
+# scale and PCA
+patient_sample = ScaleData(patient_sample, features = rownames(patient_sample))
+patient_sample = RunPCA(patient_sample, features = VariableFeatures(object = patient_sample))
+
+# check number of PC 
+ElbowPlot(patient_sample)
+
+# clustering 
+patient_sample = FindNeighbors(patient_sample, dims = 1:10)
+seurat_object1 = FindClusters(patient_sample, resolution = 0.8)
+seurat_object1 = RunUMAP(patient_sample, dims = 1:10)
+
+#visualize
+DimPlot(patient_sample, reduction = "umap")
 ```
 ### Step 1: Automated Cell type annotation with ScType
 In this step, we utilize a standard ScType workflow, which requires the single cell RNAseq object and the tissue type of interest as input. By default, the function employs the predefined scType database, containing markers for various tissues such as the immune system, pancreas, liver, eye, kidney, brain, lung, adrenal gland, heart, intestine, muscle, placenta, spleen, stomach, and thymus. We refer users to the <a href="https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx">ScTypeDB</a> for more information on the defined cell markers.
 
 Users can easily customize the analysis by uploading their own custom marker database for their specific tissue of interest using the `custom_marker_db` parameter. In short, the custom marker database should resemble that of the ScTypeDB(xlsx format) with four columns (tissue type, cell name, geneSymbolmore 1-- positive markers , and geneSymbolmore2--negative markers). In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `tissue=Immune System` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
-
 
 ```R
 patient_sample=run_sctype(patient_sample,tissue="Immune system",plot=FALSE)
