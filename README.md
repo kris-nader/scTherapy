@@ -5,7 +5,7 @@ We introduce NAME, a computational framework that uses only single-cell transcri
 
 <br>
 <b><h2>TBD workflow</h2></b>
-<span align="center"> 
+<span align="center" style="margin: 0 auto; display: table;"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png" width="70%" style="width:70%">
 </span>
 
