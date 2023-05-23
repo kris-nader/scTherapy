@@ -3,19 +3,18 @@
   
 We introduce NAME, a computational framework that uses only single-cell transcriptomic data to predict personalized monotherapies and multi-targeting drug combinations for cancer patients.
 
+<br>
+<b><h2>TBD workflow</h2></b>
+<span align="center"> 
+<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png" width="70%" style="width:70%">
+</span>
+
 The tool consists of two main steps:
 1. Our tool utilizes a semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
 2. Next, it identifies differentially expressed genes between healthy and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to healthy cells <i>(Fig 1, panel b)</i>.
 
 For more information, please refer to original publication [to be filled].
 <br><br>
-<b><h2>TBD workflow</h2></b>
-<span align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png">
-</span>
-
-
-<hr><br>
 
 
 ## Categorizing cells into malignant and healthy
