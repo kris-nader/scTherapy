@@ -7,13 +7,10 @@
 
 ##
 <br><br>
-
-<br>
-<b><h2>TBD workflow</h2></b>
 <p align="center">
   <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png" width="70%">
 </p>
-
+<br>
 The tool consists of two main steps:
 1. Our tool utilizes a semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
 2. Next, it identifies differentially expressed genes between healthy and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to healthy cells <i>(Fig 1, panel b)</i>.
