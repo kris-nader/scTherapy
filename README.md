@@ -30,7 +30,7 @@ We created a comprehensive dataset that combines transcriptional changes observe
 
 ### Step 0: Load libraries and process the data
 
-Let's first load all required libraries and source functions.  
+First, let's load all the necessary libraries and source functions required for the analysis.
 
 ```R
 
