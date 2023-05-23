@@ -8,8 +8,29 @@
 # and Aleksandr Ianevski <aleksandr.ianevski@helsinki.fi> , April 2021
 #
 # Functions on this page:
-# sctype_source,copykat_source,run_scType,run_copyKat,run_SCEVAN,run_ensemble,visualize_ensemble_step
+# read_zip,sctype_source,copykat_source,run_scType,run_copyKat,run_SCEVAN,run_ensemble,visualize_ensemble_step
 #
+
+#' @title Read data from a zip file
+#' @name read_zip
+#' @description Read data from a zip file.
+#' @param url The URL of the zip file.
+#' @return The data file in dataframe format.
+#' @export
+#' @examples
+#' data = read_zip("https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip")
+#' 
+
+read_zip <- function(url) {
+  temp_zip <- tempfile(); temp_dir <- tempdir(); download.file(url, temp_zip)
+  file_inside_zip <- unzip(temp_zip, list = TRUE)$Name[1]
+  unzip(temp_zip, files = file_inside_zip, exdir = temp_dir)
+  data <- suppressWarnings(data.table::fread(file.path(temp_dir, file_inside_zip)) %>% as.data.frame())
+  rownames(data) <- data[[1]]; data <- data[,-1]
+  return(data)
+}
+
+
 
 
 #' @title sctype source files
