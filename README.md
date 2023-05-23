@@ -44,7 +44,7 @@ Although most tools in this analysis require the raw count matrix, it is benefic
 ### Step -1: Load the data and the functions
 
 ### Step 0: Process the data
-First, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. The raw data can be found ([here]([https://clue.io/about](https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip))).
+First, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster the scRNA-seq expression matrix using Seurat (see Seurat tutorial for more details, <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">https://satijalab.org/seurat/articles/pbmc3k_tutorial.html</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
 
 ```R
 # Load example dataset or upload your own expression matrix (rows - genes, column - cells) as e.g.: data = read.table("exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t").
