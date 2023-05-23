@@ -1,7 +1,12 @@
 # Identification of clone-specific and cancer-selective multi-targeting therapeutic options based on single-cell transcriptomic profiles of cancer patients
 <br>
+
+**Article**: [to be filled]
   
-We introduce NAME, a computational framework that uses only single-cell transcriptomic data to predict personalized monotherapies and multi-targeting drug combinations for cancer patients.
+<p style="text-align:justify;"> <b>XXX</b> is a computational framework to predict personalized monotherapies and multi-targeting drug combinations for cancer patients using only single-cell transcriptomic data.</p>
+
+##
+<br><br>
 
 <br>
 <b><h2>TBD workflow</h2></b>
