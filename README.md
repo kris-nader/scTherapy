@@ -1,12 +1,13 @@
 # Identification of clone-specific and cancer-selective multi-targeting therapeutic options based on single-cell transcriptomic profiles of cancer patients
 <br>
   
-We introduce NAME, a computational framework for predicting drug combinations based solely on scRNA-seq data.
+We introduce NAME, a computational framework that uses only single-cell transcriptomic data to predict personalized monotherapies and multi-targeting drug combinations for cancer patients.
 
-This tool is based on identification of genetically distinct cancer cell populations(clones), and their transcriptomic differences in individual patient samples, compared to non-malignant healthy cells from the same sample, and then leveraging a reference database of large-scale phenotypic profiles (both transcriptomic and viability readouts) measured in cancer cell lines in response to single-drug perturbations to pre-train a gradient boosting ML model that predicts drug response differences across cell populations.
+The tool consists of two main steps:
+1. Our tool utilizes a semi-automated approach to categorize cells into normal and malignant, followed by the separation of malignant cells into subpopulations/clones.
+2. Next, it identifies differentially expressed genes between normal and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to normal cells.
 
-When applied to patient samples, the model outcome is a list of effective multi-targeting options (either targeted-agents, chemotherapies, or their combinations) that selectively co-inhibit the key cancer subpopulations in the given patient sample, in comparison to non-malignant cell populations. The **concentration-specific drug response predictions** come with confidence quantification to guide the translational applications. 
-
+For more information, please refer to original publication [to be filled].
 <br>
 
 ## TBD workflow
