@@ -133,7 +133,7 @@ DimPlot(patient_sample, reduction = "umap")
 
 ### Step 1: Automated Cell type annotation with ScType
 <p>In this step, we use our method for fully-automated cell type annotation called ScType. It only requires a single-cell RNAseq object and the name of the tissue type as input, please see ScType GitHub for more details: <a href="https://github.com/IanevskiAleksandr/sc-type">ScType</a>. </p>
-<p>For our AML patient sample, we specify `known_tissue_type` as `Immune system`, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.</p>
+<p>For our AML patient sample, we specify <code>known_tissue_type</code> as <code>Immune system</code>, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.</p>
 
 ```R
 patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
@@ -141,8 +141,8 @@ patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=
 <br>
 
 ### Step 2: Identification of malignant/healthy clusters
-<p>In this step, we use an ensemble of three tools <i>(CopyKat, scType+new markers, and SCEVAN)</i> to confidently classify cells into malignant and healthy groups. To enhance accuracy, we recommend providing prior knowledge of a confident healthy cell cluster as input to `runEnsemble` function.</p>
-<p>Here, we provide `T cells` as confident healthy cell cluster, given that <code>T cells<code> are considered as normal cells in AML [10.1016/j.cell.2019.01.031](https://doi.org/10.1016/j.cell.2019.01.031)</p>
+<p>In this step, we use an ensemble of three tools <i>(CopyKat, scType+new markers, and SCEVAN)</i> to confidently classify cells into malignant and healthy groups. To enhance accuracy, we recommend providing prior knowledge of a confident healthy cell cluster as input to <code>runEnsemble</code> function.</p>
+<p>Here, we provide <code>T cells</code> as confident healthy cell cluster, given that <code>T cells</code> are considered as normal cells in AML [10.1016/j.cell.2019.01.031](https://doi.org/10.1016/j.cell.2019.01.031)</p>
 
 ```R
 norm_cells=get_normal_cells(patient_sample,c("Memory CD4+ T cells","CD8+ NKT-like cells"))
