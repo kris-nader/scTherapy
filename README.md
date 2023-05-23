@@ -29,12 +29,11 @@ We created a comprehensive dataset that combines transcriptional changes observe
 ## Prediciting subclone specific drug combinations 
 <br>
 
-### Step -1: Load the data and the functions
+### Step -1: Load required functions
 ```R
 
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN",
-         "cowplot","Rcpp","Rclusterpp","parallel","biomaRt","infercnv","logger","httr",
-         "jsonlite", "readr"), library, character.only = T)
+lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot","Rcpp","Rclusterpp",
+          "parallel","biomaRt","infercnv","logger","httr", "jsonlite", "readr"), library, character.only = !0)
          
 source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R"); 
 source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R"); 
