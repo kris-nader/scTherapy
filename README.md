@@ -130,7 +130,8 @@ patient_sample = RunUMAP(patient_sample, dims = 1:10)
 DimPlot(patient_sample, reduction = "umap")
 ```
 ### Step 1: Automated Cell type annotation with ScType
-In this step, we use our method for fully-automated cell type annotation called ScType. It only requires a single-cell RNAseq object and the name of the tissue type as input, please see ScType GitHub for more details: [ScType](https://github.com/IanevskiAleksandr/sc-type). For our AML patient sample, we specify `known_tissue_type` as `Immune system`, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.
+In this step, we use our method for fully-automated cell type annotation called ScType. It only requires a single-cell RNAseq object and the name of the tissue type as input, please see ScType GitHub for more details: [ScType](https://github.com/IanevskiAleksandr/sc-type). 
+For our AML patient sample, we specify `known_tissue_type` as `Immune system`, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.
 
 ```R
 patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=FALSE)
