@@ -34,7 +34,7 @@ We created a comprehensive dataset that combines transcriptional changes observe
 
 lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN",
          "cowplot","Rcpp","Rclusterpp","parallel","biomaRt","infercnv","logger","httr",
-         "jsonlite", "readr",), library, character.only = T)
+         "jsonlite", "readr"), library, character.only = T)
          
 source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R"); 
 source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R"); 
