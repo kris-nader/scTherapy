@@ -8,9 +8,8 @@ The tool consists of two main steps:
 2. Next, it identifies differentially expressed genes between normal and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to normal cells.
 
 For more information, please refer to original publication [to be filled].
-<br>
-<hr>
-<b><h2 style="border-bottom: none;">TBD workflow</h2></b>
+<br><br>
+<b><h2>TBD workflow</h2></b>
 <span align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/workflow.png">
 </span>
