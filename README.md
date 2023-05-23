@@ -46,9 +46,9 @@ lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN",
          "cowplot","Rcpp","Rclusterpp","parallel","biomaRt","infercnv","logger","httr",
          "jsonlite", "readr",), library, character.only = T)
          
-source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R); 
-source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R); 
-source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R); 
+source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R"); 
+source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R"); 
+source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R"); 
 
 ```
 ### Step 0: Process the data
