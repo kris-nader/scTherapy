@@ -129,6 +129,7 @@ patient_sample = FindClusters(patient_sample, resolution = 0.8)
 patient_sample = RunUMAP(patient_sample, dims = 1:10)
 DimPlot(patient_sample, reduction = "umap")
 ```
+<br>
 ### Step 1: Automated Cell type annotation with ScType
 <p>In this step, we use our method for fully-automated cell type annotation called ScType. It only requires a single-cell RNAseq object and the name of the tissue type as input, please see ScType GitHub for more details: [ScType](https://github.com/IanevskiAleksandr/sc-type). </p>
 <p>For our AML patient sample, we specify `known_tissue_type` as `Immune system`, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.</p>
@@ -136,6 +137,7 @@ DimPlot(patient_sample, reduction = "umap")
 ```R
 patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
 ```
+<br>
 ### Step 2: Identification of malignant/normal clusters
 In this step, we use multiple tools to generate a confident ensemble prediction. To improve the accuracy of the predictions, we recommend using the normal cells identified in step 1 as input for copyKat and SCEVAN. The `runEnsemble` function executes each tool (copyKat, scType+new markers, SCEVAN) and computes the ensemble prediction. 
 
