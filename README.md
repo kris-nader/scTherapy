@@ -44,7 +44,7 @@ source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R");
 ```
 
 <details>
-  <summary>If some libraries are missing you can install them using the following code</summary>
+  <summary>If some libraries are missing you can install them by clicking <b>here</b></summary>
 	
 	
   ```R
