@@ -103,6 +103,11 @@ install_load_packages(packages)
 	
 
  ```R
+# Load example dataset 
+# You can also upload your own expression matrix: data = read.table("your.exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t").
+data <- read_zip("https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip")
+patient_sample = CreateSeuratObject(counts = data)	
+	
 # simple filtering
 patient_sample[["percent.mt"]] = PercentageFeatureSet(patient_sample, pattern = "^MT-")
 patient_sample = subset(patient_sample, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
