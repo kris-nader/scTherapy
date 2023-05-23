@@ -46,6 +46,7 @@ source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R");
 <details>
   <summary>If some libraries are missing you can install them using the following code</summary>
 	
+	
   ```R
   packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot",
 			  "Rcpp","Rclusterpp","parallel","biomaRt","logger","httr", "jsonlite", "readr")
@@ -92,11 +93,14 @@ install_from_CRAN_or_Bioconductor <- function(pkg) {
 install_load_packages(packages)
 
   ```
+				     
 </details>
 
 
+	
 Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
 
+ ```R
 # simple filtering
 patient_sample[["percent.mt"]] = PercentageFeatureSet(patient_sample, pattern = "^MT-")
 patient_sample = subset(patient_sample, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
