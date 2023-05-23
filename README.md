@@ -120,7 +120,7 @@ patient_sample = FindVariableFeatures(patient_sample, selection.method = "vst", 
 patient_sample = ScaleData(patient_sample, features = rownames(patient_sample))
 patient_sample = RunPCA(patient_sample, features = VariableFeatures(object = patient_sample))
 
-# check number of PC 
+# check number of PC (optional)
 ElbowPlot(patient_sample)
 
 # clustering 
