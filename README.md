@@ -28,7 +28,6 @@ We created a comprehensive dataset that combines transcriptional changes observe
 
 ## Prediciting subclone specific drug combinations 
 <br>
-Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. For this we recommend users follow the <a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
 
 ### Step -1: Load the data and the functions
 ```R
@@ -43,6 +42,8 @@ source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R");
 
 ```
 ### Step 0: Process the data
+Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process.
+
 First, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
 
 
