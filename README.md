@@ -11,7 +11,7 @@ For more information, please refer to original publication [to be filled].
 <br><br>
 <b><h2>TBD workflow</h2></b>
 <span align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_ab.png">
+<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png">
 </span>
 
 Prediction of subclone-specific and cancer-selective compounds is performed in two major steps using only the expression count matrix.
@@ -32,8 +32,9 @@ We created a comprehensive dataset that combines transcriptional changes observe
 ### Step -1: Load required functions
 ```R
 
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot","Rcpp","Rclusterpp",
-          "parallel","biomaRt","infercnv","logger","httr", "jsonlite", "readr"), library, character.only = !0)
+lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN",
+"cowplot","Rcpp","Rclusterpp","parallel","biomaRt","infercnv","logger","httr",
+"jsonlite", "readr"), library, character.only = !0)
          
 source("https://raw.githubusercontent.com/kris-nader/R/identify_mal_norm.R"); 
 source("https://raw.githubusercontent.com/kris-nader/R/identify_subclones.R"); 
