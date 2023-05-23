@@ -51,7 +51,6 @@ patient_sample = CreateSeuratObject(counts = data)
 
 # simple filtering
 patient_sample[["percent.mt"]] = PercentageFeatureSet(patient_sample, pattern = "^MT-")
-VlnPlot(patient_sample, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 patient_sample = subset(patient_sample, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
 
 # normalize data
