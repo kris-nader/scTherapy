@@ -103,7 +103,7 @@ patient_sample=run_infercnv(patient_sample)
 <img src="https://github.com/kris-nader/TBD/blob/main/example_infercnv.png">
 </p>
 
-### Step 4: Comparative analysis of the subclone and normal cluster to extract subclone specific DEG
+### Step 4: Extract subclone specific DEG
 We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
 subcloneA=subclone_DEG(patient_sample,"A","healthy")
