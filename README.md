@@ -37,13 +37,15 @@ To train the LightGBM model, we created a comprehensive dataset that combines tr
 
 ## Prediciting subclone specific drug combinations 
 <br>
-Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. For this we recommend users follow the 
-<a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
+Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. For this we recommend users follow the <a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
 
 ### Step -1: Load the data and the functions
 
 ### Step 0: Process the data
-First, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see Seurat tutorial for more details, <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">https://satijalab.org/seurat/articles/pbmc3k_tutorial.html</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
+First, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. Next, we normalize and cluster our raw count matrix using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">Seurat tutorial for more details</a>). The raw data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip'>here</a>.
+
+
+<a href="https://www.nature.com/articles/s41467-022-28803-w">publication</a>.
 
 ```R
 # Load example dataset or upload your own expression matrix (rows - genes, column - cells) as e.g.: data = read.table("exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t").
