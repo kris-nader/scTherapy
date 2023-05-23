@@ -46,7 +46,8 @@ Although most tools in this analysis require the raw count matrix, it is benefic
 ### Step 0: Process the data
 The initial dataset comprised 15,710 genes and 4,277 cells. However, after implementing the processing steps, the dataset was refined, resulting in a final count of 3,250 cells.
 ```R
-data = read.table("exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t")
+# Load example dataset or upload your own expression matrix (rows - genes, column - cells) as e.g.: data = read.table("exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t").
+data <- read_zip("https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip")
 patient_sample = CreateSeuratObject(counts = data)
 
 # simple filtering
