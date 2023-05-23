@@ -130,7 +130,7 @@ patient_sample = RunUMAP(patient_sample, dims = 1:10)
 DimPlot(patient_sample, reduction = "umap")
 ```
 ### Step 1: Automated Cell type annotation with ScType
-In this step, we use a standard ScType workflow, which requires the single cell RNAseq object and the tissue type of interest as input. We refer users to the <a href="https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx">ScTypeDB</a> for more information on the defined cell markers and to the original <a href="https://www.nature.com/articles/s41467-022-28803-w">publication</a>.
+In this step, we use our method for fully-automated cell type annotation - <a href="https://github.com/IanevskiAleksandr/sc-type">ScType</a>, which requires only single cell RNAseq object and the tissue type of interest as input. Please see ScType GitHub for more details: <a href="https://github.com/IanevskiAleksandr/sc-type">[ScType](https://github.com/IanevskiAleksandr/sc-type)</a>.
 
 In this tutorial, the sample was derived from a patient with Acute Myeloid Leukemia (AML), and we will identify cell types using `known_tissue_type=Immune system` parameter. The resulting cell types can be visualized on the UMAP using `Seurat::DimPlot`.
 
