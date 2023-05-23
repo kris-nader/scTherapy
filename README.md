@@ -5,9 +5,9 @@ We introduce NAME, a computational framework that uses only single-cell transcri
 
 <br>
 <b><h2>TBD workflow</h2></b>
-<span align="center" style="margin: 0 auto; display: table;"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png" width="70%" style="width:70%">
-</span>
+<p align="center">
+  <img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_workflow.png" width="70%">
+</p>
 
 The tool consists of two main steps:
 1. Our tool utilizes a semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
