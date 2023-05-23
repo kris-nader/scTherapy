@@ -37,7 +37,7 @@ To train the LightGBM model, we created a comprehensive dataset that combines tr
 
 ## Prediciting subclone specific drug combinations 
 <br>
-Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. This involves implementing a pre-processing workflow for quality control, normalization, identification of highly variable genes, scaling, and performing principal component analysis (PCA), followed by Uniform Manifold Approximation and Projection (UMAP) or t-Distributed Stochastic Neighbor Embedding (t-SNE). For this we recommend users follow the 
+Although most tools in this analysis require the raw count matrix, it is beneficial to visualize the data at each step of the process. For this we recommend users follow the 
 <a href='https://satijalab.org/seurat/articles/pbmc3k_tutorial.html' >Seurat-Guided Clustering Tutorial</a>.
 
 ### Step -1: Load the data and the functions
