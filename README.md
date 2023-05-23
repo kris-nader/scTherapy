@@ -48,6 +48,7 @@ source("https://raw.githubusercontent.com/kris-nader/R/predict_compounds.R");
 	
 	
   ```R
+# run this code to install required libraries
   packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot",
 			  "Rcpp","Rclusterpp","parallel","biomaRt","logger","httr", "jsonlite", "readr")
 
