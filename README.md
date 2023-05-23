@@ -4,8 +4,8 @@
 We introduce NAME, a computational framework that uses only single-cell transcriptomic data to predict personalized monotherapies and multi-targeting drug combinations for cancer patients.
 
 The tool consists of two main steps:
-1. Our tool utilizes a semi-automated approach to categorize cells into normal and malignant, followed by the separation of malignant cells into subpopulations/clones.
-2. Next, it identifies differentially expressed genes between normal and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to normal cells.
+1. Our tool utilizes a semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones.
+2. Next, it identifies differentially expressed genes between healthy and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to healthy cells.
 
 For more information, please refer to original publication [to be filled].
 <br><br>
@@ -26,7 +26,7 @@ We created a comprehensive dataset that combines transcriptional changes observe
 <br>
 
 
-## Categorizing cells into normal / malignant
+## Categorizing cells into malignant and healthy
 
 ### Step 0: Load libraries and process the data
 
