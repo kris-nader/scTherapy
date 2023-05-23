@@ -11,7 +11,7 @@ For more information, please refer to original publication [to be filled].
 <br><br>
 <b><h2>TBD workflow</h2></b>
 <span align="center"> 
-<img src="https://github.com/kris-nader/TBD/blob/main/full_workflow_ensemble.png">
+<img src="https://github.com/kris-nader/TBD/blob/main/ensemble_pred_ab.png">
 </span>
 
 Prediction of subclone-specific and cancer-selective compounds is performed in two major steps using only the expression count matrix.
