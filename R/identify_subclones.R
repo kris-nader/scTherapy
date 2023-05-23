@@ -145,12 +145,12 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
         grouping_structure[healthy,"cell_group_name"]="healthy"
     }
     seurat_object1=seurat_object
-    seurat_object1@meta.data[rownames(grouping_structure),"infercnvgroupings_1"]=grouping_structure[rownames(grouping_structure),"cell_group_name"]
+    seurat_object1@meta.data[rownames(grouping_structure),"infercnvgroupings"]=grouping_structure[rownames(grouping_structure),"cell_group_name"]
     
     # Add subclones to Seurat object metadata
-    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.1.")),"infercnv_broad_groupings_1"]="A"
-    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"1.2.")),"infercnv_broad_groupings_1"]="B"
-    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings_1,"healthy")),"infercnv_broad_groupings_1"]="healthy"
+    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings,"1.1.")),"infercnv_broad_groupings"]="A"
+    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings,"1.2.")),"infercnv_broad_groupings"]="B"
+    seurat_object1@meta.data[which(startsWith(seurat_object1@meta.data$infercnvgroupings,"healthy")),"infercnv_broad_groupings"]="healthy"
 
     return(seurat_object1)
 }
@@ -175,7 +175,7 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
 
 subclone_DEG <- function(seurat_object, subclone = NULL, known_normal_cells="healthy"){
     temp=seurat_object
-    Idents(temp)=temp@meta.data$infercnv_broad_groupings_1
+    Idents(temp)=temp@meta.data$infercnv_broad_groupings
     degRes_subcome = FindMarkers(object = temp, ident.1 = subclone, ident.2 = known_normal_cells, min.pct = -Inf, logfc.threshold = -Inf,
                         min.cells.feature = 1, min.cells.group = 1,test.use="wilcox")
     return(degRes_subcome)                           
