@@ -20,9 +20,9 @@ For more information, please refer to original publication [to be filled].
 <br><br>
 
 
-## Categorizing cells into malignant and healthy
+## Step 1: Categorizing cells into malignant and healthy groups
 
-### Step 0: Load libraries and process the data
+### 1.0: Load libraries and process the data
 
 <p>First, let's load all the necessary libraries and source functions required for the analysis.</p>
 
@@ -125,7 +125,7 @@ DimPlot(patient_sample, reduction = "umap")
 ```
 <br>
 
-### Step 1: Automated Cell type annotation with ScType
+### Step 1.1: Automated Cell type annotation with ScType
 <p>In this step, we use our method for fully-automated cell type annotation called ScType. It only requires a single-cell RNAseq object and the name of the tissue type as input, please see ScType GitHub for more details: <a href="https://github.com/IanevskiAleksandr/sc-type">ScType</a>. </p>
 <p>For our AML patient sample, we specify <code>known_tissue_type</code> as <code>Immune system</code>, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.</p>
 
@@ -134,7 +134,7 @@ patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=
 ```
 <br>
 
-### Step 2: Identification of malignant/healthy clusters
+### Step 1.2: Identification of malignant/healthy clusters
 <p>In this step, we use an ensemble of three tools <i>(CopyKat, scType+new markers, and SCEVAN)</i> to confidently classify cells into malignant and healthy groups. To enhance accuracy, we recommend providing prior knowledge of a confident healthy cell cluster as input to <code>runEnsemble</code> function.</p>
 <p>Here, we provide <code>T cells</code> as confident healthy cell cluster, given that <code>T cells</code> are considered as normal cells in AML [10.1016/j.cell.2019.01.031](https://doi.org/10.1016/j.cell.2019.01.031)</p>
 
@@ -148,7 +148,7 @@ visualize_ensemble_step(patient_sample)
 <img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble.png">
 </p>
 
-### Step 3: Identification of genetically distinct subclones
+### Step 1.3: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
 ```R
 patient_sample=run_infercnv(patient_sample)
@@ -157,14 +157,14 @@ patient_sample=run_infercnv(patient_sample)
 <img src="https://github.com/kris-nader/TBD/blob/main/example_infercnv.png">
 </p>
 
-### Step 4: Extract subclone specific DEG
+### Step 1.4: Extract subclone specific DEG
 We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
 subcloneA=subclone_DEG(patient_sample,"A","healthy")
 subcloneB=subclone_DEG(patient_sample,"B","healthy")
 ```
 
-### Step 5: Use subclone specific DEG as input to the pre-trained LightGBM model.
+### Step 1.5: Use subclone specific DEG as input to the pre-trained LightGBM model.
 First, we begin by filtering the differentially expressed genes based on 2 critera:
 1. (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) 
 2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
