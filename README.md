@@ -43,38 +43,40 @@ source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compound
 	
   ```R
 # run this code to install required libraries
-  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2","SCEVAN", "cowplot",
+  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatcpp","ggplot2","SCEVAN", "cowplot",
 			  "Rcpp","Rclusterpp","parallel","biomaRt","logger","httr", "jsonlite", "readr")
-
+	      
 install_load_packages <- function(packages){
-  if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-  if (!requireNamespace("devtools", quietly = TRUE))
-    install.packages("devtools")
-
-  sapply(packages, function(pkg){
-    if (!require(pkg, character.only = TRUE)){
-      if (pkg %in% c("copykat", "yaGST", "SCEVAN", "Rclusterpp")) {
-        tryCatch({
-          if (pkg == "copykat") {
-            devtools::install_github("navinlabcode/copykat")
-          } else if (pkg == "yaGST") {
-            devtools::install_github("miccec/yaGST")
-          } else if (pkg == "SCEVAN") {
-            devtools::install_github("AntonioDeFalco/SCEVAN")
-          } else if (pkg == "Rclusterpp") {
-            devtools::install_github("nolanlab/Rclusterpp")
-          }
-          library(pkg, character.only = TRUE)
-        }, error = function(e){
-          install_from_CRAN_or_Bioconductor(pkg)
-        })
-      } else {
-        install_from_CRAN_or_Bioconductor(pkg)
-      }
-    }
-  })
+    if (!requireNamespace("BiocManager", quietly = TRUE))
+        install.packages("BiocManager")
+    
+    if (!requireNamespace("devtools", quietly = TRUE))
+        install.packages("devtools")
+    
+    sapply(packages, function(pkg){
+        if (!require(pkg, character.only = TRUE)){
+            if (pkg %in% c("copykat", "yaGST", "SCEVAN", "Rclusterpp")) {
+                tryCatch({
+                    if (pkg == "copykat") {
+                        devtools::install_github("navinlabcode/copykat")
+                    } else if (pkg == "yaGST") {
+                        devtools::install_github("miccec/yaGST")
+                    } else if (pkg == "SCEVAN") {
+                        devtools::install_github("AntonioDeFalco/SCEVAN")
+                    } else if (pkg == "Rclusterpp") {
+                        devtools::install_github("nolanlab/Rclusterpp")
+                    }else if (pkg == "copykatcpp") {
+                        devtools::install_github("kris-nader/copykatcpp")
+                    }
+                    library(pkg, character.only = TRUE)
+                }, error = function(e){
+                    install_from_CRAN_or_Bioconductor(pkg)
+                })
+            } else {
+                install_from_CRAN_or_Bioconductor(pkg)
+            }
+        }
+    })
 }
 
 install_from_CRAN_or_Bioconductor <- function(pkg) {
