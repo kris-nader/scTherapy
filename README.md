@@ -136,7 +136,7 @@ patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=
 
 ### Step 1.2: Identification of malignant/healthy clusters
 <p>In this step, we use an ensemble of three tools <i>(CopyKat, scType+new markers, and SCEVAN)</i> to confidently classify cells into malignant and healthy groups. To enhance accuracy, we recommend providing prior knowledge of a confident healthy cell cluster as input to <code>runEnsemble</code> function.</p>
-<p>Here, we provide <code>T cells</code> as confident healthy cell cluster, given that <code>T cells</code> are considered as normal cells in AML <a href="https://doi.org/10.1016/j.cell.2019.01.031">PMID:30827681</a></p>
+<p>Here, we provide <code>T cells</code> as confident healthy cell cluster, given that <code>T cells</code> are considered as normal cells in AML - <a href="https://doi.org/10.1016/j.cell.2019.01.031">PMID:30827681</a></p>
 
 ```R
 norm_cells=get_normal_cells(patient_sample,c("Memory CD4+ T cells","CD8+ NKT-like cells"))
