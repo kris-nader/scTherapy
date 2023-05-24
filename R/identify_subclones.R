@@ -8,7 +8,7 @@
 # and Aleksandr Ianevski <aleksandr.ianevski@helsinki.fi> , April 2021
 #
 # Functions on this page:
-# get_gene_annotation,get_normal_cells,run_infercnv
+# get_gene_annotation,get_reference_cells,run_infercnv
 #
 
 
