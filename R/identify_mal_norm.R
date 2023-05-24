@@ -67,12 +67,12 @@ sctype_source <- function(){
 #' copykat_source()
 #' 
 
-copykat_source <- function(){
+#copykat_source <- function(){
   # load Rcpp helper functions for faster run time
-  #Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp")
+ # #Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp")
   # load modified copykat 
-  source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
-}
+ # source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
+#}
 
 #' @title Load modified scevan functions
 #' @name scecan_source
@@ -217,11 +217,11 @@ get_normal_cells <- function(seurat_object, names_of_cell_types, column_name = "
 
 # tested- yes
 run_copyKat <- function(seurat_object, known_normal_cells=NULL, plot=FALSE,ncores = 4,genome=NULL){
-  copykat_source()
+  #copykat_source()
   # Extract count matrix
   count_mtx = as.matrix(seurat_object@assays$RNA@counts)
   # Run CopyKAT analysis
-  copykat.test = rcpp_copykat(rawmat = count_mtx, id.type = "S", ngene.chr = 5, 
+  copykat.test = copykatcpp::rcpp_copykat(rawmat = count_mtx, id.type = "S", ngene.chr = 5, 
                               win.size = 25, KS.cut = 0.1, sam.name = "test", 
                               distance = "euclidean",norm.cell.names = known_normal_cells,
                               output.seg = FALSE,plot.genes = FALSE, genome = genome,
