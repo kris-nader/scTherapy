@@ -67,7 +67,7 @@ get_gene_annotation <- function(seurat_object){
 #' annotation_file_for_infer <- get_normal_cells(seurat_object, known_normal_cells)
 #' @export
 
-get_normal_cells_infercnv <- function(seurat_object, known_normal_cells = NULL) {
+get_reference_cells <- function(seurat_object, known_normal_cells = NULL) {
     # Get cell classifications from Seurat object
     annotation_file_for_infer = seurat_object@meta.data[,"ensemble_output", drop=!1]
     # If no known normal cells were provided, use the information from step 1: ensemble_output
@@ -103,9 +103,9 @@ get_normal_cells_infercnv <- function(seurat_object, known_normal_cells = NULL) 
 
 run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
     # Get gene annotation
-    genes_annot <- get_gene_annotation(seurat_object)
+    genes_annot = get_gene_annotation(seurat_object)
     # Get normal cells for annotation
-    annotation_file_for_infer <- get_normal_cells_infercnv(seurat_object, known_normal_cells)
+    annotation_file_for_infer = get_reference_cells(seurat_object, known_normal_cells)
     
     # Create InferCNV object
     infercnv_obj <- infercnv::CreateInfercnvObject(
