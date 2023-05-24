@@ -22,7 +22,7 @@ For more information, please refer to original publication [to be filled].
 
 ## Step 1: Categorizing cells into malignant and healthy groups
 
-### 1.0: Load libraries and process the data
+### Step 1.0: Load libraries and process the data
 
 <p>First, let's load all the necessary libraries and source functions required for the analysis.</p>
 
