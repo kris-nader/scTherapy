@@ -158,7 +158,7 @@ link to this [Tutorial to predict monotherpies using malignant specific DEG](htt
 [Tutorial to predict monotherpies using malignant specific DEG](#tutorial-to-predict-monotherpies-using-malignant-specific-DEG)
 	
 	
-link to this [Tutorial to predict combination therapies using subclone specific DEG](https://github.com/kris-nader/TBD/edit/main/README.md#tutorial-to-predict-combination-therapies-using-subclone-specific-deg)
+link to this [Tutorial to predict combination therapies using subclone specific DEG](#tutorial-to-predict-combination-therapies-using-subclone-specific-deg)
 
 	
 ## Tutorial to predict monotherpies using malignant specific DEG
