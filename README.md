@@ -18,8 +18,8 @@ The tool consists of two main steps:
 
 For more information, please refer to original publication [to be filled].
 <br><br>
-[hello](#hello)
-## hello
+
+
 ##
 
 ### Step 1.0: Load libraries and process the data
@@ -137,7 +137,6 @@ DimPlot(patient_sample, reduction = "umap")
 patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
 ```
 
-https://github.com/username/TBD#hello
 <br>
 
 ### Step 1.2: Identification of malignant/healthy clusters
@@ -156,7 +155,7 @@ visualize_ensemble_step(patient_sample)
 </p>
 	
 link to this [Tutorial to predict monotherpies using malignant specific DEG](https://github.com/your-username/TBD#hello)
-	
+[Tutorial to predict monotherpies using malignant specific DEG](#tutorial-to-predict-monotherpies-using-malignant-specific-DEG)
 	
 	
 link to this [Tutorial to predict combination therapies using subclone specific DEG](https://github.com/kris-nader/TBD/edit/main/README.md#tutorial-to-predict-combination-therapies-using-subclone-specific-deg)
