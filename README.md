@@ -181,7 +181,7 @@ DEG_malignant=process_DEG(malignant_cells_DEG)
 monotherapy_drugs=predict_drugs(DEG_malignant)
 ```
 	
-## Tutorial 2: Predicting patient specific combination therapies	
+## Tutorial to predict combination therapies using subclone specific DEG
 If investigating tumor subclones is of interest, users can continue with the following steps
 	
 ### Step 1.3: Identification of genetically distinct subclones
