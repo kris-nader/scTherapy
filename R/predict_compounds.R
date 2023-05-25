@@ -24,7 +24,7 @@
 #' @examples
 #' diff_expr_list = process_DEG(degs_list = DEG_subclone)
 #' 
-process_DEG <- function(DEG_list){
+process_DEG <- function(diff_expr){
     diff_expr_df <- diff_expr %>%
         mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
         filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
