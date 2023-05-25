@@ -172,9 +172,9 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
 #' 
 #' @export
 
-clone_DEG <- function(seurat_object, malignant_identifier = NULL, known_normal_cells="healthy",monotherapies=FALSE,save=FALSE){
+clone_DEG <- function(seurat_object, malignant_identifier = NULL, known_normal_cells="healthy",save=FALSE){
     temp=seurat_object
-    if(monotherapies==TRUE){
+    if(malignant_identifier=="malignant"){
     	Idents(temp)=temp@meta.data$ensemble_output
     }
     else{
