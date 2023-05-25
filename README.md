@@ -43,7 +43,7 @@ source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compound
 	
   ```R
 # run this code to install required libraries
-  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatcpp","ggplot2","SCEVAN", "cowplot",
+  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2","SCEVAN", "cowplot",
 			  "Rcpp","Rclusterpp","parallel","biomaRt","logger","httr", "jsonlite", "readr")
 	      
 install_load_packages <- function(packages){
@@ -65,8 +65,8 @@ install_load_packages <- function(packages){
                         devtools::install_github("AntonioDeFalco/SCEVAN")
                     } else if (pkg == "Rclusterpp") {
                         devtools::install_github("nolanlab/Rclusterpp")
-                    }else if (pkg == "copykatcpp") {
-                        devtools::install_github("kris-nader/copykatcpp")
+                    }else if (pkg == "copykatRcpp") {
+                        devtools::install_github('IanevskiAleksandr/copykatRcpp')
                     }
                     library(pkg, character.only = TRUE)
                 }, error = function(e){
