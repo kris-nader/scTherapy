@@ -156,8 +156,8 @@ visualize_ensemble_step(patient_sample)
 
 
 Users have the option to choose between two options: making predictions to target the entire malignant tumor mass or exploring clonal lineages to predict combination therapies aimed at targeting specific subclones.
-	1. A tutorial on prediciting single agent therapies: [Predict monotherapies using malignant specific DEG](#predict-monotherapies-using-malignant-specific-DEG)
-	2. A tutorial on prediciting combination therapies: [Predict combination therapies using subclone specific DEG](#predict-combination-therapies-using-subclone-specific-deg). This includes infering clonal architecture within the malignant cluster identified in step 1.2.
+1. A tutorial on prediciting single agent therapies: [Predict monotherapies using malignant specific DEG](#predict-monotherapies-using-malignant-specific-deg)
+2. A tutorial on prediciting combination therapies: [Predict combination therapies using subclone specific DEG](#predict-combination-therapies-using-subclone-specific-deg). This includes infering clonal architecture within the malignant cluster identified in step 1.2.
 
 	
 	
