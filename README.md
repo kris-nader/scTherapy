@@ -28,7 +28,7 @@ For more information, please refer to original publication [to be filled].
 
 ```R
 # Load required libraries and source functions
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
+lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykatRcpp","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
           "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
          
 source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R"); 
