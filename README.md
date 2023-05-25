@@ -185,7 +185,19 @@ If investigating tumor subclones is of interest, users can continue from step 1.
 	
 ### Step 1.3: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 1.2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
+	
+<details>
+  <summary>Help installing infercnv by clicking <b>HERE</b></summary>
+	
+  ```R
+  BiocManager::install("infercnv")
+  ```
+				     
+</details>
+	
 ```R
+# Load required libraries and source functions
+library(infercnv)
 patient_sample=run_infercnv(patient_sample)
 ```
 <p align="center"> 
