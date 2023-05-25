@@ -56,31 +56,6 @@ sctype_source <- function(){
   return(db_)
 }
 
-#' @title Load modified CopyKat functions
-#' @name copykat_source
-#' @description loads modified copykat functions needed for an quick classification of aneuploid/diploid cluster . 
-#' @details none
-#' @param none 
-#' @return 
-#' @export
-#' @examples
-#' copykat_source()
-#' 
-
-#copykat_source <- function(){
-    #load Rcpp helper functions for faster run time
-    # #Rcpp::sourceCpp("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/helper_file.cpp")
-    # load modified copykat 
-    # source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
-    #source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R")
-   # }
-#
-#copykat_source <- function(){
-#  # testing for copykat--no plotting 
-#  # load modified copykat
-#  source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R")
-#}
-
 #' @title Load modified scevan functions
 #' @name scecan_source
 #' @description loads modified scevan functions needed for an quick classification of aneuploid/diploid cluster . 
@@ -224,11 +199,10 @@ get_normal_cells <- function(seurat_object, names_of_cell_types, column_name = "
 
 # tested- yes
 run_copyKat <- function(seurat_object, known_normal_cells=NULL, plot=FALSE,ncores = 4,genome=NULL){
-  # copykat_source()
   # Extract count matrix
   count_mtx = as.matrix(seurat_object@assays$RNA@counts)
   # Run CopyKAT analysis
-  copykat.test = og_copykat(rawmat = count_mtx, id.type = "S", ngene.chr = 5, 
+  copykat.test = rcpp_copykat(rawmat = count_mtx, id.type = "S", ngene.chr = 5, 
                               win.size = 25, KS.cut = 0.1, sam.name = "test", 
                               distance = "euclidean",norm.cell.names = known_normal_cells,
                               output.seg = FALSE,plot.genes = FALSE, genome = genome,
