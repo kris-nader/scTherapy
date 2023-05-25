@@ -73,7 +73,7 @@ copykat_source <- function(){
   # load modified copykat 
  # source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
  source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R"
-#}
+}
 
 #' @title Load modified scevan functions
 #' @name scecan_source
