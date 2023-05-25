@@ -164,7 +164,7 @@ To predict combination therapies, we refer users to the [Tutorial on predicting 
 ### Step 1.3: Extract malignant cluster specific DEG
 At this point, users can use TBD to predict monotherapies to target the malignant cluster identified in step 1.2
 ```R
-malignant_cells_DEG=subclone_DEG(patient_sample,"malignant","healthy",monotherapies=TRUE)
+malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 ```
 ### Step 1.4: Use malignant specific DEG as input to the pre-trained LightGBM model.
 First, we begin by filtering the differentially expressed genes based on 2 critera with <code>process_DEG</code>:
@@ -195,8 +195,8 @@ patient_sample=run_infercnv(patient_sample)
 ### Step 1.4: Extract subclone specific DEG
 We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
-subcloneA=subclone_DEG(patient_sample,"A","healthy")
-subcloneB=subclone_DEG(patient_sample,"B","healthy")
+subcloneA=clone_DEG(patient_sample,malignant_identifier="A",known_normal_cells="healthy",save=FALSE)
+subcloneB=clone_DEG(patient_sample,malignant_identifier="B",known_normal_cells="healthy",save=FALSE)
 ```
 
 ### Step 1.5: Use subclone specific DEG as input to the pre-trained LightGBM model.
