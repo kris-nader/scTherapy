@@ -28,7 +28,7 @@ For more information, please refer to original publication [to be filled].
 
 
 <details>
-  <summary><b>Install libraries by clicking here</b></summary>
+  <summary>Install libraries by clicking <b>HERE</b></summary>
 	
 	
   ```R
