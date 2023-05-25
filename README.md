@@ -217,14 +217,18 @@ First, we begin by filtering the differentially expressed genes based on 2 crite
 2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
 
 ```R
-DEG_A=process_DEG(subcloneA)
-DEG_B=process_DEG(subcloneB)
+# filter subclone "A" specific DEG					 
+DEG_A=process_DEG(diff_expr=subcloneA)                                      
+# filter subclone "B" specific DEG	
+DEG_B=process_DEG(diff_expr=subcloneB)
 ```
 For each run of `predict_drugs`, the model predicts drug:dose based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. 
 
 ```R
-subcloneA_drugs=predict_drugs(DEG_A)
-subcloneB_drugs=predict_drugs(DEG_B)
+# predict subclone A specific drug:dose
+subcloneA_drugs=predict_drugs(degs_list=DEG_A)
+# predict subclone B specific drug:dose
+subcloneB_drugs=predict_drugs(degs_list=DEG_B)
 ```
 
 
@@ -235,7 +239,7 @@ For any questions please contact **Aleksandr Ianevski** [aleksandr.ianevski@hels
 
 ## Copyright and license
 
-Code copyright 2023 TBD, [https://github.com/kris/sc-type/blob/master/LICENSE](https://github.com/kris-nader/TBD/blob/main/LICENSE)
+Code copyright 2023 TBD, [https://github.com/kris-nader/TBD/blob/main/LICENSE](https://github.com/kris-nader/TBD/blob/main/LICENSE)
 
 ## Reference Papers
 1. Ianevski, A., Giri, A. K. &amp; Aittokallio, T. Fully-automated and ultra-fast cell-type identification using specific marker combinations from single-cell transcriptomic data. Nature Communications 13, (2022). 
