@@ -143,6 +143,7 @@ patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=
 <p>Here, we provide <code>T cells</code> as confident healthy cell cluster, given that <code>T cells</code> are considered as normal cells in AML - <a href="https://doi.org/10.1016/j.cell.2019.01.031">PMID:30827681</a></p>
 
 ```R
+# please note that this step is time consuming (~10 minutes for example data), consider running on faster multi-core Linux or MacOS-based PC to speed up this process
 norm_cells=get_normal_cells(patient_sample,c("Memory CD4+ T cells","CD8+ NKT-like cells"))
 patient_sample=run_ensemble(patient_sample,disease="AML",known_normal_cells=norm_cells,plot=FALSE)
 visualize_ensemble_step(patient_sample)
