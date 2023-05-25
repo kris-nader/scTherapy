@@ -155,33 +155,38 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
 }
 
 
-#' @title  Run DEG analysis
-#' @name subclone_DEG
+#' @title Run DEG analysis
+#' @name clone_DEG
 #' @description Identifies differentially expressed clone specific genes
 #' @details 
 #' @param seurat_object a seurat object after identification of subclones( see run_infercnv for more information)
-#' @param subclone: subclone of interest
-#' @param known_normal_cells: known and annotated normal cell names default: will use those identified in step 1 
-#' @return clone specific DEGs
+#' @param malignant_identifier: either "malignant" (from run_ensemble) or sublcone "A" or "B" (from run_infercnv)
+#' @param known_normal_cells: known and annotated normal cell names default: will use those identified in run_ensemble
+#' @return cluster specific DEGs
 #' 
 #' @import Seurat
 #' 
 #' @export
 #' @examples
-#' seurat_object <- subclone_DEG(seurat_object, subclone="A",known_normal_cells ="healthy")
+#' seurat_object <- clone_DEG(seurat_object, malignant_identifier="A",known_normal_cells ="healthy",monotherapies=FALSE)
 #' 
 #' @export
 
-subclone_DEG <- function(seurat_object, subclone = NULL, known_normal_cells="healthy",save=FALSE){
+clone_DEG <- function(seurat_object, malignant_identifier = NULL, known_normal_cells="healthy",monotherapies=FALSE,save=FALSE){
     temp=seurat_object
-    Idents(temp)=temp@meta.data$infercnv_broad_groupings
-    degRes_subcome = FindMarkers(object = temp, ident.1 = subclone, ident.2 = known_normal_cells, min.pct = -Inf, logfc.threshold = -Inf,
+    if(monotherapies==TRUE){
+    	Idents(temp)=temp@meta.data$ensemble_output
+    }
+    else{
+    	Idents(temp)=temp@meta.data$infercnv_broad_groupings
+    }
+    degRes_ = FindMarkers(object = temp, ident.1 = malignant_identifier, ident.2 = known_normal_cells, min.pct = -Inf, logfc.threshold = -Inf,
                                  min.cells.feature = 1, min.cells.group = 1,test.use="wilcox")
     if(save==TRUE){
-        file_name=paste0("./DEG_",subclone,"_healthy.txt")
-        write.table(degRes_subcome,file=file_name,quote=FALSE)
+        file_name=paste0("./DEG_",malignant_identifier,"_healthy.txt")
+        write.table(degRes_,file=file_name,quote=FALSE)
     }
-    return(degRes_subcome)                           
+    return(degRes_)                           
 }
 
 
