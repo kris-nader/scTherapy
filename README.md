@@ -154,9 +154,9 @@ visualize_ensemble_step(patient_sample)
 <img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble.png">
 </p>
 	
-To predict single agent therapies. we refer users to the [Tutorial on predicting monotherpies using malignant specific DEG](#tutorial-on-predicting-monotherpies-using-malignant-specific-DEG)
+To predict single agent therapies, [Tutorial on predicting monotherpies using malignant specific DEG](#tutorial-on-predicting-monotherpies-using-malignant-specific-DEG)
 
-To predict combination therapies, we refer users to the [Tutorial on predicting combination therapies using subclone specific DEG](#tutorial-on-predicting-combination-therapies-using-subclone-specific-deg). This includes infering clonal architecture within the malignant cluster identified in step 1.2.
+To predict combination therapies, [Tutorial on predicting combination therapies using subclone specific DEG](#tutorial-on-predicting-combination-therapies-using-subclone-specific-deg). This includes infering clonal architecture within the malignant cluster identified in step 1.2.
 
 	
 	
