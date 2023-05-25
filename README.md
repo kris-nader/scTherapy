@@ -144,7 +144,7 @@ patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=
 
 ```R
 # please note that this step is time consuming (~10 minutes for example data), consider running on faster multi-core Linux or MacOS-based PC to speed up this process
-norm_cells=get_normal_cells(patient_sample,c("Memory CD4+ T cells","CD8+ NKT-like cells"))
+norm_cells=get_normal_cells(patient_sample,c("Memory CD4+ T cells"))
 patient_sample=run_ensemble(patient_sample,disease="AML",known_normal_cells=norm_cells,plot=FALSE)
 visualize_ensemble_step(patient_sample)
 ```
