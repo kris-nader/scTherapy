@@ -74,12 +74,12 @@ sctype_source <- function(){
     # source("https://raw.githubusercontent.com/kris-nader/copykat_faster/main/faster-copykat.R")
     #source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R")
    # }
-
-copykat_source <- function(){
-  # testing for copykat--no plotting 
-  # load modified copykat
-  source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R")
-}
+#
+#copykat_source <- function(){
+#  # testing for copykat--no plotting 
+#  # load modified copykat
+#  source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R")
+#}
 
 #' @title Load modified scevan functions
 #' @name scecan_source
@@ -224,7 +224,7 @@ get_normal_cells <- function(seurat_object, names_of_cell_types, column_name = "
 
 # tested- yes
 run_copyKat <- function(seurat_object, known_normal_cells=NULL, plot=FALSE,ncores = 4,genome=NULL){
-  copykat_source()
+  # copykat_source()
   # Extract count matrix
   count_mtx = as.matrix(seurat_object@assays$RNA@counts)
   # Run CopyKAT analysis
@@ -341,7 +341,9 @@ run_ensemble <- function(seurat_object, disease=NULL,known_normal_cells=NULL,gen
                              custom_marker_file =custom_marker,
                              name="sctype_malignant_healthy")
   # run copykat analysis-- CNA estimation approach
-  seurat_object=run_copyKat(seurat_object,known_normal_cells=known_normal_cells,plot=FALSE,genome="hg20")
+  # Determine the number of cores to use based on OS
+  ncoree <- ifelse(Sys.info()["sysname"] != "Windows", max(1, parallel::detectCores() - 2), 1)
+  seurat_object=run_copyKat(seurat_object,known_normal_cells=known_normal_cells,plot=FALSE,genome="hg20",ncores=ncoree)
   # run SCEVAN analysis-- CNA estimation approach
   seurat_object = run_SCEVAN(seurat_object, 
                              known_normal_cells=known_normal_cells,
