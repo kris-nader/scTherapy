@@ -26,19 +26,9 @@ For more information, please refer to original publication [to be filled].
 
 <p>First, let's load all the necessary libraries and source functions required for the analysis.</p>
 
-```R
-# Load required libraries and source functions
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykatRcpp","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
-          "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
-         
-source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R"); 
-source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_subclones.R"); 
-source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compounds.R"); 
-```
-
 
 <details>
-  <summary>If some libraries are missing you can install them by clicking <b>here</b></summary>
+  <summary>Install libraried by clicking <b>here</b></summary>
 	
 	
   ```R
@@ -92,6 +82,18 @@ install_load_packages(packages)
   ```
 				     
 </details>
+
+
+
+```R
+# Load required libraries and source functions
+lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykatRcpp","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
+          "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
+         
+source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R"); 
+source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_subclones.R"); 
+source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compounds.R"); 
+```
 
 
 <br>	
