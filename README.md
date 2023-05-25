@@ -19,7 +19,7 @@ The tool consists of two main steps:
 For more information, please refer to original publication [to be filled].
 <br><br>
 
-
+##
 
 ### Step 1.0: Load libraries and process the data
 
@@ -151,9 +151,37 @@ visualize_ensemble_step(patient_sample)
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble.png">
 </p>
+	
+link to this [Tutorial to predict monotherpies using malignant specific DEG](https://github.com/kris-nader/TBD/edit/main/README.md#tutorial-to-predict-monotherpies-using-malignant-specific-deg)
+	
+link to this [Tutorial to predict combination therapies using subclone specific DEG](https://github.com/kris-nader/TBD/edit/main/README.md#tutorial-to-predict-combination-therapies-using-subclone-specific-deg)
 
+	
+## Tutorial to predict monotherpies using malignant specific DEG
+### Step 1.3: Extract malignant cluster specific DEG
+At this point, users can use TBD to predict monotherapies to target the malignant cluster	
+```R
+malignant_cells_DEG=subclone_DEG(patient_sample,"malignant","healthy",monotherapies=TRUE)
+```
+### Step 1.4: Use malignant specific DEG as input to the pre-trained LightGBM model.
+First, we begin by filtering the differentially expressed genes based on 2 critera with <code>process_DEG</code>:
+1. (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) 
+2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
+
+Then, we can run <code>predict_drugs</code> using the malignant DEGs as input to predict monotherpies.
+					 
+```R
+# filter DEGS
+DEG_malignant=process_DEG(malignant_cells_DEG)
+#predict monotherpies for malignant cluster
+monotherapy_drugs=predict_drugs(DEG_malignant)
+```
+	
+## Tutorial 2: Predicting patient specific combination therapies	
+If investigating tumor subclones is of interest, users can continue with the following steps
+	
 ### Step 1.3: Identification of genetically distinct subclones
-This step uses healthy/reference cells identified by step 2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
+This step uses healthy/reference cells identified by step 1.2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
 ```R
 patient_sample=run_infercnv(patient_sample)
 ```
@@ -169,7 +197,7 @@ subcloneB=subclone_DEG(patient_sample,"B","healthy")
 ```
 
 ### Step 1.5: Use subclone specific DEG as input to the pre-trained LightGBM model.
-First, we begin by filtering the differentially expressed genes based on 2 critera:
+First, we begin by filtering the differentially expressed genes based on 2 critera with :
 1. (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) 
 2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
 
