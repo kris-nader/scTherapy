@@ -25,6 +25,8 @@
 #' diff_expr_list = process_DEG(degs_list = DEG_subclone)
 #' 
 process_DEG <- function(diff_expr){
+    gene_list="https://raw.githubusercontent.com/kris-nader/TBD/main/geneinfo_beta_input.txt"
+    gene_info = data.table::fread(gene_list) %>% as.data.frame()
     diff_expr_df <- diff_expr %>%
         mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
         filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
