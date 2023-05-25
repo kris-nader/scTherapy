@@ -153,14 +153,15 @@ visualize_ensemble_step(patient_sample)
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble.png">
 </p>
-	
-To predict single agent therapies, [Tutorial on predicting monotherpies using malignant specific DEG](#tutorial-on-predicting-monotherpies-using-malignant-specific-DEG)
 
-To predict combination therapies, [Tutorial on predicting combination therapies using subclone specific DEG](#tutorial-on-predicting-combination-therapies-using-subclone-specific-deg). This includes infering clonal architecture within the malignant cluster identified in step 1.2.
+
+Users have the option to choose between two options: making predictions to target the entire malignant tumor mass or exploring clonal lineages to predict combination therapies aimed at targeting specific subclones.
+	1. A tutorial on prediciting single agent therapies: [Predict monotherapies using malignant specific DEG](#predict-monotherapies-using-malignant-specific-DEG)
+	2. A tutorial on prediciting combination therapies: [Predict combination therapies using subclone specific DEG](#predict-combination-therapies-using-subclone-specific-deg). This includes infering clonal architecture within the malignant cluster identified in step 1.2.
 
 	
 	
-## Tutorial on predicting monotherpies using malignant specific DEG
+## Predict monotherapies using malignant specific DEG
 ### Step 1.3: Extract malignant cluster specific DEG
 At this point, users can use TBD to predict monotherapies to target the malignant cluster identified in step 1.2
 ```R
@@ -180,7 +181,7 @@ DEG_malignant=process_DEG(malignant_cells_DEG)
 monotherapy_drugs=predict_drugs(DEG_malignant)
 ```
 	
-## Tutorial on predicting combination therapies using subclone specific DEG
+## Predict combination therapies using subclone specific DEG
 If users are interested in exploring tumor subclones and targeting them with specific compounds, they can proceed from step 1.2 and follow the subsequent steps outlined below.
 	
 ### Step 1.3: Identification of genetically distinct subclones
