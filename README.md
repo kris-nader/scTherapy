@@ -154,16 +154,15 @@ visualize_ensemble_step(patient_sample)
 <img src="https://github.com/kris-nader/TBD/blob/main/example_ensemble.png">
 </p>
 	
+To predict single agent therapies. we refer users to the [Tutorial on predicting monotherpies using malignant specific DEG](#tutorial-on-predicting-monotherpies-using-malignant-specific-DEG)
 
-link to this [Tutorial to predict monotherpies using malignant specific DEG](#tutorial-to-predict-monotherpies-using-malignant-specific-DEG)
-	
-	
-link to this [Tutorial to predict combination therapies using subclone specific DEG](#tutorial-to-predict-combination-therapies-using-subclone-specific-deg)
+To predict combination therapies, we refer users to the [Tutorial on predicting combination therapies using subclone specific DEG](#tutorial-on-predicting-combination-therapies-using-subclone-specific-deg). This includes infering clonal architecture within the malignant cluster identified in step 1.2.
 
 	
-## Tutorial to predict monotherpies using malignant specific DEG
+	
+## Tutorial on predicting monotherpies using malignant specific DEG
 ### Step 1.3: Extract malignant cluster specific DEG
-At this point, users can use TBD to predict monotherapies to target the malignant cluster	
+At this point, users can use TBD to predict monotherapies to target the malignant cluster identified in step 1.2
 ```R
 malignant_cells_DEG=subclone_DEG(patient_sample,"malignant","healthy",monotherapies=TRUE)
 ```
@@ -181,8 +180,8 @@ DEG_malignant=process_DEG(malignant_cells_DEG)
 monotherapy_drugs=predict_drugs(DEG_malignant)
 ```
 	
-## Tutorial to predict combination therapies using subclone specific DEG
-If investigating tumor subclones is of interest, users can continue with the following steps
+## Tutorial on predicting combination therapies using subclone specific DEG
+If investigating tumor subclones is of interest, users can continue from step 1.2 with the following steps
 	
 ### Step 1.3: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 1.2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
