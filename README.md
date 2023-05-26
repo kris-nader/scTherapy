@@ -197,8 +197,9 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
 </details>
 	
 ```R
-# Load required libraries and source functions
+# Load required libraries 
 library(infercnv)
+# runs infercnv and all helper functions for the analysis 
 patient_sample=run_infercnv(patient_sample)
 ```
 <p align="center"> 
