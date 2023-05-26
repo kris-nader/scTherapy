@@ -199,7 +199,7 @@ get_normal_cells <- function(seurat_object, names_of_cell_types, column_name = "
 
 # tested- yes
 run_copyKat <- function(seurat_object, known_normal_cells=NULL, plot=FALSE,ncores = 4,genome=NULL){
-  source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R")
+  source("https://raw.githubusercontent.com/kris-nader/cpp_copykat/main/copykat_noplot_original.R");
   # Extract count matrix
   count_mtx = as.matrix(seurat_object@assays$RNA@counts)
   # Run CopyKAT analysis
