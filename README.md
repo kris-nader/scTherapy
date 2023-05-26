@@ -199,7 +199,7 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
   <summary>Help installing infercnv by clicking <b>HERE</b></summary>
 	
   ```R
-  packages=c("infercnv","biomaRt","yaGST")
+  packages=c("infercnv","biomaRt","yaGST","rjags)
   install_load_packages(packages)
   ```
 				     
