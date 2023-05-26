@@ -167,8 +167,9 @@ At this point, users can use TBD to predict monotherapies to target the malignan
 ```R
 malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 ```
+	
 ### Step 1.4: Use malignant specific DEG as input to the pre-trained LightGBM model.
-First, we begin by filtering the differentially expressed genes based on 2 critera with <code>process_DEG</code>:
+First, we begin by filtering the differentially expressed genes based on 2 critera:
 1. (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) 
 2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
 
@@ -176,7 +177,14 @@ Then, we can run <code>predict_drugs</code> using the malignant DEGs as input to
 					 
 ```R
 # filter DEGS
-DEG_malignant=process_DEG(malignant_cells_DEG)
+gene_list="https://raw.githubusercontent.com/kris-nader/TBD/main/geneinfo_beta_input.txt"
+gene_info = data.table::fread(gene_list) %>% as.data.frame()
+
+DEG_malignant <- malignant_cells_DEG %>%
+    mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
+    filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
+DEG_malignant_list <- setNames(as.list(DEG_malignant$avg_log2FC), DEG_malignant$gene_symbol)
+	
 #predict monotherpies for malignant cluster
 monotherapy_drugs=predict_drugs(DEG_malignant)
 ```
@@ -220,17 +228,24 @@ First, we begin by filtering the differentially expressed genes based on 2 crite
 
 ```R
 # filter subclone "A" specific DEG					 
-DEG_A=process_DEG(diff_expr=subcloneA)                                      
+DEG_subclone_A <- subcloneA %>%
+    mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
+    filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
+DEG_subclone_A_list <- setNames(as.list(DEG_subclone_A$avg_log2FC), DEG_subclone_A$gene_symbol)      
+	
 # filter subclone "B" specific DEG	
-DEG_B=process_DEG(diff_expr=subcloneB)
+DEG_subclone_B <- subcloneB %>%
+    mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
+    filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
+DEG_subclone_B_list <- setNames(as.list(DEG_subclone_B$avg_log2FC), DEG_subclone_B$gene_symbol)   
 ```
 For each run of `predict_drugs`, the model predicts drug:dose based on a predefined set of drug:dose:response integrated from LINCS L1000 and PharmacoDB. 
 
 ```R
 # predict subclone A specific drug:dose
-subcloneA_drugs=predict_drugs(degs_list=DEG_A)
+subcloneA_drugs=predict_drugs(degs_list=DEG_subclone_A_list)
 # predict subclone B specific drug:dose
-subcloneB_drugs=predict_drugs(degs_list=DEG_B)
+subcloneB_drugs=predict_drugs(degs_list=DEG_subclone_B_list)
 ```
 
 
