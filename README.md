@@ -186,7 +186,7 @@ DEG_malignant <- malignant_cells_DEG %>%
 DEG_malignant_list <- setNames(as.list(DEG_malignant$avg_log2FC), DEG_malignant$gene_symbol)
 	
 #predict monotherpies for malignant cluster
-monotherapy_drugs=predict_drugs(DEG_malignant)
+monotherapy_drugs=predict_drugs(DEG_malignant_list)
 ```
 	
 ## Predict combination therapies using subclone specific DEG
