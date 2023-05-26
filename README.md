@@ -45,7 +45,7 @@ install_load_packages <- function(packages){
     
     sapply(packages, function(pkg){
         if (!require(pkg, character.only = TRUE)){
-            if (pkg %in% c("copykat", "yaGST", "SCEVAN", "Rclusterpp")) {
+            if (pkg %in% c("copykat", "yaGST", "SCEVAN", "Rclusterpp","copykatRcpp")) {
                 tryCatch({
                     if (pkg == "copykat") {
                         devtools::install_github("navinlabcode/copykat")
