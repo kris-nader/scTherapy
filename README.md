@@ -34,7 +34,7 @@ For more information, please refer to original publication [to be filled].
   ```R
 # run this code to install required libraries
   packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2","SCEVAN", "cowplot",
-			  "Rcpp","Rclusterpp","parallel","biomaRt","logger","httr", "jsonlite", "readr")
+			  "Rcpp","Rclusterpp","parallel","logger","httr", "jsonlite", "readr")
 	      
 install_load_packages <- function(packages){
     if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -87,7 +87,7 @@ install_load_packages(packages)
 
 ```R
 # Load required libraries and source functions
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2", "yaGST", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
+lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2", "SCEVAN", "cowplot","Rcpp","Rclusterpp",
           "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
          
 source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R"); 
@@ -199,14 +199,15 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
   <summary>Help installing infercnv by clicking <b>HERE</b></summary>
 	
   ```R
-  BiocManager::install("infercnv")
+  packages=c("infercnv","biomaRt","yaGST")
+  install_load_packages(packages)
   ```
 				     
 </details>
 	
 ```R
-# Load required libraries 
-library(infercnv)
+# Load extra required libraries 
+lapply(c("infercnv","biomaRt","yaGST"), library, character.only = !0)
 # runs infercnv and all helper functions for the analysis 
 patient_sample=run_infercnv(patient_sample)
 ```
