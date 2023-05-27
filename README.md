@@ -192,7 +192,7 @@ monotherapy_drugs=predict_drugs(DEG_malignant_list)
 ```
 	
 ## Predict combination therapies using subclone specific DEG
-If users are interested in exploring tumor subclones and targeting them with specific compounds, they can proceed from step 1.2 and follow the subsequent steps outlined below.
+If users are interested in exploring tumor subclones and targeting them with specific compounds, they can follow the subsequent steps outlined below.
 	
 ### Step 3.1: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 1.2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
