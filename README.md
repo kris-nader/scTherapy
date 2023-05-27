@@ -209,7 +209,7 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
 	
 ```R
 # Load extra required libraries 
-lapply(c("infercnv","biomaRt","yaGST"), library, character.only = !0)
+lapply(c("infercnv","biomaRt"), library, character.only = !0)
 # runs infercnv and all helper functions for the analysis 
 patient_sample=run_infercnv(patient_sample)
 ```
