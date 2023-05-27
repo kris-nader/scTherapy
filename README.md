@@ -164,13 +164,13 @@ Users have the option to choose between two options: making predictions to targe
 	
 	
 ## Predict monotherapies using malignant specific DEG
-### Step 1.3: Extract malignant cluster specific DEG
+### Step 2.1: Extract malignant cluster specific DEG
 At this point, users can use TBD to predict monotherapies to target the malignant cluster identified in step 1.2
 ```R
 malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 ```
 	
-### Step 1.4: Use malignant specific DEG as input to the pre-trained LightGBM model.
+### Step 2.2: Use malignant specific DEG as input to the pre-trained LightGBM model.
 First, we begin by filtering the differentially expressed genes based on 2 critera:
 1. (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) 
 2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
@@ -194,7 +194,7 @@ monotherapy_drugs=predict_drugs(DEG_malignant_list)
 ## Predict combination therapies using subclone specific DEG
 If users are interested in exploring tumor subclones and targeting them with specific compounds, they can proceed from step 1.2 and follow the subsequent steps outlined below.
 	
-### Step 1.3: Identification of genetically distinct subclones
+### Step 3.1: Identification of genetically distinct subclones
 This step uses healthy/reference cells identified by step 1.2(ensemble model) to identify genetically distinct sublcones. Note that this step may be computationally intensive. 
 	
 <details>
@@ -217,14 +217,14 @@ patient_sample=run_infercnv(patient_sample)
 <img src="https://github.com/kris-nader/TBD/blob/main/example_infercnv.png">
 </p>
 
-### Step 1.4: Extract subclone specific DEG
+### Step 3.2: Extract subclone specific DEG
 We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
 subcloneA=clone_DEG(patient_sample,malignant_identifier="A",known_normal_cells="healthy",save=FALSE)
 subcloneB=clone_DEG(patient_sample,malignant_identifier="B",known_normal_cells="healthy",save=FALSE)
 ```
 
-### Step 1.5: Use subclone specific DEG as input to the pre-trained LightGBM model.
+### Step 3.3: Use subclone specific DEG as input to the pre-trained LightGBM model.
 First, we begin by filtering the differentially expressed genes based on 2 critera with :
 1. (p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) 
 2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
