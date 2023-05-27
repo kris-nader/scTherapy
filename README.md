@@ -33,17 +33,17 @@ For more information, please refer to original publication [to be filled].
 	
   ```R
 # run this code to install required libraries
-  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2","SCEVAN", "cowplot",
-			  "Rcpp","Rclusterpp","parallel","logger","httr", "jsonlite", "readr")
-	      
+  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2","SCEVAN","yaGST","cowplot",
+              "Rcpp","Rclusterpp","parallel","logger","httr", "jsonlite", "readr")
+
 install_load_packages <- function(packages){
     if (!requireNamespace("BiocManager", quietly = TRUE))
         install.packages("BiocManager")
-	library("BiocManager")
+        library("BiocManager")
     
     if (!requireNamespace("devtools", quietly = TRUE))
         install.packages("devtools")
-	library("devtools")
+        library("devtools")
     
     sapply(packages, function(pkg){
         if (!require(pkg, character.only = TRUE)){
@@ -72,11 +72,11 @@ install_load_packages <- function(packages){
 }
 
 install_from_CRAN_or_Bioconductor <- function(pkg) {
-  tryCatch({
-    install.packages(pkg); library(pkg, character.only = TRUE)
-  }, error = function(e){
-    BiocManager::install(pkg); library(pkg, character.only = TRUE)
-  })
+    tryCatch({
+        install.packages(pkg); library(pkg, character.only = TRUE)
+    }, error = function(e){
+        BiocManager::install(pkg); library(pkg, character.only = TRUE)
+    })
 }
 
 install_load_packages(packages)
@@ -201,7 +201,7 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
   <summary>Help installing infercnv by clicking <b>HERE</b></summary>
 	
   ```R
-  packages=c("infercnv","biomaRt","yaGST","rjags")
+  packages=c("infercnv","biomaRt","rjags")
   install_load_packages(packages)
   ```
 				     
