@@ -201,7 +201,7 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
   <summary>Help installing infercnv by clicking <b>HERE</b></summary>
 	
   ```R
-  packages=c("infercnv","biomaRt","rjags")
+  packages=c("biomaRt","rjags","infercnv")
   install_load_packages(packages)
   ```
 				     
@@ -209,7 +209,7 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
 	
 ```R
 # Load extra required libraries 
-lapply(c("infercnv","biomaRt"), library, character.only = !0)
+lapply(c("rjags","biomaRt","infercnv"), library, character.only = !0)
 # runs infercnv and all helper functions for the analysis 
 patient_sample=run_infercnv(patient_sample)
 ```
