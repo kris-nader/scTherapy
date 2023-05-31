@@ -3,7 +3,7 @@
 
 **Article**: [to be filled]
   
-<p style="text-align:justify;"> <b>XXX</b> is a computational framework to predict personalized monotherapies and multi-targeting drug combinations for cancer patients using only single-cell transcriptomic data.</p>
+<p style="text-align:justify;"> <b>scTherapy</b> is a computational framework to predict personalized monotherapies and multi-targeting drug combinations for cancer patients using only single-cell transcriptomic data.</p>
 
 ##
 <br>
