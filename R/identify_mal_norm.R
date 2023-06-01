@@ -2,14 +2,14 @@
 ##         Get functions for checkpoint 1: identification of healthy/malignant clusters             ##
 ######################################################################################################
 #
-# GNU General Public License v3.0 (https://github.com/kris-nader/TBD/blob/main/LICENSE)
+# GNU General Public License v3.0 (https://github.com/kris-nader/scTherapy/blob/main/LICENSE)
 #
 # Written by Kristen Michelle Nader <kristen.nader@helsinki.fi>
 # and Aleksandr Ianevski <aleksandr.ianevski@helsinki.fi> , April 2021
 #
 # Functions on this page:
 # read_zip,sctype_source,copykat_source,run_scType,run_copyKat,run_SCEVAN,run_ensemble,visualize_ensemble_step
-#
+# og_copykat
 
 #' @title Read data from a zip file
 #' @name read_zip
