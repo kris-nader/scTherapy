@@ -1,6 +1,6 @@
-###########################################################################
-## Get functions for checkpoint 2: identification of malignant subclones ##
-############################################################################
+############################################################################################
+##          Get functions for checkpoint 2: identification of malignant subclones         ##
+############################################################################################
 #
 # GNU General Public License v3.0 (https://github.com/kris-nader/TBD/blob/main/LICENSE)
 
