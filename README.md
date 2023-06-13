@@ -20,9 +20,8 @@ For more information, please refer to original publication [to be filled].
 <br><br>
 
 
-##
 
-### Quick Start 
+## Quick Start 
   ```R
  # estimated run time: 30seconds
 invisible(lapply(c("dplyr","Seurat","openxlsx","ggplot2", "cowplot","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
@@ -55,7 +54,7 @@ monotherapy_drugs=predict_drugs(DEG_malignant_list)
   ```
 
 
-##
+## Predicting therapies using scRNAseq
 
 ### Step 1.0: Load libraries and process the data
 
@@ -173,7 +172,6 @@ DimPlot(patient_sample, reduction = "umap")
 ```R	
 patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
 ```
-
 <br>
 
 ### Step 1.2: Identification of malignant/healthy clusters
@@ -205,6 +203,7 @@ At this point, users can use TBD to predict monotherapies to target the malignan
 plan("multisession", workers = 4)
 malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 ```
+<br>
 	
 ### Step 2.2: Use malignant specific DEG as input to the pre-trained LightGBM model.
 First, we begin by filtering the differentially expressed genes based on 2 critera:
@@ -253,6 +252,8 @@ patient_sample=run_infercnv(patient_sample)
 <img src="https://github.com/kris-nader/TBD/blob/main/example_infercnv.png">
 </p>
 
+<br>
+
 ### Step 3.2: Extract subclone specific DEG
 We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
@@ -260,6 +261,7 @@ plan("multisession", workers = 4)
 subcloneA=clone_DEG(patient_sample,malignant_identifier="A",known_normal_cells="healthy",save=FALSE)
 subcloneB=clone_DEG(patient_sample,malignant_identifier="B",known_normal_cells="healthy",save=FALSE)
 ```
+<br>
 
 ### Step 3.3: Use subclone specific DEG as input to the pre-trained LightGBM model.
 First, we begin by filtering the differentially expressed genes based on 2 critera with :
