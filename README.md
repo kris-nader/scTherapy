@@ -13,11 +13,46 @@
 <br>
 
 The tool consists of two main steps:
-1. Our tool utilizes a semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
+1. A semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
 2. Next, it identifies differentially expressed genes between healthy and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to healthy cells <i>(Fig 1, panel b)</i>.
 
 For more information, please refer to original publication [to be filled].
 <br><br>
+
+
+##
+
+### Quick Start 
+  ```R
+ # estimated run time: 30seconds
+invisible(lapply(c("dplyr","Seurat","openxlsx","ggplot2", "cowplot","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
+invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R","https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_subclones.R","https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compounds.R"),source))
+
+  
+# load pre-processed patient sample - already including metadata on cell type classification and ensemble prediction 
+patient_sample = readRDS(url('https://sctype.app/sctherapy/patient_sample_rounded_ensemble.RDS'))
+
+# visualize ensemble prediction - function to visualize 3 ensemble tools, consensus prediction and cell type annotation
+visualize_ensemble_step(patient_sample)
+
+# identify malignant specific differentially expressed genes
+plan("multisession", workers = 4)
+malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
+
+# load data for making drug: dose predicitons
+gene_list="https://raw.githubusercontent.com/kris-nader/TBD/main/geneinfo_beta_input.txt"
+gene_info = data.table::fread(gene_list) %>% as.data.frame()
+
+# filter DEG
+DEG_malignant <- malignant_cells_DEG %>%
+    mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
+    filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
+DEG_malignant_list <- setNames(as.list(DEG_malignant$avg_log2FC), DEG_malignant$gene_symbol)	
+
+#predict monotherpies for malignant cluster
+monotherapy_drugs=predict_drugs(DEG_malignant_list)
+
+  ```
 
 
 ##
@@ -33,7 +68,7 @@ For more information, please refer to original publication [to be filled].
 	
   ```R
 # run this code to install required libraries
-  packages <- c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2","SCEVAN","yaGST","cowplot",
+  packages = c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2","SCEVAN","yaGST","cowplot",
               "Rcpp","Rclusterpp","parallel","logger","httr", "jsonlite", "readr")
 
 install_load_packages <- function(packages){
@@ -89,12 +124,12 @@ install_load_packages(packages)
 
 ```R
 # Load required libraries and source functions
-lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2", "SCEVAN","yaGST","cowplot","Rcpp","Rclusterpp",
-          "parallel","biomaRt","logger","httr", "jsonlite", "readr"), library, character.only = !0)
+invisible(lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2", "SCEVAN","yaGST","cowplot","Rcpp","Rclusterpp",
+          "parallel","biomaRt","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
          
-source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R"); 
-source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_subclones.R"); 
-source("https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compounds.R"); 
+invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R",
+		   "https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_subclones.R",
+		   "https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compounds.R"),source))
 ```
 
 
@@ -135,7 +170,7 @@ DimPlot(patient_sample, reduction = "umap")
 <p>In this step, we use our method for fully-automated cell type annotation called ScType. It only requires an scRNA-seq object and the name of the tissue type as input, please see ScType GitHub for more details: <a href="https://github.com/IanevskiAleksandr/sc-type">ScType</a>. </p>
 <p>For our AML patient sample, we specify <code>known_tissue_type</code> as <code>Immune system</code>, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.</p>
 
-```R
+```R	
 patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
 ```
 
@@ -167,6 +202,7 @@ Users have the option to choose between two options: making predictions to targe
 ### Step 2.1: Extract malignant cluster specific DEG
 At this point, users can use TBD to predict monotherapies to target the malignant cluster identified in step 1.2
 ```R
+plan("multisession", workers = 4)
 malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 ```
 	
@@ -220,6 +256,7 @@ patient_sample=run_infercnv(patient_sample)
 ### Step 3.2: Extract subclone specific DEG
 We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
+plan("multisession", workers = 4)
 subcloneA=clone_DEG(patient_sample,malignant_identifier="A",known_normal_cells="healthy",save=FALSE)
 subcloneB=clone_DEG(patient_sample,malignant_identifier="B",known_normal_cells="healthy",save=FALSE)
 ```
