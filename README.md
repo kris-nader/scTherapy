@@ -49,7 +49,7 @@ DEG_malignant <- malignant_cells_DEG %>%
     filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
 DEG_malignant_list <- setNames(as.list(DEG_malignant$avg_log2FC), DEG_malignant$gene_symbol)	
 
-#predict monotherpies for malignant cluster
+#predict monotherapies for malignant cluster
 monotherapy_drugs=predict_drugs(DEG_malignant_list)
 
   ```
@@ -223,7 +223,7 @@ DEG_malignant <- malignant_cells_DEG %>%
     filter((p_val_adj <= 0.05 & (avg_log2FC > 1 | avg_log2FC < -1)) | (avg_log2FC > -0.1 & avg_log2FC < 0.1))
 DEG_malignant_list <- setNames(as.list(DEG_malignant$avg_log2FC), DEG_malignant$gene_symbol)
 	
-#predict monotherpies for malignant cluster
+#predict monotherapies for malignant cluster
 monotherapy_drugs=predict_drugs(DEG_malignant_list)
 ```
 	
