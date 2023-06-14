@@ -313,7 +313,7 @@ run_ensemble <- function(seurat_object, disease=NULL,known_normal_cells=NULL,gen
   # run modified sctype-- marker based approach
   check= openxlsx::read.xlsx(custom_marker)
   sctype_e=FALSE
-  if ( disease %in% unique(check$tissueType) {
+  if ( disease %in% unique(check$tissueType)) {
     sctype_e=TRUE
     seurat_object = run_sctype(seurat_object,known_tissue_type = disease,
                              plot=FALSE,
