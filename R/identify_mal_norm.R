@@ -183,6 +183,7 @@ get_normal_cells <- function(seurat_object, names_of_cell_types, column_name = "
 #' @details This function is useful for identifying tumor populations and works best when normal/reference cells are provided.
 #' @param seurat_object Seurat object to analyze.
 #' @param known_normal_cells A character vector of cell names that are known to be normal. Default is NULL (optional)
+#' @param genome Default hg20-- hg20 and mm10 available
 #' @param plot plot the CopyKAT results on a UMAP plot. Default is False
 #' @return A Seurat object with CopyKat results added to metadata.
 #' 
