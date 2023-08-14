@@ -250,14 +250,14 @@ run_copyKat <- function(seurat_object, known_normal_cells="", plot=FALSE,ncores 
 #' @export
 #' 
 
-run_SCEVAN <- function(seurat_object, known_normal_cells = NULL, plot = FALSE,ncores = 4,all_pred=FALSE) {
+run_SCEVAN <- function(seurat_object, known_normal_cells = NULL, plot = FALSE,ncores = 4,all_pred=FALSE,organism_="human") {
   scevan_source()
   # Extract count matrix
   count_mtx = seurat_object@assays$RNA@counts
   # Run SCEVAN analysis
   results = pipelineCNA1(count_mtx, sample = "temp", par_cores = ncores, 
                          SUBCLONES = FALSE, plotTree = FALSE, 
-                         norm_cell = known_normal_cells)
+                         norm_cell = known_normal_cells,organism=organism_)
   # Identify confident normal cells
   confident_normal = rownames(results[which(results$confidentNormal == "yes" ), ])
   # Update metadata with SCEVAN output
