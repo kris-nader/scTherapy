@@ -139,7 +139,7 @@ invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/TBD/main/R/iden
  ```R
 # Load example dataset 
 # You can also upload your own expression matrix: data = read.table("your.exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t").
-data <- read_zip("https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip")
+data <- read_zip("https://raw.githubusercontent.com/kris-nader/scTherapy/main/sample_x_exp.rawdata.txt.zip")
 patient_sample = CreateSeuratObject(counts = data)	
 	
 # simple filtering
