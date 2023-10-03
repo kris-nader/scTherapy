@@ -46,6 +46,6 @@ for (percentage in percentages_to_remove) {
     
     #write to a file to compare later
     write.table(patient_sample@meta.data,file=paste0("robust_analys_",percentage,"_metadata.txt"))
-    visualize_ensemble_step(patient_sample)
+    #visualize_ensemble_step(patient_sample)
 
 }
