@@ -310,7 +310,7 @@ run_SCEVAN <- function(seurat_object, known_normal_cells = NULL, plot = FALSE,nc
 #' 
 
 
-run_ensemble <- function(seurat_object, disease = "", known_normal_cells = "", genome_cp = "hg20", plot = FALSE) {
+run_ensemble <- function(seurat_object, disease = "", known_normal_cells = "",custom_marker="https://raw.githubusercontent.com/kris-nader/TBD/main/sctype_aml_cellmarker20_cosmic.xlsx", genome_cp = "hg20", plot = FALSE) {
   if (is.null(seurat_object)) {
     stop("Argument 'seurat_object' is missing")
   }
@@ -318,7 +318,6 @@ run_ensemble <- function(seurat_object, disease = "", known_normal_cells = "", g
     stop("Argument 'seurat_object' must be a Seurat object")
   }
   
-  custom_marker <- "https://raw.githubusercontent.com/kris-nader/TBD/main/sctype_aml_cellmarker20_cosmic.xlsx"
   
   # run modified sctype-- marker based approach
   check <- openxlsx::read.xlsx(custom_marker)
