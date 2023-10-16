@@ -126,14 +126,14 @@ install_load_packages(packages)
 invisible(lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2", "SCEVAN","yaGST","cowplot","Rcpp","Rclusterpp",
           "parallel","biomaRt","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
          
-invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R",
-		   "https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_subclones.R",
-		   "https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compounds.R"),source))
+invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_mal_norm.R",
+		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones.R",
+		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"),source))
 ```
 
 
 <br>	
-<p>Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. The count matrix is normalized and clustered using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html" target="_blank">Seurat tutorial for more details</a>). An example raw count matrix data can be found <a href='https://raw.githubusercontent.com/kris-nader/TBD/main/sample_x_exp.rawdata.txt.zip' target="_blank">here</a>.</p>
+<p>Next, let's load an example PBMC scRNA-seq dataset, consisting of ~3000 cells obtained from a human AML patient. The count matrix is normalized and clustered using Seurat (see <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html" target="_blank">Seurat tutorial for more details</a>). An example raw count matrix data can be found <a href='https://raw.githubusercontent.com/kris-nader/scTherapy/main/sample_x_exp.rawdata.txt.zip' target="_blank">here</a>.</p>
 	
 
  ```R
