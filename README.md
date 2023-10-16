@@ -25,7 +25,7 @@ For more information, please refer to original publication [to be filled].
   ```R
  # estimated run time: 30seconds
 invisible(lapply(c("dplyr","Seurat","openxlsx","ggplot2", "cowplot","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
-invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_mal_norm.R","https://raw.githubusercontent.com/kris-nader/TBD/main/R/identify_subclones.R","https://raw.githubusercontent.com/kris-nader/TBD/main/R/predict_compounds.R"),source))
+invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/TBD/scTherapy/R/identify_mal_norm.R","https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones.R","https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"),source))
 
   
 # load pre-processed patient sample - already including metadata on cell type classification and ensemble prediction 
