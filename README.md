@@ -42,7 +42,7 @@ plan("multisession", workers = 4)
 malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 
 # load data for making drug: dose predicitons
-gene_list="https://raw.githubusercontent.com/kris-nader/TBD/main/geneinfo_beta_input.txt"
+gene_list="https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
 gene_info = data.table::fread(gene_list) %>% as.data.frame()
 
 # filter DEG
