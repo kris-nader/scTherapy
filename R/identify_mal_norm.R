@@ -347,10 +347,10 @@ run_ensemble <- function(seurat_object, disease = "", known_normal_cells = "",cu
   
   # run SCEVAN analysis-- CNA estimation approach
   if (!sctype_e) {
-    print("SCEVAN: all pred mode")
+    print("SCEVAN:PRED")
     seurat_object <- run_SCEVAN(seurat_object,
                                 known_normal_cells = known_normal_cells,
-                                all_pred = TRUE,
+                                all_pred = FALSE,
                                 plot = FALSE)
   }
   
