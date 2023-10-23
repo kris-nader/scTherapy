@@ -217,7 +217,7 @@ Then, we can run <code>predict_drugs</code> using the malignant DEGs as input to
 					 
 ```R
 # filter DEGS
-gene_list="https://raw.githubusercontent.com/kris-nader/TBD/main/geneinfo_beta_input.txt"
+gene_list="https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
 gene_info = data.table::fread(gene_list) %>% as.data.frame()
 
 DEG_malignant <- malignant_cells_DEG %>%
