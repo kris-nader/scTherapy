@@ -311,85 +311,98 @@ run_SCEVAN <- function(seurat_object, known_normal_cells = NULL, plot = FALSE,nc
 
 
 run_ensemble <- function(seurat_object, disease = "", known_normal_cells = "",custom_marker="https://raw.githubusercontent.com/kris-nader/scTherapy/main/sctype_aml_cellmarker20_cosmic.xlsx", genome_cp = "hg20", plot = FALSE) {
-  if (is.null(seurat_object)) {
-    stop("Argument 'seurat_object' is missing")
-  }
-  if (!inherits(seurat_object, "Seurat")) {
-    stop("Argument 'seurat_object' must be a Seurat object")
-  }
-  
-  
-  # run modified sctype-- marker based approach
-  check <- openxlsx::read.xlsx(custom_marker)
-  sctype_e <- FALSE
-  
-  if (disease %in% unique(check$tissueType)) {
-    sctype_e <- TRUE
-    seurat_object <- run_sctype(seurat_object,
-                                known_tissue_type = disease,
-                                plot = FALSE,
-                                custom_marker_file = custom_marker,
-                                name = "sctype_malignant_healthy")
-    seurat_object <- run_SCEVAN(seurat_object,
-                                known_normal_cells = known_normal_cells,
-                                plot = FALSE)
-  }
-  
-  # run copykat analysis-- CNA estimation approach
-  # Determine the number of cores to use based on OS
-  ncores <- ifelse(Sys.info()["sysname"] != "Windows", max(1, parallel::detectCores() - 2), 1)
-  
-  seurat_object <- run_copyKat(seurat_object,
-                               known_normal_cells = known_normal_cells,
-                               plot = FALSE,
-                               genome = genome_cp,
-                               ncores = ncores)
-  
-  # run SCEVAN analysis-- CNA estimation approach
-  if (!sctype_e) {
-    print("SCEVAN:PRED")
-    seurat_object <- run_SCEVAN(seurat_object,
-                                known_normal_cells = known_normal_cells,
-                                all_pred = FALSE,
-                                plot = FALSE)
-  }
-  
-  seurat_object1 <- seurat_object
-  
-  if (sctype_e) {
-    seurat_object1@meta.data[which(seurat_object1@meta.data$sctype_malignant_healthy == "Unknown"),
-                             "sctype_malignant_healthy"] <- "malignant"
-    temp <- data.frame(copyKat_output = seurat_object1@meta.data$copyKat_output,
-                       SCEVAN_output = seurat_object1@meta.data$SCEVAN_output,
-                       sctype_malignant_healthy = seurat_object1@meta.data$sctype_malignant_healthy)
-    rownames(temp) <- rownames(seurat_object1@meta.data)
+    if (is.null(seurat_object)) {
+        stop("Argument 'seurat_object' is missing")
+    }
+    if (!inherits(seurat_object, "Seurat")) {
+        stop("Argument 'seurat_object' must be a Seurat object")
+    }
     
-    # create an ensemble method to take a majority vote
-    majority <- apply(temp, 1, function(x) {
-      levels_x <- unique(x)
-      freq_x <- tabulate(match(x, levels_x))
-      levels_x[which.max(freq_x)]
-    })
     
-    seurat_object1@meta.data$ensemble_output <- majority
-    text_ <- paste("New metadata added:", "ensemble_output")
-    print(text_)
-  } else {
-    seurat_object1@meta.data$sctype_malignant_healthy <- "NA"
-    temp <- data.frame(copyKat_output = seurat_object1@meta.data$copyKat_output,
-                       SCEVAN_output = seurat_object1@meta.data$SCEVAN_output)
-    rownames(temp) <- rownames(seurat_object1@meta.data)
-    colnames(temp) <- c("copyKat_output", "SCEVAN_output")
+    # run modified sctype-- marker based approach
+    check <- openxlsx::read.xlsx(custom_marker)
+    sctype_e <- FALSE
     
-    temp$ensemble_output <- ifelse(temp$SCEVAN_output == temp$copyKat_output,
-                                   temp$copyKat_output,
-                                   "malignant")
-    seurat_object1@meta.data$ensemble_output[rownames(temp)] <- temp[rownames(temp), "ensemble_output"]
-    text_ <- paste("New metadata added:", "ensemble_output")
-    print(text_)
-  }
-  
-  return(seurat_object1)
+    if (disease %in% unique(check$tissueType)) {
+        sctype_e <- TRUE
+        seurat_object <- run_sctype(seurat_object,
+                                    known_tissue_type = disease,
+                                    plot = FALSE,
+                                    custom_marker_file = custom_marker,
+                                    name = "sctype_malignant_healthy")
+        seurat_object <- run_SCEVAN(seurat_object,
+                                    known_normal_cells = known_normal_cells,
+                                    plot = FALSE)
+    }
+    
+    # run copykat analysis-- CNA estimation approach
+    # Determine the number of cores to use based on OS
+    ncores <- ifelse(Sys.info()["sysname"] != "Windows", max(1, parallel::detectCores() - 2), 1)
+    
+    seurat_object <- run_copyKat(seurat_object,
+                                 known_normal_cells = known_normal_cells,
+                                 plot = FALSE,
+                                 genome = genome_cp,
+                                 ncores = ncores)
+    
+    # run SCEVAN analysis-- CNA estimation approach
+    if (!sctype_e) {
+        print("SCEVAN:PRED")
+        seurat_object <- run_SCEVAN(seurat_object,
+                                    known_normal_cells = known_normal_cells,
+                                    all_pred = FALSE,
+                                    plot = FALSE)
+    }
+    
+    seurat_object1 <- seurat_object
+    
+    if (sctype_e) {
+        unknown_sctype=rownames(seurat_object1@meta.data[which(seurat_object1@meta.data$sctype_malignant_healthy == "Unknown"),])
+        known_sctype=rownames(seurat_object1@meta.data[which(seurat_object1@meta.data$sctype_malignant_healthy != "Unknown"),])
+        #seurat_object1@meta.data[which(seurat_object1@meta.data$sctype_malignant_healthy == "Unknown"),
+        #                         "sctype_malignant_healthy"] <- "malignant"
+        
+        temp_known <- data.frame("copyKat_output" = seurat_object1@meta.data[known_sctype,"copyKat_output"],
+                                 "SCEVAN_output" = seurat_object1@meta.data[known_sctype,"SCEVAN_output"],
+                                 "sctype_malignant_healthy" = seurat_object1@meta.data[known_sctype,"sctype_malignant_healthy"])
+        rownames(temp_known) <-  known_sctype
+        temp_unknown <- data.frame("copyKat_output" = seurat_object1@meta.data[unknown_sctype,"copyKat_output"],
+                                   "SCEVAN_output" = seurat_object1@meta.data[unknown_sctype,"SCEVAN_output"])
+        rownames(temp_unknown) <- unknown_sctype
+        
+        temp_unknown_annot <- ifelse(temp_unknown$SCEVAN_output == temp_unknown$copyKat_output,
+                                     temp_unknown$copyKat_output,
+                                     "malignant")
+        
+        # create an ensemble method to take a majority vote
+        majority <- apply(temp_known, 1, function(x) {
+            levels_x <- unique(x)
+            freq_x <- tabulate(match(x, levels_x))
+            levels_x[which.max(freq_x)]
+        })
+        
+        seurat_object1@meta.data$ensemble_output="NA"
+        seurat_object1@meta.data[names(majority),"ensemble_output"] <- majority[names(majority)]
+        seurat_object1@meta.data[unknown_sctype,"ensemble_output"] <-temp_unknown_annot
+        
+        text_ <- paste("New metadata added:", "ensemble_output")
+        print(text_)
+    } else {
+        seurat_object1@meta.data$sctype_malignant_healthy <- "NA"
+        temp <- data.frame(copyKat_output = seurat_object1@meta.data$copyKat_output,
+                           SCEVAN_output = seurat_object1@meta.data$SCEVAN_output)
+        rownames(temp) <- rownames(seurat_object1@meta.data)
+        colnames(temp) <- c("copyKat_output", "SCEVAN_output")
+        
+        temp$ensemble_output <- ifelse(temp$SCEVAN_output == temp$copyKat_output,
+                                       temp$copyKat_output,
+                                       "malignant")
+        seurat_object1@meta.data$ensemble_output[rownames(temp)] <- temp[rownames(temp), "ensemble_output"]
+        text_ <- paste("New metadata added:", "ensemble_output")
+        print(text_)
+    }
+    
+    return(seurat_object1)
 }
 
 
