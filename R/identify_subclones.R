@@ -116,6 +116,7 @@ run_infercnv <- function(seurat_object, known_normal_cells = NULL, ncores = 4) {
     )
     
     # Run InferCNV
+    options(scipen = 100)
     infercnv_obj = infercnv::run(infercnv_obj, cutoff=0.1,
                                  out_dir="./", cluster_by_groups=!1, 
                                  plot_steps=FALSE, scale_data=!0,
