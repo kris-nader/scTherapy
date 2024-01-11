@@ -32,18 +32,18 @@ invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/
 
   
 # load pre-processed patient sample - already including metadata on cell type classification and ensemble prediction 
-patient_sample = readRDS(url('https://sctype.app/sctherapy/patient_sample_rounded_ensemble.RDS'))
+patient_sample <- readRDS(url('https://sctype.app/sctherapy/patient_sample_rounded_ensemble.RDS'))
 
 # visualize ensemble prediction - function to visualize 3 ensemble tools, consensus prediction and cell type annotation
 visualize_ensemble_step(patient_sample)
 
 # identify malignant specific differentially expressed genes
 plan("multisession", workers = 4)
-malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
+malignant_cells_DEG <- clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 
 # load data for making drug: dose predicitons
-gene_list="https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
-gene_info = data.table::fread(gene_list) %>% as.data.frame()
+gene_list <- "https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
+gene_info <- data.table::fread(gene_list) %>% as.data.frame()
 
 # filter DEG
 DEG_malignant <- malignant_cells_DEG %>%
@@ -52,7 +52,7 @@ DEG_malignant <- malignant_cells_DEG %>%
 DEG_malignant_list <- setNames(as.list(DEG_malignant$avg_log2FC), DEG_malignant$gene_symbol)	
 
 #predict monotherapies for malignant cluster
-monotherapy_drugs=predict_drugs(DEG_malignant_list)
+monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 
   ```
 
@@ -143,27 +143,27 @@ invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/
 # Load example dataset 
 # You can also upload your own expression matrix: data = read.table("your.exp.rawdata.txt", header = TRUE, row.names = 1, sep = "\t").
 data <- read_zip("https://raw.githubusercontent.com/kris-nader/scTherapy/main/sample_x_exp.rawdata.txt.zip")
-patient_sample = CreateSeuratObject(counts = data)	
+patient_sample <- CreateSeuratObject(counts = data)	
 	
 # simple filtering
-patient_sample[["percent.mt"]] = PercentageFeatureSet(patient_sample, pattern = "^MT-")
-patient_sample = subset(patient_sample, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
+patient_sample[["percent.mt"]] <- PercentageFeatureSet(patient_sample, pattern = "^MT-")
+patient_sample <- subset(patient_sample, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
 
 # normalize data
-patient_sample = NormalizeData(patient_sample, normalization.method = "LogNormalize", scale.factor = 10000)
-patient_sample = FindVariableFeatures(patient_sample, selection.method = "vst", nfeatures = 2000)
+patient_sample <- NormalizeData(patient_sample, normalization.method = "LogNormalize", scale.factor = 10000)
+patient_sample <- FindVariableFeatures(patient_sample, selection.method = "vst", nfeatures = 2000)
 
 # scale and PCA
-patient_sample = ScaleData(patient_sample, features = rownames(patient_sample))
-patient_sample = RunPCA(patient_sample, features = VariableFeatures(object = patient_sample))
+patient_sample <- ScaleData(patient_sample, features = rownames(patient_sample))
+patient_sample <- RunPCA(patient_sample, features = VariableFeatures(object = patient_sample))
 
 # check number of PC (optional)
 ElbowPlot(patient_sample)
 
 # Cluster and visualize
-patient_sample = FindNeighbors(patient_sample, dims = 1:10)
-patient_sample = FindClusters(patient_sample, resolution = 0.8)
-patient_sample = RunUMAP(patient_sample, dims = 1:10)
+patient_sample <- FindNeighbors(patient_sample, dims = 1:10)
+patient_sample <- FindClusters(patient_sample, resolution = 0.8)
+patient_sample <- RunUMAP(patient_sample, dims = 1:10)
 DimPlot(patient_sample, reduction = "umap")
 ```
 <br>
@@ -173,7 +173,7 @@ DimPlot(patient_sample, reduction = "umap")
 <p>For our AML patient sample, we specify <code>known_tissue_type</code> as <code>Immune system</code>, but other possible tissue types include: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen, Stomach, Thymus.</p>
 
 ```R	
-patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
+patient_sample <- run_sctype(patient_sample,known_tissue_type="Immune system",plot=TRUE)
 ```
 <br>
 
@@ -183,8 +183,8 @@ patient_sample=run_sctype(patient_sample,known_tissue_type="Immune system",plot=
 
 ```R
 # please note that this step is time consuming (~10 minutes for example data), consider running on faster multi-core Linux or MacOS-based PC to speed up this process
-norm_cells=get_normal_cells(patient_sample,c("Memory CD4+ T cells"))
-patient_sample=run_ensemble(patient_sample,disease="AML",known_normal_cells=norm_cells,plot=FALSE)
+norm_cells <- get_normal_cells(patient_sample,c("Memory CD4+ T cells"))
+patient_sample <- run_ensemble(patient_sample,disease="AML",known_normal_cells=norm_cells,plot=FALSE)
 visualize_ensemble_step(patient_sample)
 ```
 
@@ -204,7 +204,7 @@ Users have the option to choose between two options: making predictions to targe
 At this point, users can use TBD to predict monotherapies to target the malignant cluster identified in step 1.2
 ```R
 plan("multisession", workers = 4)
-malignant_cells_DEG=clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
+malignant_cells_DEG <- clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
 ```
 <br>
 	
@@ -217,8 +217,8 @@ Then, we can run <code>predict_drugs</code> using the malignant DEGs as input to
 					 
 ```R
 # filter DEGS
-gene_list="https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
-gene_info = data.table::fread(gene_list) %>% as.data.frame()
+gene_list <- "https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
+gene_info <- data.table::fread(gene_list) %>% as.data.frame()
 
 DEG_malignant <- malignant_cells_DEG %>%
     mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
@@ -226,7 +226,7 @@ DEG_malignant <- malignant_cells_DEG %>%
 DEG_malignant_list <- setNames(as.list(DEG_malignant$avg_log2FC), DEG_malignant$gene_symbol)
 	
 #predict monotherapies for malignant cluster
-monotherapy_drugs=predict_drugs(DEG_malignant_list)
+monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 ```
 	
 ## Predict combination therapies using subclone specific DEG
@@ -249,7 +249,7 @@ This step uses healthy/reference cells identified by step 1.2(ensemble model) to
 # Load extra required libraries 
 lapply(c("rjags","biomaRt","infercnv"), library, character.only = !0)
 # runs infercnv and all helper functions for the analysis 
-patient_sample=run_infercnv(patient_sample)
+patient_sample <- run_infercnv(patient_sample)
 ```
 <p align="center"> 
 <img src="https://github.com/kris-nader/TBD/blob/main/example_infercnv.png">
@@ -261,8 +261,8 @@ patient_sample=run_infercnv(patient_sample)
 We will focus on broad levels subclones in this tutorial, but more specific subclones can be used in this step for more specific analysis. For subclones A and B:
 ```R
 plan("multisession", workers = 4)
-subcloneA=clone_DEG(patient_sample,malignant_identifier="A",known_normal_cells="healthy",save=FALSE)
-subcloneB=clone_DEG(patient_sample,malignant_identifier="B",known_normal_cells="healthy",save=FALSE)
+subcloneA <- clone_DEG(patient_sample,malignant_identifier="A",known_normal_cells="healthy",save=FALSE)
+subcloneB <- clone_DEG(patient_sample,malignant_identifier="B",known_normal_cells="healthy",save=FALSE)
 ```
 <br>
 
@@ -288,14 +288,90 @@ For each run of `predict_drugs`, the model predicts drug:dose based on a predefi
 
 ```R
 # predict subclone A specific drug:dose
-subcloneA_drugs=predict_drugs(degs_list=DEG_subclone_A_list)
+subcloneA_drugs <- predict_drugs(degs_list=DEG_subclone_A_list)
+
 # predict subclone B specific drug:dose
-subcloneB_drugs=predict_drugs(degs_list=DEG_subclone_B_list)
+subcloneB_drugs <- predict_drugs(degs_list=DEG_subclone_B_list)
 ```
 
+```R
+sessionInfo();
+R version 4.3.0 (2023-04-21)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 22.04.2 LTS
 
- 
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] future_1.32.0      readr_2.1.4        jsonlite_1.8.4     httr_1.4.5        
+ [5] logger_0.2.2       biomaRt_2.56.1     Rclusterpp_0.2.6   Rcpp_1.0.10       
+ [9] cowplot_1.1.1      yaGST_2017.08.25   doParallel_1.0.17  iterators_1.0.14  
+[13] foreach_1.5.2      SCEVAN_1.0.1       ggplot2_3.4.2      copykatRcpp_0.1.0 
+[17] copykat_1.1.0      openxlsx_4.2.5.2   HGNChelper_0.8.1   SeuratObject_4.1.3
+[21] Seurat_4.3.0       dplyr_1.1.2       
+
+loaded via a namespace (and not attached):
+  [1] RcppAnnoy_0.0.20        splines_4.3.0           later_1.3.0            
+  [4] bitops_1.0-7            filelock_1.0.3          tibble_3.2.1           
+  [7] polyclip_1.10-4         XML_3.99-0.16           lifecycle_1.0.3        
+ [10] globals_0.16.2          lattice_0.21-8          MASS_7.3-59            
+ [13] magrittr_2.0.3          plotly_4.10.1           httpuv_1.6.9           
+ [16] sctransform_0.3.5       zip_2.3.0               sp_1.6-0               
+ [19] spatstat.sparse_3.0-1   reticulate_1.28         pbapply_1.7-0          
+ [22] DBI_1.1.3               RColorBrewer_1.1-3      abind_1.4-5            
+ [25] zlibbioc_1.46.0         Rtsne_0.16              purrr_1.0.1            
+ [28] BiocGenerics_0.46.0     RCurl_1.98-1.12         rappdirs_0.3.3         
+ [31] GenomeInfoDbData_1.2.10 IRanges_2.34.0          S4Vectors_0.38.1       
+ [34] ggrepel_0.9.3           irlba_2.3.5.1           listenv_0.9.0          
+ [37] spatstat.utils_3.0-3    goftest_1.2-3           spatstat.random_3.1-5  
+ [40] fitdistrplus_1.1-11     parallelly_1.35.0       leiden_0.4.3           
+ [43] codetools_0.2-19        xml2_1.3.4              tidyselect_1.2.0       
+ [46] matrixStats_1.2.0       stats4_4.3.0            BiocFileCache_2.8.0    
+ [49] spatstat.explore_3.2-1  ellipsis_0.3.2          progressr_0.13.0       
+ [52] ggridges_0.5.4          survival_3.5-5          tools_4.3.0            
+ [55] progress_1.2.3          ica_1.0-3               glue_1.6.2             
+ [58] gridExtra_2.3           GenomeInfoDb_1.36.0     withr_2.5.0            
+ [61] fastmap_1.1.1           fansi_1.0.4             digest_0.6.31          
+ [64] R6_2.5.1                mime_0.12               colorspace_2.1-0       
+ [67] scattermore_1.1         tensor_1.5              spatstat.data_3.0-1    
+ [70] RSQLite_2.3.4           utf8_1.2.3              tidyr_1.3.0            
+ [73] generics_0.1.3          data.table_1.14.8       prettyunits_1.1.1      
+ [76] htmlwidgets_1.6.2       uwot_0.1.14             pkgconfig_2.0.3        
+ [79] gtable_0.3.3            blob_1.2.4              lmtest_0.9-40          
+ [82] XVector_0.40.0          htmltools_0.5.5         scales_1.2.1           
+ [85] Biobase_2.60.0          png_0.1-8               tzdb_0.4.0             
+ [88] reshape2_1.4.4          nlme_3.1-162            curl_5.0.0             
+ [91] zoo_1.8-12              cachem_1.0.7            stringr_1.5.0          
+ [94] KernSmooth_2.23-20      miniUI_0.1.1.1          AnnotationDbi_1.62.2   
+ [97] pillar_1.9.0            grid_4.3.0              vctrs_0.6.5            
+[100] RANN_2.6.1              promises_1.2.0.1        dbplyr_2.3.4           
+[103] xtable_1.8-4            cluster_2.1.4           cli_3.6.1              
+[106] compiler_4.3.0          rlang_1.1.1             crayon_1.5.2           
+[109] future.apply_1.11.0     plyr_1.8.8              stringi_1.7.12         
+[112] viridisLite_0.4.2       deldir_1.0-9            munsell_0.5.0          
+[115] Biostrings_2.68.1       lazyeval_0.2.2          spatstat.geom_3.2-1    
+[118] Matrix_1.6-1            hms_1.1.3               patchwork_1.1.2        
+[121] bit64_4.0.5             KEGGREST_1.40.1         shiny_1.7.4            
+[124] ROCR_1.0-11             igraph_1.4.2            memoise_2.0.1          
+[127] bit_4.0.5 
+```
 ## Contact information
 For any questions please contact **Aleksandr Ianevski** [aleksandr.ianevski@helsinki.fi] and  **Kristen Nader** [kristen.nader@helsinki.fi]
 
