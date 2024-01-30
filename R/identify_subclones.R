@@ -29,9 +29,9 @@
 #' 
 #' @export
 #' 
-get_gene_annotation <- function(seurat_object){
+get_gene_annotation <- function(seurat_object,host="www.ensembl.org"){
     requireNamespace("biomaRt")
-    ensembl = biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+    ensembl = biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl",host=host)
     genes = biomaRt::getBM(
         attributes = c("hgnc_symbol","chromosome_name","start_position","end_position"),
         filters = "hgnc_symbol", 
