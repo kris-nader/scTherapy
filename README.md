@@ -59,7 +59,7 @@ monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 ## Predicting therapies using scRNAseq
 
 ### Optional: Set up docker
-Available with base packages: seurat4, infercnv, copyKat,SCEVAN,biomaRt. No installation of packages needed when using docker. Continue from step 1 loading packages, and processing data
+Available with base packages: seurat4, infercnv, copyKat,SCEVAN,biomaRt. No installation of packages needed when using docker. Continue from step 1 loading packages and processing data
 
 ```console
 docker pull kmnader/sctherapy
