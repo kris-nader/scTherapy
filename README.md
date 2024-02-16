@@ -20,7 +20,6 @@ For more information, please refer to original publication [to be filled].
 <br><br>
 
 
-
 ## Quick Start 
   ```R
  # estimated run time: 30seconds
@@ -58,6 +57,15 @@ monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 
 
 ## Predicting therapies using scRNAseq
+
+### Optional: Set up docker
+Available with base packages: seurat4, infercnv, copyKat,SCEVAN,biomaRt. No installation of packages needed when using docker
+
+```console
+docker pull kmnader/sctherapy
+docker run -it --name sctherapy_docker kmnader/sctherapy:latest bash
+```
+
 
 ### Step 1.0: Load libraries and process the data
 
