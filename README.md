@@ -13,7 +13,7 @@
 <br>
 
 The tool consists of two main steps:
-1. A semi-automated approach to categorize cells into healthy and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
+1. A semi-automated approach to categorize cells into healthy(normal) and malignant, followed by the separation of malignant cells into subpopulations/clones <i>(Fig 1, panel a)</i>.
 2. Next, it identifies differentially expressed genes between healthy and malignant cells, which are subsequently used as input to our pre-trained machine learning model. The model predicts potential treatment options that effectively target malignant cells while minimizing toxicity to healthy cells <i>(Fig 1, panel b)</i>.
 
 For more information, please refer to original publication [to be filled].
@@ -21,8 +21,8 @@ For more information, please refer to original publication [to be filled].
 
 
 ## Quick Start 
-<p>Prepare a <b>'malignant_cells_DEG'</b> data.frame showing differential gene expression results between cancer and normal cells. A data.frame row names should correspond to <b>gene symbols</b> and data.frame itself should feature 2 columns:</p>
-<ul><li>log2 fold-change ('<b>avg_log2FC</b>') indicating up-regulation <i>(positive values)</i> or down-regulation <i>(neg. values)</i> in cancer cells</li> <li>adjusted p-values ('<b>p_val_adj</b>')</li></ul>
+<p>Prepare a <b>'malignant_cells_DEG'</b> data.frame showing differential gene expression results between malignant and normal cells. A data.frame row names should correspond to <b>gene symbols</b> and data.frame itself should feature 2 columns:</p>
+<ul><li>log2 fold-change ('<b>avg_log2FC</b>') indicating up-regulation <i>(positive values)</i> or down-regulation <i>(neg. values)</i> in malignant cells</li> <li>adjusted p-values ('<b>p_val_adj</b>')</li></ul>
 
   ```R
 # load example data
