@@ -64,7 +64,7 @@ This step is <b>optional</b> and used to replicate the exact package versioning 
 ```
 # Pull the scTherapy Docker image from Docker Hub
 docker pull kmnader/sctherapy
-# run docker
+# Run docker (Ensure that the directory /absolute/path/sctherapy_dir exists on your machine)
 docker run -it --name sctherapy_docker -v /absolute/path/sctherapy_dir:/home kmnader/sctherapy:latest bash  
 ```
 
