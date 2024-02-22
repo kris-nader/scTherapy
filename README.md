@@ -1,4 +1,4 @@
-# Identification of clone-specific and cancer-selective multi-targeting therapeutic options based on single-cell transcriptomic profiles of cancer patients
+# Identification of clone-specific and cancer-selective multi-targeting therapeutic options based on single-cell transcriptomic profiles of cancer patients (scTherapy)
 <br>
 
 **Article**: [to be filled]
@@ -62,8 +62,8 @@ monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 This step is <b>optional</b> and used to replicate the exact package versioning (environment) utilized in the publication. The Docker image is pre-configured with the following libraries: Seurat4, inferCNV, copyKat, SCEVAN, and biomaRt. Utilizing Docker eliminates the need for manual package installations, allowing you to proceed directly to step 1 for loading packages and processing data. Users are advised to create a directory for output results; in this scenario, it is named sctherapy_dir.
 
 ```console
-docker pull kmnader/sctherapy
-docker run -it --name sctherapy_docker -v /absolute/path/sctherapy_dir:/home kmnader/sctherapy:latest bash
+docker pull kmnader/sctherapy # Pull the scTherapy Docker image from Docker Hub
+docker run -it --name sctherapy_docker -v /absolute/path/sctherapy_dir:/home kmnader/sctherapy:latest bash  # run docker
 ```
 
 
