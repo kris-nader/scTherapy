@@ -36,7 +36,7 @@ invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/
            avg_log2FC    p_val_adj
 CD34     5.254787      1.512117e-107
 S100A9   4.530434      9.073954e-39
-	     .............
+	         .............
 IL32 	 -3.599663     3.197208e-164
 GNLY  	 -4.417322     8.259763e-81
   
