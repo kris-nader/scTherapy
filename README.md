@@ -28,16 +28,17 @@ invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/
 		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones.R",
 		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"),source))
 
-# Prepare a data.frame with differentially expressed (DE) genes between cancer and normal cells.
-# In the example below, malignant_cells_DEG data.frame includes genes up-regulated (avg_log2FC > 0) or down-regulated (avg_log2FC < 0) in cancer cells compared to normal.
+# Prepare a 'malignant_cells_DEG' data.frame showing differential gene expression results between cancer and normal cells.
+# Data.frame row names should correspond to gene symbols and data.frame itself should feature 2 columns:
+# log2 fold-change ('avg_log2FC') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('p_val_adj'):
 
 > head(malignant_cells_DEG)
-       avg_log2FC     p_val_adj
-CD34      5.254787 1.512117e-107
-S100A9   4.530434  9.073954e-39
-	.............
-IL32 	 -3.599663 3.197208e-164
-GNLY  	-4.417322  8.259763e-81
+         avg_log2FC    p_val_adj
+CD34     5.254787      1.512117e-107
+S100A9   4.530434      9.073954e-39
+	     .............
+IL32 	 -3.599663     3.197208e-164
+GNLY  	 -4.417322     8.259763e-81
   
 
 # load data for making drug:dose predictions
