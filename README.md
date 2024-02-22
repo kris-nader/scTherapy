@@ -33,7 +33,7 @@ invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/
 # log2 fold-change ('avg_log2FC') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('p_val_adj'):
 
 > head(malignant_cells_DEG)
-         avg_log2FC    p_val_adj
+           avg_log2FC    p_val_adj
 CD34     5.254787      1.512117e-107
 S100A9   4.530434      9.073954e-39
 	     .............
