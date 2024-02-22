@@ -30,14 +30,14 @@ invisible(source("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/
 # Data.frame row names should correspond to gene symbols and data.frame itself should feature 2 columns:
 # log2 fold-change ('avg_log2FC') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('p_val_adj'):
 
-malignant_cells_DEG = readRDS("malignant_cells_DEG.RDS")
-> head(malignant_cells_DEG)
-           avg_log2FC    p_val_adj
-LYZ      5.254787      1.512117e-107
-S100A9   4.530434      9.073954e-39
-	         .............
-IL32 	 -3.599663     3.197208e-164
-GNLY  	 -4.417322     8.259763e-81
+malignant_cells_DEG = readRDS("https://raw.githubusercontent.com/kris-nader/scTherapy/main/malignant_cells_DEG_example.RDS") # load example
+# > head(malignant_cells_DEG)
+#            avg_log2FC    p_val_adj
+# LYZ      5.254787      1.512117e-107
+# S100A9   4.530434      9.073954e-39
+# 	         .............
+# IL32 	 -3.599663     3.197208e-164
+# GNLY  	 -4.417322     8.259763e-81
   
 # load data for making drug:dose predictions
 gene_list <- "https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
