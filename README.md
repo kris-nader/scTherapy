@@ -21,16 +21,13 @@ For more information, please refer to original publication [to be filled].
 
 
 ## Quick Start 
+<p>Prepare a 'malignant_cells_DEG' data.frame showing differential gene expression results between cancer and normal cells.</p>
+<p>Data.frame row names should correspond to gene symbols and data.frame itself should feature 2 columns:</p>
+<p>log2 fold-change ('avg_log2FC') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('p_val_adj').</p>
+
   ```R
- # load libraries
-invisible(lapply(c("dplyr","logger","httr", "jsonlite", "readr"), library, character.only = !0));
-invisible(source("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"))
-
-# Prepare a 'malignant_cells_DEG' data.frame showing differential gene expression results between cancer and normal cells.
-# Data.frame row names should correspond to gene symbols and data.frame itself should feature 2 columns:
-# log2 fold-change ('avg_log2FC') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('p_val_adj'):
-
-malignant_cells_DEG = readRDS("https://raw.githubusercontent.com/kris-nader/scTherapy/main/malignant_cells_DEG_example.RDS") # load example
+# load example data
+malignant_cells_DEG = readRDS("https://raw.githubusercontent.com/kris-nader/scTherapy/main/malignant_cells_DEG_example.RDS")
 # > head(malignant_cells_DEG)
 #           avg_log2FC    p_val_adj
 # LYZ       5.254787      1.512117e-107
@@ -38,7 +35,15 @@ malignant_cells_DEG = readRDS("https://raw.githubusercontent.com/kris-nader/scTh
 # 	         .............
 # IL32 	   -3.599663      3.197208e-164
 # GNLY     -4.417322      8.259763e-81
-  
+  ```
+
+<p>Predict multi-targeting monotherapies with scTherapy:</p>
+
+  ```R
+ # load libraries
+invisible(lapply(c("dplyr","logger","httr", "jsonlite", "readr"), library, character.only = !0));
+invisible(source("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"))
+ 
 # load data for making drug:dose predictions
 gene_list <- "https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
 gene_info <- data.table::fread(gene_list) %>% as.data.frame()
