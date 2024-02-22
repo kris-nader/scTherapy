@@ -22,7 +22,7 @@ For more information, please refer to original publication [to be filled].
 
 ## Quick Start 
   ```R
- # estimated run time: 30seconds
+ # load libraries
 invisible(lapply(c("dplyr","Seurat","openxlsx","ggplot2", "cowplot","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
 invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_mal_norm.R",
 		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones.R",
