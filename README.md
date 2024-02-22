@@ -59,7 +59,7 @@ monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 ## Predicting therapies using scRNAseq
 
 ### Optional: Set up docker
-Available with base packages: seurat4, infercnv, copyKat,SCEVAN,biomaRt. No installation of packages needed when using docker. Continue from step 1 loading packages and processing data. We ask users to create a directory to output results. In this case, it is called sctherapy_dir.
+This step is <b>optional</b> and used to replicate the exact package versioning (environment) utilized in the publication. The Docker image is pre-configured with the following libraries: Seurat4, inferCNV, copyKat, SCEVAN, and biomaRt. Utilizing Docker eliminates the need for manual package installations, allowing you to proceed directly to step 1 for loading packages and processing data. Users are advised to create a directory for output results; in this scenario, it is named sctherapy_dir.
 
 ```console
 docker pull kmnader/sctherapy
