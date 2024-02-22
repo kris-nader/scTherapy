@@ -23,24 +23,22 @@ For more information, please refer to original publication [to be filled].
 ## Quick Start 
   ```R
  # load libraries
-invisible(lapply(c("dplyr","Seurat","openxlsx","ggplot2", "cowplot","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
-invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_mal_norm.R",
-		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones.R",
-		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"),source))
+invisible(lapply(c("dplyr","logger","httr", "jsonlite", "readr"), library, character.only = !0));
+invisible(source("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"))
 
 # Prepare a 'malignant_cells_DEG' data.frame showing differential gene expression results between cancer and normal cells.
 # Data.frame row names should correspond to gene symbols and data.frame itself should feature 2 columns:
 # log2 fold-change ('avg_log2FC') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('p_val_adj'):
 
+malignant_cells_DEG = readRDS("malignant_cells_DEG.RDS")
 > head(malignant_cells_DEG)
            avg_log2FC    p_val_adj
-CD34     5.254787      1.512117e-107
+LYZ      5.254787      1.512117e-107
 S100A9   4.530434      9.073954e-39
 	         .............
 IL32 	 -3.599663     3.197208e-164
 GNLY  	 -4.417322     8.259763e-81
   
-
 # load data for making drug:dose predictions
 gene_list <- "https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
 gene_info <- data.table::fread(gene_list) %>% as.data.frame()
