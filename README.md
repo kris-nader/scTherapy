@@ -60,7 +60,7 @@ monotherapy_drugs <- predict_drugs(DEG_malignant_list)
   ```
 
 
-## Predicting therapies using scRNAseq
+## Predicting mono- and combination- therapies using scRNAseq
 
 ### Optional: Set up docker
 This step is <b>optional</b> and used to replicate the exact package versioning (environment) utilized in the publication. The Docker image is pre-configured with the following libraries: Seurat4, inferCNV, copyKat, SCEVAN, and biomaRt. Utilizing Docker eliminates the need for manual package installations, allowing you to proceed directly to step 1 for loading packages and processing data, by running R from docker. 
