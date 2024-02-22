@@ -26,7 +26,7 @@ For more information, please refer to original publication [to be filled].
 
   ```R
 # load example data
-malignant_cells_DEG = readRDS("https://raw.githubusercontent.com/kris-nader/scTherapy/main/malignant_cells_DEG_example.RDS")
+malignant_cells_DEG = readRDS(url("https://raw.githubusercontent.com/kris-nader/scTherapy/main/malignant_cells_DEG_example.RDS"))
 
 # > head(malignant_cells_DEG)
 #           avg_log2FC    p_val_adj
