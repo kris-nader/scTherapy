@@ -21,9 +21,8 @@ For more information, please refer to original publication [to be filled].
 
 
 ## Quick Start 
-<p>Prepare a 'malignant_cells_DEG' data.frame showing differential gene expression results between cancer and normal cells.</p>
-<p>Data.frame row names should correspond to gene symbols and data.frame itself should feature 2 columns:</p>
-<p>log2 fold-change ('avg_log2FC') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('p_val_adj').</p>
+<p>Prepare a <b>'malignant_cells_DEG'</b> data.frame showing differential gene expression results between cancer and normal cells. A data.frame row names should correspond to <b>gene symbols</b> and data.frame itself should feature 2 columns:</p>
+<p>log2 fold-change ('<b>avg_log2FC</b>') indicating up-regulation (positive values) or down-regulation in cancer cells, along with adjusted p-values ('<p>p_val_adj</p>').</p>
 
   ```R
 # load example data
