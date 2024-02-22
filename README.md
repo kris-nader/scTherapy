@@ -28,19 +28,19 @@ invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/
 		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones.R",
 		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"),source))
 
+# Prepare a data.frame with differentially expressed (DE) genes between cancer and normal cells.
+# In the example below, malignant_cells_DEG data.frame includes genes up-regulated (avg_log2FC > 0) or down-regulated (avg_log2FC < 0) in cancer cells compared to normal.
 
+> head(malignant_cells_DEG)
+       avg_log2FC     p_val_adj
+CD34      5.254787 1.512117e-107
+S100A9   4.530434  9.073954e-39
+	.............
+IL32 	 -3.599663 3.197208e-164
+GNLY  	-4.417322  8.259763e-81
   
-# load pre-processed patient sample - already including metadata on cell type classification and ensemble prediction 
-patient_sample <- readRDS(url('https://sctype.app/sctherapy/patient_sample_rounded_ensemble.RDS'))
 
-# visualize ensemble prediction - function to visualize 3 ensemble tools, consensus prediction and cell type annotation
-visualize_ensemble_step(patient_sample)
-
-# identify malignant specific differentially expressed genes
-plan("multisession", workers = 4)
-malignant_cells_DEG <- clone_DEG(patient_sample,malignant_identifier="malignant",known_normal_cells="healthy",save=FALSE)
-
-# load data for making drug: dose predicitons
+# load data for making drug:dose predictions
 gene_list <- "https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
 gene_info <- data.table::fread(gene_list) %>% as.data.frame()
 
