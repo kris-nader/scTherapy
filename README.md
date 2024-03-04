@@ -63,13 +63,21 @@ monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 ## Predicting mono- and combination- therapies using scRNAseq
 
 ### Optional: Set up docker
-This step is <b>optional</b> and used to replicate the exact package versioning (environment) utilized in the publication. The Docker image is pre-configured with the following libraries: Seurat4, inferCNV, copyKat, SCEVAN, and biomaRt. Utilizing Docker eliminates the need for manual package installations, allowing you to proceed directly to step 1 for loading packages and processing data, by running R from docker. 
+This step is <b>optional</b> and used to replicate the exact package versioning (environment) utilized in the publication. The Docker image is pre-configured with the following libraries: Seurat4, inferCNV, copyKat, SCEVAN, and biomaRt. Utilizing Docker eliminates the need for manual package installations, allowing you to proceed directly to step 1 for loading packages and processing data, by running R from docker.  
 
-```posh
-# Pull the scTherapy Docker image from Docker Hub
+```bash
+# Pull the scTherapy Docker image from Docker Hub https://hub.docker.com/r/kmnader/sctherapy
 docker pull kmnader/sctherapy
 # Run docker (Ensure that the directory /absolute/path/sctherapy_dir exists on your machine)
 docker run -it --name sctherapy_docker -v /absolute/path/sctherapy_dir:/home kmnader/sctherapy:latest bash  
+```
+
+For those that would like to run scTherapy using seurat version 5, there is a docker image available.
+```bash
+# Pull the scTherapy v5 Docker image from Docker Hub https://hub.docker.com/r/kmnader/sctherapy_v5
+docker pull kmnader/sctherapy_v5
+# Run docker (Ensure that the directory /absolute/path/sctherapy_dir exists on your machine)
+docker run -it --name sctherapy_docker -v /absolute/path/sctherapy_dir:/home kmnader/sctherapy_v5:latest bash  
 ```
 
 
