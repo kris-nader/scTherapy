@@ -151,8 +151,8 @@ install_load_packages(packages)
 invisible(lapply(c("dplyr","Seurat","HGNChelper","openxlsx","copykat","copykatRcpp","ggplot2", "SCEVAN","yaGST","cowplot","Rcpp","Rclusterpp",
           "parallel","biomaRt","logger","httr", "jsonlite", "readr","future"), library, character.only = !0))
          
-invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_mal_norm.R",
-		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones.R",
+invisible(lapply(c("https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_healthy_mal_v5.R",
+		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/identify_subclones_v5.R",
 		   "https://raw.githubusercontent.com/kris-nader/scTherapy/main/R/predict_compounds.R"),source))
 ```
 
