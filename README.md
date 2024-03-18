@@ -294,6 +294,10 @@ First, we begin by filtering the differentially expressed genes based on 2 crite
 2. (avg_log2FC > -0.1 & avg_log2FC < 0.1)
 
 ```R
+
+gene_list <- "https://raw.githubusercontent.com/kris-nader/scTherapy/main/geneinfo_beta_input.txt"
+gene_info <- data.table::fread(gene_list) %>% as.data.frame()
+
 # filter subclone "A" specific DEG					 
 DEG_subclone_A <- subcloneA %>%
     mutate(gene_symbol = rownames(.)) %>% inner_join(gene_info, by = "gene_symbol") %>%
