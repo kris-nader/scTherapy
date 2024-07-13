@@ -253,7 +253,7 @@ monotherapy_drugs <- predict_drugs(DEG_malignant_list)
 	
 ## Predict combination therapies using subclone specific DEG
 If users are interested in exploring tumor subclones and targeting them with specific compounds, they can follow the subsequent steps outlined below.
-<br>
+<br><br>
 **Note:** For samples with a limited number of cancer cells detected in scRNA-seq, we advise to focus solely on predicting responses to individual drugs. Some samples may contain insufficient number of cancer cells to reliably identify clonal subpopulations
 	
 ### Step 3.1: Identification of genetically distinct subclones
