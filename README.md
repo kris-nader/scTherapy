@@ -3,7 +3,8 @@
 
 **Article**: [https://doi.org/10.1038/s41467-024-52980-5]
 
-[![DOI](https://zenodo.org/badge/622219161.svg)](https://zenodo.org/doi/10.5281/zenodo.13340796)
+[![DOI](https://zenodo.org/badge/622219161.svg)](https://zenodo.org/doi/10.5281/zenodo.13340796) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13340927.svg)](https://doi.org/10.5281/zenodo.13340927)
+
 
 <p style="text-align:justify;"> <b>scTherapy</b> is a computational framework to predict personalized monotherapies and multi-targeting drug combinations for cancer patients using only single-cell transcriptomic data.</p>
 
