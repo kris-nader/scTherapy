@@ -407,6 +407,8 @@ loaded via a namespace (and not attached):
 ## Contact information
 For any questions please contact **Aleksandr Ianevski** [aleksandr.ianevski@helsinki.fi] and  **Kristen Nader** [kristen.nader@helsinki.fi]
 
+Ianevski, A., Nader, K., et al. Single-cell transcriptomes identify patient-tailored therapies for selective co-inhibition of cancer clones. Nat Commun 15, 8579 (2024). https://doi.org/10.1038/s41467-024-52980-5
+
 ## Copyright and license
 
 Code copyright 2023 scTherapy, [https://github.com/kris-nader/scTherapy/blob/main/LICENSE](https://github.com/kris-nader/scTherapy/blob/main/LICENSE)
