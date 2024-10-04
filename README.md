@@ -1,7 +1,7 @@
 # Identification of clone-specific and cancer-selective multi-targeting therapeutic options based on single-cell transcriptomic profiles of cancer patients (scTherapy)
 <br>
 
-**Article**: [to be filled]
+**Article**: [https://doi.org/10.1038/s41467-024-52980-5]
 
 [![DOI](https://zenodo.org/badge/622219161.svg)](https://zenodo.org/doi/10.5281/zenodo.13340796)
 
